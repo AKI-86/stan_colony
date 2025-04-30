@@ -1,24 +1,41 @@
-# README
+# Stan Colony
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## サイト概要
+### サイトテーマ
+アーティストのファンが情報共有をしたり、自分の音楽の好みの幅を広げられるコミュニティサイト
 
-Things you may want to cover:
+アーティストのページの投稿、さらにその部分に音源、ライブなどを細かくページを投稿でき、そこのコメント欄でのコミュニケーションをとったり、いいね等から同じ志向の人と交流できるようなサイトです。
+​
+### テーマを選んだ理由
+- Xやmixiなど情報を共有できるサイトはありますが、カテゴリ分けがされていないので自分で情報を探していく必要があり、さらにライブの詳細(セットリスト)の情報など自分が知りたくない情報もあふれかえっています。そのため特定のアーティストごとに集まれるような、さらにはその中でシングル、アルバムなどの音源、ライブなどより細かく語り合えるようなコミュニティサイトがあればいいと感じたためです。
+- 各ユーザーがアーティストのページを作成できることで、現実ではなかなかいないニッチなアーティストのファン同士の交流の場を設けることができます。
+- ユーザーがアーティストにいいねをつける機能もあり、自分と好みと似たアーティストを新たに発見することもできます。
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+### ターゲットユーザ
+- 自分と同じ嗜好の人と交流したい人
+- 新たに好みのアーティストを見つけたい人
+- 知りたい情報の取捨選択をしたい人
+​
+### 主な利用シーン
+- 自分の聴きたいアーティストの幅を広げたい時
+- 今後行くライブの参考にするため(ライブ情報のページなど)
+​
+## 設計書
+後ほど作成予定
+​
+## 開発環境
+- OS：Linux(CentOS)
+- 言語：HTML,CSS,JavaScript,Ruby,SQL
+- フレームワーク：Ruby on Rails
+- JSライブラリ：jQuery
+- IDE：Cloud9
+​
+## 使用素材
+### フォント素材（フリー）
+* [Font Free]　http://fontfree.me/
+### 写真素材（フリー）
+* [ぱくたそ]https://www.pakutaso.com/
+* [O-DAN]http://o-dan.net/ja/
+* [morguefile]https://morguefile.com/
+### ドメイン取得
+* [お名前.com]https://www.onamae.com/
