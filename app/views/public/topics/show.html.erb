@@ -1,2 +1,28 @@
-<h1>Public::Topics#show</h1>
-<p>Find me in app/views/public/topics/show.html.erb</p>
+<div class="container p-5">
+  <div class="row mb-4">
+    <div class="col-md-3">
+      <%= image_tag @artist.get_image, class: "img-thumbnail", style: "width: 200px; height: 200px; object-fit: cover;" %>
+    </div>
+    <div class="col-md-9">
+      <h5>アーティスト名：<%= @artist.name %></h5>
+      <p>説明：<%= @artist.introduction %></p>
+      <p>作成ユーザー：<%= @artist.user.name %></p>
+    </div>
+
+
+    <div>
+    <p><%= @topic.title %></p>
+    </div>
+
+    <div>
+    <% @topic.comments.each do |comment| %>
+        <%= comment.user.name %>
+        <%= comment.created_at.strftime('%Y/%m/%d') %><%= comment.body %>
+    <% end %>
+    </div>
+    <%= form_with model: [@artist, @topic, @comment] do |f| %>
+      <%= f.text_area :body, rows: '5', placeholder: "コメントをここに" %>
+      <%= f.submit "送信する" %>
+    <% end %>
+  </div>
+</div>

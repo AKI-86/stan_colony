@@ -42,7 +42,7 @@ devise_for :users,skip: [:passwords], controllers: {
     end
 
     resources :artists, only: [:index, :new, :show, :edit, :create, :update] do
-      resourc :favorites, only: [:create, :destroy]# アーティストごとの「いいね」
+      resource :favorites, only: [:create, :destroy]# アーティストごとの「いいね」
       resources :artist_tags, only: [:create, :destroy]
       resources :topics, only: [:new, :show, :edit, :create, :update] do
         resources :topic_tags, only: [:create, :destroy]
