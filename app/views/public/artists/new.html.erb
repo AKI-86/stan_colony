@@ -1,2 +1,15 @@
-<h1>Public::Artists#new</h1>
-<p>Find me in app/views/public/artists/new.html.erb</p>
+<div class="container p-5">
+  <div class="row">
+
+    <h1>アーティスト投稿</h1>
+    <%= form_with model: @artist do |f| %>
+      <h4>アーティスト名</h4>
+      <%= f.text_field :name %>
+      <h4>説明文</h4>
+      <%= f.text_area :introduction %>
+      <h4>画像</h4>
+      <%= f.file_field :image, accept: "image/*" %>
+      <%= f.submit '投稿' %>
+    <% end %>
+  </div>
+</div>

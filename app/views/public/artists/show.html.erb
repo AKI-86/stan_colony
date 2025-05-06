@@ -1,2 +1,33 @@
-<h1>Public::Artists#show</h1>
-<p>Find me in app/views/public/artists/show.html.erb</p>
+<div class="container p-5">
+  <div class="row mb-4">
+    <div class="col-md-3">
+      <%= image_tag @artist.get_image, class: "img-thumbnail", style: "width: 200px; height: 200px; object-fit: cover;" %>
+    </div>
+    <div class="col-md-9">
+      <h5>アーティスト名：<%= @artist.name %></h5>
+      <p>説明：<%= @artist.introduction %></p>
+      <p>作成ユーザー：<%= @artist.user.name %></p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <h2>トピック一覧</h2>
+
+      <% if @topics.any? %>
+        <ul>
+          <% @topics.each do |topic| %>
+            <li>
+              <%= link_to topic.title, artist_topic_path(@artist, topic) %>
+              <small>（作成日: <%= topic.created_at.strftime("%Y-%m-%d") %>）</small>
+            </li>
+          <% end %>
+        </ul>
+      <% else %>
+        <p>まだトピックがありません。</p>
+      <% end %>
+
+      <%= link_to "新しいトピックを作成", new_artist_topic_path(@artist), class: "btn btn-primary mt-3" %>
+    </div>
+  </div>
+</div>
