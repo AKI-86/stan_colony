@@ -1,19 +1,37 @@
 class Public::GroupsController < ApplicationController
   def new
+    @group = Group.new
   end
 
   def index
+    @groups = Group.all
   end
 
   def show
+    @group = Group.find(params[:id])
+    @group_comment = GroupComment.new
   end
 
   def create
+    @group = Group.new(group_params)
+    @group.owner_id = current_user.id
+    if @group.save
+      redirect_to groups_path(@group), notice: "トピックを作成しました。"
+    else
+      flash.now[:alert] = "トピックの作成に失敗しました。"
+      render :new
+    end
   end
 
   def edit
   end
 
   def update
+  end
+
+  private
+
+  def group_params
+    params.require(:group).permit(:name, :image, :introduction)
   end
 end

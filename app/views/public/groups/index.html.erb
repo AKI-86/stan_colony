@@ -1,2 +1,19 @@
-<h1>Public::Groups#index</h1>
-<p>Find me in app/views/public/groups/index.html.erb</p>
+<div class="container-fluid my-5">
+  <p><%= link_to "新規作成", new_group_path %></p>
+  <div class="row">
+    <% @groups.each do |group| %>
+      <div class="col-3">
+        <%= link_to group_path(group) do %>
+          <%= image_tag group.get_image(200, 200), class: "img-thumbnail", style: "width: 200px; height: 200px; object-fit: cover;" %>
+        <% end %>
+        <h5><%= group.name %></h5>
+        <h6><%= group.introduction %></h6>
+        <p>作成者：
+          <%= link_to user_path(group.owner) do %>
+            <%= group.owner.name %>
+          <% end %>
+        </p>
+      </div>
+    <% end %>
+  </div>
+</div>

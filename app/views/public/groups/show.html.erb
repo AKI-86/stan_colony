@@ -1,2 +1,42 @@
-<h1>Public::Groups#show</h1>
-<p>Find me in app/views/public/groups/show.html.erb</p>
+<div class="container p-5">
+  <div class="row mb-4">
+    <div class="col-md-3">
+      <%= image_tag @group.get_image(200, 200), class: "img-thumbnail", style: "width: 200px; height: 200px; object-fit: cover;" %>
+    </div>
+    <div class="col-md-9">
+      <h5>アーティスト名：<%= @group.name %></h5>
+      <p>説明：<%= @group.introduction %></p>
+      <p>作成ユーザー：<%= @group.owner.name %></p>
+      <%= link_to user_path(@group.owner) do %>
+        <%= @group.owner.name %>
+      <% end %>
+      </p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <h4>コメント</h4>
+
+      <%= form_with(model: [@group, @group_comment], local: true) do |f| %>
+        <div class="form-group">
+          <%= f.text_area :body, class: "form-control", rows: 3 %>
+        </div>
+        <%= f.submit "コメントする", class: "btn btn-primary" %>
+      <% end %>
+
+      <ul>
+        <% @group.group_comments.each do |comment| %>
+          <li>
+            <strong><%= comment.user.name %>（<%= comment.created_at.strftime('%Y/%m/%d') %>）：</strong>
+            <%= comment.body %>
+            <% if comment.user == current_user %>
+              <%= link_to "削除", group_group_comment_path(@group, comment), method: :delete, data: { confirm: "本当に削除しますか？" } %>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>
+

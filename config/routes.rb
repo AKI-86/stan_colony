@@ -31,13 +31,13 @@ devise_for :users,skip: [:passwords], controllers: {
     root 'homes#top'
     get 'homes/about', to: "homes#about"
 
-    resources :users, only: [:index, :show, :edit, :create, :update] do
-      get 'users/mypage', to: "users#mypage"
-      get 'users/unsubscribe', to: "users#unsubscribe"
-      get 'users/withdraw', to: "users#withdraw"
-      get 'users/follows', to: "users#follows"
-      get 'users/followers', to: "users#followers"
+    get 'users/mypage', to: "users#mypage"
+    get 'users/unsubscribe', to: "users#unsubscribe"
+    get 'users/withdraw', to: "users#withdraw"
+    get 'users/follows', to: "users#follows"
+    get 'users/followers', to: "users#followers"
 
+    resources :users, only: [:index, :show, :edit, :create, :update] do
       resources :relationships, only: [:create, :destroy]
     end
 
@@ -52,6 +52,9 @@ devise_for :users,skip: [:passwords], controllers: {
     
     resources :favorites, only: [:create, :destroy]  # ユーザーによるアーティスト「いいね」
     resources :reports, only: [:create]
-    resources :groups, only: [:index, :new, :show, :edit, :create, :update]
+    resources :groups, only: [:index, :new, :show, :edit, :create, :update] do
+      resources :group_comments, only: [:create, :destroy]
+    end
+
   end
 end

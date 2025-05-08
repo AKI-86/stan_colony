@@ -1,2 +1,37 @@
-<h1>Public::Homes#top</h1>
-<p class="text-primary">Find me in app/views/public/homes/top.html.erb</p>
+<div class="container my-5">
+  <div class="row">
+    <div class="col-8">
+      ここに画像
+      <%= image_tag 'no_image.jpg', size: "200x200" %>
+      </div>
+      <div class="col-4">
+      ここにリンク
+      </div>
+    </div>
+  </div>
+
+  <h2 class="my-4">新着アーティスト</h2>
+  <div class="row">
+    <% @recent_artists.each do |artist| %>
+      <div class="col-3">
+        <%= link_to artist_path(artist) do %>
+          <%= image_tag artist.get_image(180, 180), class: "img-thumbnail", style: "object-fit: cover;" %>
+        <% end %>
+        <h5><%= artist.name %></h5>
+      </div>
+    <% end %>
+  </div>
+
+  <h2 class="my-4">活動的なグループ</h2>
+  <div class="row">
+    <% @active_groups.each do |group| %>
+      <div class="col-3">
+        <%= link_to group_path(group) do %>
+          <%= image_tag group.get_image(180, 180), class: "img-thumbnail", style: "object-fit: cover;" %>
+        <% end %>
+        <h5><%= group.name %></h5>
+      </div>
+    <% end %>
+  </div>
+
+</div>

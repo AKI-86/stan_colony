@@ -1,5 +1,6 @@
 class Public::UsersController < ApplicationController
   def mypage
+    @user = current_user
   end
 
   def index
@@ -9,6 +10,8 @@ class Public::UsersController < ApplicationController
   end
 
   def show
+    @user =User.find(params[:id])
+    @artists = @user.artists
   end
 
   def update
