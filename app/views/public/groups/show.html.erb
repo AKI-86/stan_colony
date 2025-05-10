@@ -4,11 +4,15 @@
       <%= image_tag @group.get_image(200, 200), class: "img-thumbnail", style: "width: 200px; height: 200px; object-fit: cover;" %>
     </div>
     <div class="col-md-9">
-      <h5>アーティスト名：<%= @group.name %></h5>
+      <h5>グループ名：<%= @group.name %></h5>
       <p>説明：<%= @group.introduction %></p>
-      <p>作成ユーザー：<%= @group.owner.name %></p>
+      <p>作成ユーザー：
       <%= link_to user_path(@group.owner) do %>
         <%= @group.owner.name %>
+      <% end %>
+      </p>
+      <% if @group.owner == current_user %>
+        <p><%= link_to "編集", edit_group_path(@group.id) %></p>
       <% end %>
       </p>
     </div>

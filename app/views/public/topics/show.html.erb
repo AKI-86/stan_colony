@@ -7,6 +7,11 @@
       <h5>アーティスト名：<%= @artist.name %></h5>
       <p>説明：<%= @artist.introduction %></p>
       <p>作成ユーザー：<%= @artist.user.name %></p>
+      <p>
+        <% if @topic.user == current_user %>
+          <p><%= link_to "編集", edit_artist_topic_path(@topic.artist, @topic) %></p>
+        <% end %>
+      </p>
     </div>
   </div>
 

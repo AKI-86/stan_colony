@@ -72,7 +72,9 @@
         <p>セクション2のコンテンツが表示されます。</p>
       </div>
       <div id="section3" class="tab-pane fade">
-        <p>セクション3のコンテンツが表示されます。</p>
+        <% @favorite.each do |artist| %>
+          <%= link_to artist.name, artist_path(artist) %>
+        <% end %>
       </div>
     </div>
   </div>

@@ -6,11 +6,14 @@
     <div class="col-md-9">
       <h5>アーティスト名：<%= @artist.name %></h5>
       <p>説明：<%= @artist.introduction %></p>
-      <p>作成ユーザー：<%= @artist.user.name %></p>
+      <p>作成ユーザー：
       <%= link_to user_path(@artist.user) do %>
         <%= @artist.user.name %>
       <% end %>
       </p>
+      <% if @artist.user == current_user %>
+        <p><%= link_to "編集", edit_artist_path(@artist.id) %></p>
+      <% end %>
       <p><%= render "public/favorites/btn", artist: @artist %></p>
     </div>
   </div>

@@ -6,6 +6,7 @@ class Topic < ApplicationRecord
   has_many :comments, dependent: :destroy
   belongs_to :topic_genre
   belongs_to :artist
+  belongs_to :user
 
   validates :title, presence: true
   validates :body, presence: true

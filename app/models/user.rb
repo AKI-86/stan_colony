@@ -7,11 +7,12 @@ class User < ApplicationRecord
   has_one_attached :image
   
   has_many :artists
+  has_many :topics
   has_many :comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
 
   validates :name, presence: true
-  validates :email, presence: true, uniqueness: true
+  validates :email, uniqueness: { case_sensitive: false }
   validates :gender, inclusion: { in: ["男性", "女性", "その他", "未回答"] }, allow_blank: true
   validates :age, inclusion: { in: ["10代以下", "20代", "30代", "40代", "50代", "60代以上"] }, allow_blank: true
 

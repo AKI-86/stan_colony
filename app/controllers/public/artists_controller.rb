@@ -24,9 +24,16 @@ class Public::ArtistsController < ApplicationController
   end
 
   def edit
+    @artist = Artist.find(params[:id])
   end
 
   def update
+    @artist = Artist.find(params[:id])
+    if @artist.update(artist_params)
+      redirect_to artists_path(@artist.id)
+    else
+      render :edit
+    end
   end
 
   private

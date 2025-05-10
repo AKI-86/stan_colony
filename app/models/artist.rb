@@ -2,8 +2,8 @@ class Artist < ApplicationRecord
   has_one_attached :image
 
   belongs_to :user
-  has_many :a_tag, dependent: :destroy
-  has_many :artist_tag, through: :a_tags
+  has_many :a_tags, dependent: :destroy
+  has_many :artist_tags, through: :a_tags
   has_many :favorites, dependent: :destroy
   has_many :topics, dependent: :destroy
 
