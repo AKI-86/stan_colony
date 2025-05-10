@@ -1,28 +1,45 @@
 <div class="container p-5">
   <div class="row mb-4">
     <div class="col-md-3">
-      <%= image_tag @artist.get_image, class: "img-thumbnail", style: "width: 200px; height: 200px; object-fit: cover;" %>
+      <%= image_tag @artist.get_image(200, 200), class: "img-thumbnail", style: "width: 200px; height: 200px; object-fit: cover;" %>
     </div>
     <div class="col-md-9">
       <h5>アーティスト名：<%= @artist.name %></h5>
       <p>説明：<%= @artist.introduction %></p>
       <p>作成ユーザー：<%= @artist.user.name %></p>
+      <p>
+        <% if @topic.user == current_user %>
+          <p><%= link_to "編集", edit_artist_topic_path(@topic.artist, @topic) %></p>
+        <% end %>
+      </p>
     </div>
+  </div>
 
 
-    <div>
-    <p><%= @topic.title %></p>
-    </div>
+  <div class="row">
+    <div class="col">
+      <h4><%= @topic.title %></h4>
 
-    <div>
-    <% @topic.comments.each do |comment| %>
-        <%= comment.user.name %>
-        <%= comment.created_at.strftime('%Y/%m/%d') %><%= comment.body %>
-    <% end %>
+      <%= form_with(model: [@artist, @topic, @comment], local: true) do |f| %>
+        <div class="form-group">
+          <%= f.text_area :body, class: "form-control", rows: 3 %>
+        </div>
+        <%= f.submit "コメントする", class: "btn btn-primary" %>
+      <% end %>
+
+    <ul>
+      <% @topic.comments.each do |comment| %>
+        <li>
+          <strong><%= comment.user.name %>（<%= comment.created_at.strftime('%Y/%m/%d') %>）：</strong>
+          <%= comment.body %>
+          <% if comment.user == current_user %>
+            <%= link_to "削除", artist_topic_comment_path(comment.topic.artist, comment.topic, comment), method: :delete, data: { confirm: "本当に削除しますか？" } %>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+
     </div>
-    <%= form_with model: [@artist, @topic, @comment] do |f| %>
-      <%= f.text_area :body, rows: '5', placeholder: "コメントをここに" %>
-      <%= f.submit "送信する" %>
-    <% end %>
   </div>
 </div>
+<ul>

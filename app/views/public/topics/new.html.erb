@@ -1,19 +1,12 @@
 <div class="container p-5">
 
-<% if @topic.errors.any? %>
-  <div class="alert alert-danger">
-    <ul>
-      <% @topic.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
+
 
   <div class="row">
 
     <h1>トピック作成</h1>
     <%= form_with model: [@artist, @topic], local: true do |f| %>
+    <%= render 'layouts/error_messages', model: f.object %>
       <h4>トピック名</h4>
       <%= f.text_field :title %>
       <h4>説明文</h4>

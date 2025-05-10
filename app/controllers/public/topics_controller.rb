@@ -22,9 +22,16 @@ class Public::TopicsController < ApplicationController
   end
 
   def edit
+    @topic =Topic.find(params[:id])
   end
 
   def update
+    @topic =Topic.find(params[:id])
+    if @topic.update(topic_params)
+      redirect_to artist_topic_path(@artist, @topic)
+    else
+      render :edit
+    end
   end
 
   private
@@ -34,6 +41,6 @@ class Public::TopicsController < ApplicationController
   end
 
   def topic_params
-    params.require(:topic).permit(:title, :body, :topic_genre_id)
+    params.require(:topic).permit(:title, :body, :topic_genre_id, :image)
   end
 end

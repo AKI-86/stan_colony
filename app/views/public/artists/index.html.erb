@@ -2,12 +2,20 @@
   <p><%= link_to "新規作成", new_artist_path %></p>
   <div class="row">
     <% @artists.each do |artist| %>
-      <div class="col-3">
-        <%= link_to artist_path(artist) do %>
-          <%= image_tag artist.get_image, class: "img-thumbnail", style: "width: 200px; height: 200px; object-fit: cover;" %>
-        <% end %>
-        <h5><%= artist.name %></h5>
-        <p><%= artist.user.name %></p>
+      <div class="col-md-3 mb-4 d-flex justify-content-center">
+        <div class="card" style="height: 100%; max-width: 280px;">
+          <%= link_to artist_path(artist) do %>
+            <%= image_tag artist.get_image(280, 180), class: "img-thumbnail card-img-top", style: "object-fit: cover;" %>
+          <% end %>
+          <div class="card-body">
+          <h5 class="card-title" style="overflow: hidden; word-break: break-word;"><%= truncate(artist.name, length: 30) %></h5>
+          <p>作成者：
+            <%= link_to user_path(artist.user) do %>
+              <%= artist.user.name %>
+            <% end %>
+          </p>
+          </div>
+        </div>
       </div>
     <% end %>
   </div>

@@ -12,6 +12,10 @@ import "jquery";
 import "popper.js";
 import "bootstrap";
 import "../stylesheets/application"; 
+import 'bootstrap/dist/css/bootstrap.min.css'
+import $ from 'jquery'
+global.$ = $
+global.jQuery = $
 
 Rails.start()
 Turbolinks.start()

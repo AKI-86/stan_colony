@@ -1,1 +1,33 @@
 @import '~bootstrap/scss/bootstrap';
+
+
+.sidebar {
+  background-color: #f8f9fa;
+  padding: 20px;
+  height: 100vh; /* サイドバーをページ全体の高さに */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 166px; /* サイドバーの幅を調整 (2/12 = 1/6) */
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sidebar li {
+  margin: 10px 0;
+}
+
+.sidebar a {
+  text-decoration: none;
+  color: #333;
+  font-size: 18px;
+}
+
+.sidebar a:hover {
+  color: #007bff;
+}
+
+
