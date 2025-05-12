@@ -8,6 +8,8 @@ devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
 # resources :users, only: []
 namespace :admin do
   get 'top' => 'homes#top', as: 'top'
+  get 'searches', to: 'searches#search', as: 'search_results'
+
   resources :users, only: [:index, :show, :edit, :update]
   resources :artists, only: [:index, :new, :show, :edit, :create, :update] do
     resources :topics, only: [:index, :new, :show, :edit, :create, :update] do
@@ -30,6 +32,7 @@ devise_for :users,skip: [:passwords], controllers: {
   scope module: :public do
     root 'homes#top'
     get 'homes/about', to: "homes#about"
+    get 'searches', to: 'searches#search', as: 'search_results'
 
     get 'users/mypage', to: "users#mypage"
     get 'users/unsubscribe', to: "users#unsubscribe"

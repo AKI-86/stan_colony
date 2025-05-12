@@ -11,10 +11,12 @@ class Public::CommentsController < ApplicationController
   end
 
   def destroy
-    comment = Comment.find(params[:id])
-    topic = comment.topic #取得したcommentが所属するtopicを参照している。これは削除後のリダイレクト先に必要
-    comment.destroy
-    redirect_to artist_topic_path(@artist, topic)
+    @comment = Comment.find(params[:id])
+    @topic = @comment.topic  # コメントに関連するトピックを取得
+    @artist = @topic.artist  # トピックに関連するアーティストを取得
+    @comment.soft_delete
+    flash[:notice] = "コメントは削除されました"
+    redirect_to artist_topic_path(@artist, @topic)
   end
 
   private

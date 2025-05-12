@@ -9,9 +9,10 @@ class Public::GroupCommentsController < ApplicationController
   end
 
   def destroy
-    @comment = @group.group_comments.find(params[:id])
-    @comment.destroy
-    redirect_to group_path(@group)
+    @group_comment = GroupComment.find(params[:id])
+    @group_comment.soft_delete
+    flash[:notice] = "コメントは削除されました"
+    redirect_to group_path(@group_comment.group)
   end
 
   private

@@ -4,7 +4,7 @@ class Public::ArtistsController < ApplicationController
   end
 
   def index
-    @artists = Artist.all
+    @artists = Artist.page(params[:page])
   end
 
   def show

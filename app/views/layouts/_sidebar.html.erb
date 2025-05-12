@@ -1,0 +1,30 @@
+<div class="sidebar d-flex flex-column" style="min-height: 100vh;">
+    <div class="fa-solid"><%= link_to 'Slan Colony', (admin_signed_in? ? admin_top_path : root_path ), class: "logo" %></div>
+    <ul>
+      <% if admin_signed_in? %>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>
+          <%= link_to 'ログアウト', destroy_admin_session_path, method: :delete %>
+        </li>
+      <% elsif user_signed_in? %>
+        <li><%= link_to 'アーティスト', artists_path %></li>
+        <li><%= link_to 'コミュニティ', groups_path %></li>
+        <li><%= link_to 'アバウト', homes_about_path %></li>
+        <li><%= link_to "マイページ", users_mypage_path %></li>
+        <li>
+          <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
+        </li>
+      <% else %>
+        <li>1</li>
+        <li>
+          <%= link_to '新規登録', new_user_registration_path, class: 'nav-link' %>
+        </li>
+        <li>
+          <%= link_to 'ログイン', new_user_session_path, class: 'nav-link' %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
