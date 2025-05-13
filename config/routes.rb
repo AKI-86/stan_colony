@@ -36,7 +36,7 @@ devise_for :users,skip: [:passwords], controllers: {
 
     get 'users/mypage', to: "users#mypage"
     get 'users/unsubscribe', to: "users#unsubscribe"
-    get 'users/withdraw', to: "users#withdraw"
+    patch 'users/withdraw', to: "users#withdraw"
     get 'users/follows', to: "users#follows"
     get 'users/followers', to: "users#followers"
 

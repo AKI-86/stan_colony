@@ -12,6 +12,7 @@ class Artist < ApplicationRecord
   paginates_per 12
 
   def favorited_by?(user)
+    return false if user.nil?
     favorites.exists?(user_id: user.id)
   end
 

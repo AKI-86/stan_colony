@@ -17,7 +17,8 @@
           <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
         </li>
       <% else %>
-        <li>1</li>
+        <li><%= link_to 'アーティスト', artists_path %></li>
+        <li><%= link_to 'コミュニティ', groups_path %></li>
         <li>
           <%= link_to '新規登録', new_user_registration_path, class: 'nav-link' %>
         </li>

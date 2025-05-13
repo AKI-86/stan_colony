@@ -20,3 +20,15 @@ global.jQuery = $
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
+
+
+document.addEventListener("DOMContentLoaded", function () {
+  const inputs = document.querySelectorAll('.custom-file-input');
+  inputs.forEach(function(input) {
+    input.addEventListener('change', function(e) {
+      const fileName = e.target.files[0]?.name;
+      const label = e.target.nextElementSibling;
+      if (label && fileName) label.innerText = fileName;
+    });
+  });
+});

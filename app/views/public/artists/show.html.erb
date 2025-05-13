@@ -12,7 +12,7 @@
       <% end %>
       </p>
       <% if @artist.user == current_user %>
-        <p><%= link_to "編集", edit_artist_path(@artist.id) %></p>
+        <p><%= link_to "編集", edit_artist_path(@artist.id), class: "btn btn-primary mt-3"  %></p>
       <% end %>
       <p><%= render "public/favorites/btn", artist: @artist %></p>
     </div>
@@ -21,21 +21,30 @@
   <div class="row">
     <div class="col">
       <h4>トピック一覧</h4>
-
-      <% if @topics.any? %>
-        <ul>
-          <% @topics.each do |topic| %>
-            <li>
-              <%= link_to topic.title, artist_topic_path(@artist, topic) %>
-              <small>（作成日: <%= topic.created_at.strftime("%Y-%m-%d") %>）</small>
-            </li>
-          <% end %>
-        </ul>
-      <% else %>
-        <p>まだトピックがありません。</p>
-      <% end %>
-
       <%= link_to "新しいトピックを作成", new_artist_topic_path(@artist), class: "btn btn-primary mt-3" %>
+      <% if @topics.any? %>
+      <table class="table">
+        <thead>
+            <th></th>
+            <th></th>
+            <th></th>
+        </thead>
+        <tbody>
+          
+              <% @topics.each do |topic| %>
+                <tr>
+                  <td><%= link_to topic.title, artist_topic_path(@artist, topic) %></td>
+                  <td><small>作成日: <%= topic.created_at.strftime("%Y-%m-%d") %></small></td>
+                </tr>
+              <% end %>
+
+                      </tbody>
+      </table>
+
+          <% else %>
+            <p>まだトピックがありません。</p>
+          <% end %>
+      <%= paginate @topics %>
     </div>
   </div>
 </div>

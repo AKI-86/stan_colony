@@ -9,7 +9,7 @@ class Public::ArtistsController < ApplicationController
 
   def show
     @artist = Artist.find(params[:id])
-    @topics = @artist.topics.all
+    @topics = @artist.topics.order(created_at: :desc).page(params[:page]).per(10)
   end
 
   def create
