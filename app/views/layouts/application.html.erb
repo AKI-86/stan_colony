@@ -12,17 +12,14 @@
   </head>
 
   <body>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-2">
-         <%= render 'layouts/header' %>
-        </div>
-        <div class="col-md-10">
-          <%= yield %>
-        </div>
-        </div>
+    <%= render 'layouts/sidebar' %>
+    <!-- メインエリア全体 -->
+    <div class="main-area">
+        <%= render 'layouts/header' %>
+      <div class="main-content flex-grow-1">
+        <%= yield %>
       </div>
+      <%= render 'layouts/footer' %>
     </div>
-    <%= render 'layouts/footer' %>
   </body>
 </html>

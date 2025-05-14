@@ -46,4 +46,8 @@ class User < ApplicationRecord
     end
     image.variant(resize_to_fill: [width, height]).processed
   end
+
+  def active_for_authentication? # 退会処理、is_deletedがfalseならtrueを返すようにしている
+    super && is_active
+  end
 end

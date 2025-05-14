@@ -4,12 +4,12 @@ class Public::ArtistsController < ApplicationController
   end
 
   def index
-    @artists = Artist.all
+    @artists = Artist.page(params[:page])
   end
 
   def show
     @artist = Artist.find(params[:id])
-    @topics = @artist.topics.all
+    @topics = @artist.topics.order(created_at: :desc).page(params[:page]).per(10)
   end
 
   def create

@@ -1,0 +1,11 @@
+<!--フラッシュメッセージの部分テンプレート-->
+<% flash.each do |type, message| %>
+  <% bootstrap_class = case type.to_sym
+     when :alert then "danger"
+     when :notice then "info"
+     when :success then "success"
+     else "secondary"
+  end %>
+
+  <div class="alert alert-<%= bootstrap_class %> text-center"><%= message %></div>
+<% end %>

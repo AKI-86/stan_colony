@@ -8,6 +8,7 @@ class Public::TopicsController < ApplicationController
   def show
     @topic = @artist.topics.find(params[:id])
     @comment = Comment.new
+    @comments = @topic.comments.order(created_at: :desc).page(params[:page]).per(10)
   end
 
   def create
