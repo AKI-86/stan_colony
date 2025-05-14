@@ -1,2 +1,23 @@
-<h1>Public::Topics#edit</h1>
-<p>Find me in app/views/public/topics/edit.html.erb</p>
+<div class="container d-flex justify-content-center">
+  <div class="w-100" style="max-width: 400px;">
+    <h2 class="text-center mb-4">トピック情報編集</h2>
+    <%= form_with model: [@artist, @topic], local: true do |f| %>
+       <%= render 'layouts/error_messages', model: f.object %>
+      <div class="mb-3">
+        <%= f.label :title, "トピック名", class: "form-label" %>
+        <%= f.text_field :title, class: "form-control" %>
+      </div>
+      <div class="mb-3">
+        <%= f.label :body, "説明文", class: "form-label" %>
+        <%= f.text_field :body, class: "form-control" %>
+      </div>
+      <div class="mb-3">
+      <%= f.label :image, "画像", class: "form-label" %>
+      <%= f.file_field :image, accept: "image/*" %>
+      </div>
+      <div class="d-grid">
+        <%= f.submit "保存", class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+</div>

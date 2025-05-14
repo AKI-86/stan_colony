@@ -1,0 +1,95 @@
+@import '~bootstrap/scss/bootstrap';
+
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: sans-serif;
+  display: flex;
+  flex-direction: column; /* コンテンツを縦方向に配置 */
+  // background-image: image-url("hoge.jpg"); カリキュラム参考・背景画像を表示できるようにする
+}
+
+
+.main-content {
+  flex-grow: 1; /* メインコンテンツが残りのスペースを埋める */
+  background-color: #cde2e9;
+  margin-left: 166px;
+  padding: 20px;
+  color: #000000;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 166px;
+  height: 100vh;
+  background-color: #7199b9;
+  padding: 20px;
+  z-index: 1000;
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sidebar li {
+  margin: 10px 0;
+}
+
+.sidebar a {
+  text-decoration: none;
+  color: #333;
+  font-size: 18px;
+}
+
+.sidebar a:hover {
+  color: #007bff;
+}
+
+
+.header {
+  background-color: #5d5e5f;
+}
+
+/* ヘッダー内の検索フォームを横並びに */
+.header .navbar-nav .ml-auto {
+  display: flex;
+  align-items: center;
+}
+
+.search-form {
+  display: flex;
+  align-items: center;
+}
+
+/* タブ部分のスタイル */
+.search-category,
+.search-input,
+.search-button {
+  margin-right: 10px;
+}
+
+.search-category select {
+  width: 150px;
+}
+
+.search-input input {
+  width: 250px;
+}
+
+.search-button button {
+  width: auto;
+}
+
+
+footer {
+  position: relative;  /* フッターの位置を親要素内に制御 */
+  background-color: #5d5e5f;
+  padding: 10px;
+  color: #fff;
+  width: 100%; /* フッターを画面幅いっぱいに */
+  bottom: 0; /* フッターを下部に配置 */
+}

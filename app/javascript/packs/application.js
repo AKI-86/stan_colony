@@ -8,6 +8,27 @@ import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 
+import "jquery";
+import "popper.js";
+import "bootstrap";
+import "../stylesheets/application"; 
+import 'bootstrap/dist/css/bootstrap.min.css'
+import $ from 'jquery'
+global.$ = $
+global.jQuery = $
+
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
+
+
+document.addEventListener("DOMContentLoaded", function () {
+  const inputs = document.querySelectorAll('.custom-file-input');
+  inputs.forEach(function(input) {
+    input.addEventListener('change', function(e) {
+      const fileName = e.target.files[0]?.name;
+      const label = e.target.nextElementSibling;
+      if (label && fileName) label.innerText = fileName;
+    });
+  });
+});

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_05_05_071859) do
+ActiveRecord::Schema.define(version: 2025_05_12_051705) do
 
   create_table "a_tags", force: :cascade do |t|
     t.integer "artist_id", null: false
@@ -86,6 +86,7 @@ ActiveRecord::Schema.define(version: 2025_05_05_071859) do
     t.text "body", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "deleted", default: false
     t.index ["topic_id"], name: "index_comments_on_topic_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
@@ -98,6 +99,17 @@ ActiveRecord::Schema.define(version: 2025_05_05_071859) do
     t.index ["artist_id"], name: "index_favorites_on_artist_id"
     t.index ["user_id", "artist_id"], name: "index_favorites_on_user_id_and_artist_id", unique: true
     t.index ["user_id"], name: "index_favorites_on_user_id"
+  end
+
+  create_table "group_comments", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "group_id", null: false
+    t.text "body", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.boolean "deleted", default: false
+    t.index ["group_id"], name: "index_group_comments_on_group_id"
+    t.index ["user_id"], name: "index_group_comments_on_user_id"
   end
 
   create_table "group_memberships", force: :cascade do |t|
@@ -175,8 +187,8 @@ ActiveRecord::Schema.define(version: 2025_05_05_071859) do
     t.boolean "is_active", default: true, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["artist_id", "title"], name: "index_topics_on_artist_id_and_title", unique: true
     t.index ["artist_id"], name: "index_topics_on_artist_id"
-    t.index ["title"], name: "index_topics_on_title", unique: true
     t.index ["topic_genre_id"], name: "index_topics_on_topic_genre_id"
     t.index ["user_id"], name: "index_topics_on_user_id"
   end
@@ -192,6 +204,8 @@ ActiveRecord::Schema.define(version: 2025_05_05_071859) do
     t.boolean "is_active", default: true, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "gender"
+    t.string "age"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -205,6 +219,8 @@ ActiveRecord::Schema.define(version: 2025_05_05_071859) do
   add_foreign_key "comments", "users"
   add_foreign_key "favorites", "artists"
   add_foreign_key "favorites", "users"
+  add_foreign_key "group_comments", "groups"
+  add_foreign_key "group_comments", "users"
   add_foreign_key "group_memberships", "groups"
   add_foreign_key "group_memberships", "users"
   add_foreign_key "groups", "users", column: "owner_id"

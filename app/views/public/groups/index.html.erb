@@ -1,2 +1,23 @@
-<h1>Public::Groups#index</h1>
-<p>Find me in app/views/public/groups/index.html.erb</p>
+<div class="container-fluid my-5">
+  <p><%= link_to "新規作成", new_group_path %></p>
+  <div class="row">
+    <% @groups.each do |group| %>
+      <div class="col-md-3 mb-4 d-flex justify-content-center">
+        <div class="card" style="height: 100%; max-width: 280px;">
+          <%= link_to group_path(group) do %>
+            <%= image_tag group.get_image(280, 180), class: "img-thumbnail card-img-top", style: "object-fit: cover;" %>
+          <% end %>
+          <div class="card-body">
+          <h5 class="card-title" style="overflow: hidden; word-break: break-word;"><%= truncate(group.name, length: 30) %></h5>
+            <p class="card-text"><%= truncate(group.introduction, length: 40) %></p>
+            <p>作成者：
+              <%= link_to user_path(group.owner) do %>
+                <%= group.owner.name %>
+              <% end %>
+            </p>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

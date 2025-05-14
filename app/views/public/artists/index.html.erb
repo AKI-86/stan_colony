@@ -1,2 +1,21 @@
-<h1>Public::Artists#index</h1>
-<p>Find me in app/views/public/artists/index.html.erb</p>
+<div class="container-fluid my-5">
+  <h2 class="">アーティスト一覧</h2>
+  <p><%= link_to "新規作成", new_artist_path, class: "btn btn-primary mb-3" %></p>
+
+  <div class="row">
+    <% @artists.each do |artist| %>
+      <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-4 d-flex justify-content-center">
+        <div class="text-center" style="width: 100%; max-width: 220px;">
+          <%= link_to artist_path(artist) do %>
+            <%= image_tag artist.get_image(200, 200), class: "img-fluid rounded-circle mb-2" %>
+          <% end %>
+          <h5 class="artist_name text-break" style="min-height: 3em;"><%= truncate(artist.name, length: 30) %></h5>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="d-flex justify-content-center my-4">
+    <%= paginate @artists %>
+  </div>
+</div>
