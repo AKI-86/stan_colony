@@ -1,0 +1,50 @@
+<div class="container p-5">
+  <div class="row mb-4">
+    <div class="col-md-3">
+      <%= image_tag @artist.get_image(200, 200), class: "rounded-circle me-1" %>
+    </div>
+    <div class="col-md-9">
+      <h5>アーティスト名：<%= @artist.name %></h5>
+      <p>説明：<%= @artist.introduction %></p>
+      <p>作成ユーザー：
+      <%= link_to user_path(@artist.user) do %>
+        <%= @artist.user.name %>
+      <% end %>
+      </p>
+      <% if @artist.user == current_user %>
+        <p><%= link_to "編集", edit_artist_path(@artist.id), class: "btn btn-primary mt-3"  %></p>
+      <% end %>
+      <p><%= render "public/favorites/btn", artist: @artist %></p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <h4>トピック一覧</h4>
+      <%= link_to "新しいトピックを作成", new_artist_topic_path(@artist), class: "btn btn-primary mt-3" %>
+      <% if @topics.any? %>
+      <table class="table">
+        <thead>
+            <th></th>
+            <th></th>
+            <th></th>
+        </thead>
+        <tbody>
+          
+              <% @topics.each do |topic| %>
+                <tr>
+                  <td><%= link_to topic.title, artist_topic_path(@artist, topic) %></td>
+                  <td><small>作成日: <%= topic.created_at.strftime("%Y-%m-%d") %></small></td>
+                </tr>
+              <% end %>
+
+                      </tbody>
+      </table>
+
+          <% else %>
+            <p>まだトピックがありません。</p>
+          <% end %>
+      <%= paginate @topics %>
+    </div>
+  </div>
+</div>

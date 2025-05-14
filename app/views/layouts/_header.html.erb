@@ -1,0 +1,27 @@
+<header class="header text-center">
+  <div class="logo">
+    <!-- ロゴなど -->
+  </div>
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <a class="navbar-brand" href="#">Stan Colony</a>
+    <div class="ml-auto d-flex align-items-center">
+      <!-- タブ部分 -->
+      <%= form_with url: search_results_path, method: :get, local: true do |form| %>
+        <div class="search-form">
+          <!-- カテゴリー選択のドロップダウン -->
+          <div class="search-category">
+            <%= form.select :category, options_for_select(['アーティスト', 'ユーザー', 'コミュニティ']), { include_blank: 'カテゴリー選択' }, class: 'form-control' %>
+          </div>
+          <!-- 検索テキストフィールド -->
+          <div class="search-input">
+            <%= form.text_field :keyword, placeholder: "検索...", class: "form-control" %>
+          </div>
+          <!-- 検索ボタン -->
+          <div class="search-button">
+            <%= form.submit "検索", class: "btn btn-primary" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </nav>
+</header>

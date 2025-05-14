@@ -1,0 +1,95 @@
+<div class="container-fluid my-5">
+  <h1 class="my-3 text-center">Stan Colonyについて</h1>
+  <div class="about-message text-center mx-auto px-3" style="max-width: 800px;">
+    <p>
+    Stan Colonyとは、音楽が好きな人たちが気軽につながれる場所として作られました。<br>
+    好きなアーティストについて語り合ったり、同じ趣味の仲間を見つけたり、
+    音楽を通じたゆるやかな交流を楽しめるコミュニティサイトです。<br>
+    
+    ファンは自分の好きなアーティストのページを作成でき、
+    その中でスレッド（掲示板）を立てて、ライブの感想を話したり、思い出を共有したり、
+    他のファンと一緒に盛り上がることができます。<br>
+    ページはいくつでも自由に作れるので、いろんなアーティストについて語り場をつくることができます。<br>
+    
+    また、誰でも自由に**音楽ジャンルやテーマごとのグループ（コミュニティ）**を作ることもできます。
+    「90年代の邦ロックが好き」「作業用BGMを語る部屋」「地方のライブ好き集まれ！」など、
+    ちょっとした共通点をきっかけに人とつながれる場です。<br>
+    
+    「このアーティストについてもっと語りたい」<br>
+    「同じジャンルが好きな人と話したい」<br>
+    「音楽の話で気軽に盛り上がれる場所がほしい」<br>
+    そんな音楽好きの人たちのための、ゆるくて楽しい居場所を目指しています。
+    </p>
+  </div>
+    
+  <div class="accordion w-75 mx-auto" id="aboutAccordion">
+    <!-- ルール -->
+    <div class="card">
+      <div class="card-header" id="headingRule">
+        <h5 class="mb-0">
+          <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseRule" aria-expanded="false" aria-controls="collapseRule">
+            サイトの使用にあたって ＋
+          </button>
+        </h5>
+      </div>
+      <div id="collapseRule" class="collapse" aria-labelledby="headingRule">
+        <div class="card-body">
+          <p>　不特定多数が</p>
+          <ul>
+            <li>好みを語る場所なので様々な意見があると思います。節度を持って使用してください。/li>
+            <li>不適切な内容に関しては通報を行ってください。</li>
+            <li>下記の禁止事項、他通報などの内容によってはアカウントを停止することがあります。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- アーティストページ・トピック作成のルール -->
+    <%= render 'public/homes/about_artist_rule' %>
+
+    <!-- サークル作成のルール -->
+    <%= render 'public/homes/about_circle_rule' %>
+
+    <!-- 利用の流れ -->
+    <div class="card">
+      <div class="card-header" id="headingFlow">
+        <h5 class="mb-0">
+          <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFlow" aria-expanded="false" aria-controls="collapseFlow">
+            利用の流れ ＋
+          </button>
+        </h5>
+      </div>
+      <div id="collapseFlow" class="collapse" aria-labelledby="headingFlow">
+        <div class="card-body">
+          <p>　アーティストページやトピック、サークルの作成やコメントなどはアカウントを作成後にできるようになっています。</p>
+          <ol>
+            <li>アカウントを作成</li>
+            <li>アーティストやグループを検索・作成</li>
+            <li>トピックを作成して意見交換</li>
+            <li>コメントを投稿して他ユーザーと交流</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <!-- 禁止事項 -->
+    <div class="card">
+      <div class="card-header" id="headingBan">
+        <h5 class="mb-0">
+          <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseBan" aria-expanded="false" aria-controls="collapseBan">
+            禁止事項 ＋
+          </button>
+        </h5>
+      </div>
+      <div id="collapseBan" class="collapse" aria-labelledby="headingBan">
+        <div class="card-body">
+          <ul>
+            <li>誹謗中傷・差別的な投稿</li>
+            <li>スパムや広告目的の投稿</li>
+            <li>違法な行為に関する情報の共有</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
