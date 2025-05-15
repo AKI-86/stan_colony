@@ -1,20 +1,13 @@
-<div class= "container">
-  <h2 class= "mt-5">マイページ</h2>
-
-  <h3>登録情報</h3>
-  <div class= "row">
-    <div class= "col-4">
-      <table class= "customer_info mb-3">
-        <thead>
-          <th></th>
-          <th></th>
-          <th></th>
-          <th></th>
-          <th></th>
-        </thead>
+<div class= "container py-4">
+  <h2 class="mb-3">マイページ</h2>
+  
+  <div class= "row mypage_info">
+    <div class= "col-5">
+    <h5 class="ml-1">登録情報</h5>
+      <table class= "table table-hover mb-3 table-borderless">
         <tbody>
           <tr>
-            <td>ニックネーム</td>
+            <td style="width: 40%;">ニックネーム</td>
             <td><%= @user.name %></td>
           </tr>
           <tr>
@@ -37,55 +30,84 @@
       </table>
     </div>
 
-    <div class= "col-4">
-      <%= link_to "編集する", edit_user_path(@user), class: "btn btn-success ml2" %>
-      <div><%= link_to "アーティストページ新規作成", new_artist_path, class: "btn btn-success ml2" %></div>
-      <div>コミュニティ作成リンク</div>
-      <div><%= link_to "退会する", users_unsubscribe_path, class: "btn btn-danger" %></div>
+    <div class= "col-3">
+      <div><%= link_to "ユーザー情報編集", edit_user_path(@user), class: "btn btn-success mt-5 mb-3" %></div>
+      <div><%= link_to "パスワード変更", edit_user_path(@user), class: "btn btn-success mb-3" %></div>
+      <div><%= link_to "退会する", users_unsubscribe_path, class: "btn btn-danger mb-3" %></div>
+      <div><%= link_to "アーティストページ新規作成", new_artist_path, class: "btn btn-primary mt-5 mb-3" %></div>
+      <div><%= link_to "サークル新規作成", new_group_path, class: "btn btn-primary" %></div>
     </div>
+
     <div class= "col-4">
+      追加する機能を考案中
       フォローしたユーザーがいいねをつけたアーティストを表示
-      自分がいいねをつけたものは除く
+      自分がいいねをつけたものは除く、など
     </div>
   </div>
 
 <hr>
 
 <!-- タブ -->
-  <div class= "row">
+  <div class= "row mypage_date ">
     <div class="tabs">
       <ul class="nav nav-tabs">
         <li class="nav-item">
-          <a class="nav-link active" data-toggle="tab" href="#section1">作成したアーティスト1</a>
+          <a class="nav-link active" data-toggle="tab" href="#section1">作成したアーティスト</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="#section2">セクション2</a>
+          <a class="nav-link" data-toggle="tab" href="#section2">いいねをつけたアーティスト</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="#section3">いいねをつけたアーティスト</a>
+          <a class="nav-link" data-toggle="tab" href="#section3">セクション3</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#section4">セクション4</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#section5">セクション5</a>
         </li>
       </ul>
 
+      <!-- タブ1 -->
       <div class="tab-content">
-        <div id="section1" class="tab-pane fade show active">
+        <div id="section1" class="tab-pane fade show active my-3">
           <% @artists.each do |artist| %>
-            <div>
-              <%= link_to artist_path(artist.id) do %>
-                <%= image_tag artist.get_image(100, 100) %>
+            <div class="my-2">
+              <%= link_to artist_path(artist.id), class: "text-decoration-none" do %>
+                <%= image_tag artist.get_image(50, 50), class: "rounded-circle img-fluid" %>
+                <span class="ml-2"><%= artist.name %></span>
               <% end %>
-            <p>アーティスト名：<%= artist.name %></p>
-          </div>
+            </div>
           <% end %>
         </div>
-        <div id="section2" class="tab-pane fade">
-          <p>セクション2のコンテンツが表示されます。</p>
-        </div>
-        <div id="section3" class="tab-pane fade">
+
+        <!-- タブ2 -->
+        <div id="section2" class="tab-pane fade my-3">
           <% @favorite.each do |artist| %>
-            <%= link_to artist.name, artist_path(artist) %>
-            <%= image_tag artist.get_image(100, 100) %>
+            <div class="my-2">
+              <%= link_to artist_path(artist.id), class: "text-decoration-none" do %>
+                <%= image_tag artist.get_image(50, 50), class: "rounded-circle img-fluid" %>
+                <span class="ml-2"><%= artist.name %></span>
+              <% end %>
+            </div>
           <% end %>
         </div>
+
+        <!-- タブ3 -->
+        <div id="section3" class="tab-pane fade my-3">
+          <p>セクション3のコンテンツが表示されます。</p>
+        </div>
+        
+        <!-- タブ4 -->
+        <div id="section4" class="tab-pane fade my-3">
+          <p>セクション4のコンテンツが表示されます。</p>
+        </div>
+        
+        <!-- タブ5 -->
+        <div id="section5" class="tab-pane fade my-3">
+          <p>セクション5のコンテンツが表示されます。</p>
+        </div>
+
       </div>
     </div>
   </div>

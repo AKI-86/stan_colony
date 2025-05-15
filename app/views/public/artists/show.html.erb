@@ -1,50 +1,72 @@
 <div class="container p-5">
-  <div class="row mb-4">
-    <div class="col-md-3">
-      <%= image_tag @artist.get_image(200, 200), class: "rounded-circle me-1" %>
-    </div>
-    <div class="col-md-9">
-      <h5>アーティスト名：<%= @artist.name %></h5>
-      <p>説明：<%= @artist.introduction %></p>
-      <p>作成ユーザー：
-      <%= link_to user_path(@artist.user) do %>
-        <%= @artist.user.name %>
-      <% end %>
-      </p>
-      <% if @artist.user == current_user %>
-        <p><%= link_to "編集", edit_artist_path(@artist.id), class: "btn btn-primary mt-3"  %></p>
-      <% end %>
-      <p><%= render "public/favorites/btn", artist: @artist %></p>
+  <div class="card mb-4 shadow-sm">
+    <div class="row p-3">
+      <div class="col-md-3 d-flex align-items-start justify-content-center my-3 ml-2">
+        <%= image_tag @artist.get_image(200, 200), class: "rounded-circle img-fluid" %>
+      </div>
+      <div class="col-md-8">
+        <h2 class="my-3"><%= @artist.name %></h2>
+        <p><%= truncate(@artist.introduction, length: 1000) %></p>
+        <p>作成ユーザー：
+          <%= link_to user_path(@artist.user) do %>
+            <%= @artist.user.name %>
+          <% end %>
+        </p>
+        <% if @artist.user == current_user %>
+          <p><%= link_to "編集", edit_artist_path(@artist.id), class: "btn btn-primary mt-3"  %></p>
+        <% end %>
+        <% if current_user && !current_user.guest? %>
+          <p><%= render "public/favorites/btn", artist: @artist %></p>
+        <% end %>
+      </div>
     </div>
   </div>
-
+  
   <div class="row">
     <div class="col">
-      <h4>トピック一覧</h4>
-      <%= link_to "新しいトピックを作成", new_artist_topic_path(@artist), class: "btn btn-primary mt-3" %>
+      <div class="d-flex align-items-center mb-3">
+        <h4 class="mb-0">トピック一覧</h4>
+        <%= link_to "新しいトピックを作成", new_artist_topic_path(@artist), class: "btn btn-primary ml-auto" %>
+      </div>
+      <div class="d-flex justify-content-center mb-2">
+        <%= paginate @topics %>
+      </div>
       <% if @topics.any? %>
-      <table class="table">
-        <thead>
-            <th></th>
-            <th></th>
-            <th></th>
-        </thead>
-        <tbody>
-          
-              <% @topics.each do |topic| %>
-                <tr>
-                  <td><%= link_to topic.title, artist_topic_path(@artist, topic) %></td>
-                  <td><small>作成日: <%= topic.created_at.strftime("%Y-%m-%d") %></small></td>
-                </tr>
-              <% end %>
-
-                      </tbody>
-      </table>
-
-          <% else %>
-            <p>まだトピックがありません。</p>
-          <% end %>
-      <%= paginate @topics %>
+        <table class="table table-hover bg-white table-borderless ">
+          <thead class="thead-dark">
+            <tr>
+              <th style="width: 75%;">トピック名</th>
+              <th></th>
+              <th>最終コメント日</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @topics.each do |topic| %>
+              <tr>
+                <td class="text-truncate" style="max-width: 200px;">
+                  <%= link_to topic.title, artist_topic_path(@artist, topic), class: "d-inline-block text-truncate", style: "max-width: 100%;" %>
+                </td>
+                <td>
+                  <i class="fa-regular fa-comment"></i>
+                  <%= topic.comments.count %>
+                </td>
+                <td>
+                  <% if topic.comments.any? %>
+                    <small><%= topic.comments.maximum(:created_at).strftime("%Y年%m月%d日 %H時%M分") %></small>
+                  <% else %>
+                    <small>コメントなし</small>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <% else %>
+          <p>まだトピックがありません。</p>
+        <% end %>
+      <div class="d-flex justify-content-center my-4">
+        <%= paginate @topics %>
+      </div>
     </div>
   </div>
 </div>

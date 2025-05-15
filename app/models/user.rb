@@ -4,6 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  scope :without_guests, -> { where.not("email LIKE ?", "guest+%@example.com") }
+
   has_one_attached :image
   
   has_many :artists
@@ -47,7 +49,25 @@ class User < ApplicationRecord
     image.variant(resize_to_fill: [width, height]).processed
   end
 
-  def active_for_authentication? # 退会処理、is_deletedがfalseならtrueを返すようにしている
+  # 退会処理、is_deletedがfalseならtrueを返すようにしている
+  def active_for_authentication?
     super && is_active
+  end
+
+  def self.guest
+    unique_token = SecureRandom.hex(4) # 例: "f1a2b3c4"
+    guest_name = "ゲスト-#{unique_token}"
+    guest_email = "guest-#{unique_token}@example.com"
+
+    find_or_create_by!(email: guest_email) do |user|
+      # SecureRandom.urlsafe_base64:ランダムな文字列を生成するRubyのメソッド
+      user.password = SecureRandom.urlsafe_base64
+      user.name = guest_name
+    end
+  end
+
+  #ゲストユーザーなら各投稿を禁止
+  def guest?
+    name&.start_with?("ゲスト-")
   end
 end

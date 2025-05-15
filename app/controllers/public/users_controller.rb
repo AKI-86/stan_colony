@@ -1,4 +1,6 @@
 class Public::UsersController < ApplicationController
+  before_action :reject_guest_user, only: [:show, :mypage]
+
   def mypage
     @user = current_user
     @favorite = @user.favorites.map(&:artist)  # これは
@@ -6,6 +8,7 @@ class Public::UsersController < ApplicationController
   end
 
   def index
+    @users = User.without_guests.page(params[:page])
   end
 
   def edit
@@ -15,6 +18,7 @@ class Public::UsersController < ApplicationController
   def show
     @user =User.find(params[:id])
     @artists = @user.artists
+    @favorite = @user.favorites.map(&:artist)  # これは
   end
 
   def update
@@ -47,5 +51,11 @@ class Public::UsersController < ApplicationController
   private
   def user_params
     params.require(:user).permit(:name, :introduction, :email, :gender, :age, :image)
+  end
+
+  def reject_guest_user
+    if current_user&.guest?
+      redirect_back fallback_location: root_path, alert: "ゲストユーザーはこのページにアクセスできません。"
+    end
   end
 end

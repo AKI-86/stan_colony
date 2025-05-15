@@ -1,4 +1,6 @@
 class Public::ArtistsController < ApplicationController
+  before_action :reject_guest_user, only: [:new, :create]
+
   def new
     @artist = Artist.new
   end
@@ -41,4 +43,11 @@ class Public::ArtistsController < ApplicationController
   def artist_params
     params.require(:artist).permit(:name, :image, :introduction)
   end
+
+  def reject_guest_user
+    if current_user.guest?
+      redirect_to artists_path, alert: 'ゲストユーザーはアーティストページを作成できません。'
+    end
+  end
 end
+

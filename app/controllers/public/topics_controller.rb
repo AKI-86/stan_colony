@@ -1,5 +1,7 @@
 class Public::TopicsController < ApplicationController
   before_action :set_artist
+  before_action :reject_guest_user, only: [:new, :create]
+
 
   def new
     @topic = @artist.topics.new
@@ -43,5 +45,11 @@ class Public::TopicsController < ApplicationController
 
   def topic_params
     params.require(:topic).permit(:title, :body, :topic_genre_id, :image)
+  end
+
+  def reject_guest_user
+    if current_user&.guest?
+      redirect_to artist_path(@artist), alert: 'ゲストユーザーはトピックを作成できません。'
+    end
   end
 end

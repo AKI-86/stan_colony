@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_05_14_102841) do
+ActiveRecord::Schema.define(version: 2025_05_15_065357) do
 
   create_table "a_tags", force: :cascade do |t|
     t.integer "artist_id", null: false
@@ -187,7 +187,6 @@ ActiveRecord::Schema.define(version: 2025_05_14_102841) do
     t.boolean "is_active", default: true, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["artist_id", "title"], name: "index_topics_on_artist_id_and_title", unique: true
     t.index ["artist_id"], name: "index_topics_on_artist_id"
     t.index ["topic_genre_id"], name: "index_topics_on_topic_genre_id"
     t.index ["user_id"], name: "index_topics_on_user_id"

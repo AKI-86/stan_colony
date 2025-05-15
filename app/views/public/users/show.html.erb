@@ -1,14 +1,100 @@
-<!-- ユーザーの詳細 -->
-<div>
-  <h3><%= @user.name %></h3>
-  <%= image_tag @user.get_image(50, 50) %>
-</div>
-
-<% @artists.each do |artist| %>
+<div class= "container py-4">
   <div>
-  <%= link_to artist_path(artist.id) do %>
-    <%= image_tag artist.get_image(100, 100) %>
-  <% end %>
-  <p>アーティスト名：<%= artist.name %></p>
+    <%= image_tag @user.get_image(50, 50), class: "rounded-circle me-1" %>
+    <span style="font-size: 30px;"><%= @user.name %>さんのプロフィール</span>
+  </div>
+
+  <div class="mypage_info my-3">
+    <table class= "table table-hover table-borderless">
+      <tbody>
+        <tr>
+          <td style="width: 30%;">ニックネーム</td>
+          <td><%= @user.name %></td>
+        </tr>
+        <tr>
+          <td>性別</td>
+        <td><%= @user.gender %></td>
+        </tr>
+        <tr>
+          <td>年齢</td>
+          <td><%= @user.age %></td>
+        </tr>
+        <tr>
+          <td>紹介文</td>
+          <td><%= @user.introduction %></td>
+        </tr>
+        <tr>
+          <td>フォロワー数</td>
+          <td>〇〇</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+<!-- タブ -->
+  <div class="col-12 tabs">
+    <div class= "row mypage_date ">
+      <div class="tabs">
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#section1">作成したアーティスト</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#section2">いいねをつけたアーティスト</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#section3">セクション3</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#section4">セクション4</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#section5">セクション5</a>
+          </li>
+        </ul>
+
+        <!-- タブ1 -->
+        <div class="tab-content">
+          <div id="section1" class="tab-pane fade show active my-3">
+            <% @artists.each do |artist| %>
+              <div class="my-2">
+                <%= link_to artist_path(artist.id), class: "text-decoration-none" do %>
+                  <%= image_tag artist.get_image(50, 50), class: "rounded-circle img-fluid" %>
+                  <span class="ml-2"><%= artist.name %></span>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+
+          <!-- タブ2 -->
+          <div id="section2" class="tab-pane fade my-3">
+            <% @favorite.each do |artist| %>
+              <div class="my-2">
+                <%= link_to artist_path(artist.id), class: "text-decoration-none" do %>
+                  <%= image_tag artist.get_image(50, 50), class: "rounded-circle img-fluid" %>
+                  <span class="ml-2"><%= artist.name %></span>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+
+          <!-- タブ3 -->
+          <div id="section3" class="tab-pane fade my-3">
+            <p>セクション3のコンテンツが表示されます。</p>
+          </div>
+          
+          <!-- タブ4 -->
+          <div id="section4" class="tab-pane fade my-3">
+            <p>セクション4のコンテンツが表示されます。</p>
+          </div>
+          
+          <!-- タブ5 -->
+          <div id="section5" class="tab-pane fade my-3">
+            <p>セクション5のコンテンツが表示されます。</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-<% end %>

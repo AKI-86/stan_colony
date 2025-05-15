@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
+  #ログイン前の制限をかけている
   before_action :authenticate_user!, only: [:new, :create, :edit, :update]
   
   protected
