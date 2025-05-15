@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_05_12_051705) do
+ActiveRecord::Schema.define(version: 2025_05_14_102841) do
 
   create_table "a_tags", force: :cascade do |t|
     t.integer "artist_id", null: false
