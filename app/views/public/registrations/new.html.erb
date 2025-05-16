@@ -14,11 +14,11 @@
         </div>
         <div class="mb-3">
             <%= f.label :gender, "性別", class: "form-label" %>
-            <%= f.select :gender, ["男性", "女性", "その他", "未回答"], prompt: "選択してください", class: "form-control" %>
+            <%= f.select :gender, ["男性", "女性", "その他", "未回答"], { prompt: "選択してください" }, { class: "form-control form-gender-age" } %>
         </div>
         <div class="mb-3">
           <%= f.label :age, "年代", class: "form-label" %>
-          <%= f.select :age, ["10代以下", "20代", "30代", "40代", "50代", "60代以上"], prompt: "選択してください", class: "form-control" %>
+          <%= f.select :age, ["10代以下", "20代", "30代", "40代", "50代", "60代以上"], { prompt: "選択してください" }, { class: "form-control form-gender-age" } %>
         </div>
         <div class="mb-3">
           <%= f.label :password, class: "form-label" %>
@@ -40,3 +40,11 @@
     </div>
   </div>
 </div>
+
+
+
+<style>
+  .form-gender-age {
+    width: 100% !important;
+  }
+</style>

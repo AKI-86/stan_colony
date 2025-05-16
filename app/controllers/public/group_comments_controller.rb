@@ -2,10 +2,16 @@ class Public::GroupCommentsController < ApplicationController
   before_action :set_group
 
   def create
-    @comment = @group.group_comments.new(group_comment_params)
-    @comment.user_id = current_user.id
-    @comment.save
+    @group_comment = @group.group_comments.new(group_comment_params)
+    @group_comment.user_id = current_user.id
+
+    if @group_comment.save
     redirect_to group_path(@group)
+    else
+      @group_comments = @group.group_comments.page(params[:page]).per(10)
+      flash.now[:alert] = "空欄のコメントは投稿できません"
+      render 'public/groups/show'  # グループ詳細ページのビューに戻る想定
+    end
   end
 
   def destroy

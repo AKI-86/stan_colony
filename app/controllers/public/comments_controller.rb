@@ -3,11 +3,21 @@ class Public::CommentsController < ApplicationController
   
   def create
     topic = @artist.topics.find(params[:topic_id])
-    comment = Comment.new(comment_params)
-    comment.user_id = current_user.id
-    comment.topic = topic #取得したcommentが所属するtopicを参照している。これは削除後のリダイレクト先に必要
-    comment.save
-    redirect_to artist_topic_path(@artist, topic)
+    @comment = Comment.new(comment_params)
+    @comment.user_id = current_user.id
+    @comment.topic = topic #取得したcommentが所属するtopicを参照している。これは削除後のリダイレクト先に必要
+
+    if @comment.save
+      redirect_to artist_topic_path(@artist, topic)
+    else
+      # エラー時はindexなどのビューに@commentと@commentsを渡してrender
+      @topic = topic
+      @artist = @topic.artist
+      @comments = @topic.comments.page(params[:page]).per(10) # ページネーションも同じように
+  
+      flash.now[:alert] = "空欄のコメントは投稿できません"
+      render 'public/topics/show'  # 例: トピック詳細画面のviewを再表示
+    end
   end
 
   def destroy
