@@ -80,7 +80,10 @@
 
           <!-- タブ3 -->
           <div id="section3" class="tab-pane fade my-3">
-            <p>セクション3のコンテンツが表示されます。</p>
+          <% @groups.each do |group| %>
+            <%= image_tag group.get_image(200, 200), class: "img-thumbnail", style: "object-fit: cover;" %>
+            <%= group.name %>
+          <% end %>
           </div>
           
           <!-- タブ4 -->

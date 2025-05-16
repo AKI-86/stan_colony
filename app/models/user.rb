@@ -12,6 +12,9 @@ class User < ApplicationRecord
   has_many :topics
   has_many :comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
+  has_many :owned_groups, class_name: "Group", foreign_key: "owner_id", dependent: :destroy
+  has_many :group_memberships, dependent: :destroy
+  has_many :groups, through: :group_memberships
 
   validates :name, presence: true
   validates :email, uniqueness: { case_sensitive: false }

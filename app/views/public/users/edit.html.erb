@@ -1,8 +1,6 @@
 <div class="container d-flex justify-content-center">
   <div class="w-100" style="max-width: 400px;">
     <h2 class="text-center mb-4">ユーザー情報編集</h2>
-
-
     <%= form_with model: @user do |f| %>
       <%= render 'layouts/error_messages', model: f.object %>
       <div class="mb-3">
@@ -28,16 +26,6 @@
       <div class="mb-3">
         <%= f.label :age, "年代", class: "form-label" %>
         <%= f.select :age, ["10代以下", "20代", "30代", "40代", "50代", "60代以上"], { prompt: "選択してください" }, class: "form-control" %>
-      </div>
-
-      <div class="mb-3">
-        <%= f.label :password, "password", class: "form-label" %>
-        <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
-      </div>
-
-      <div class="mb-3">
-        <%= f.label :password_confirmation, "password", class: "form-label" %>
-        <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
       </div>
 
       <div class="d-grid">

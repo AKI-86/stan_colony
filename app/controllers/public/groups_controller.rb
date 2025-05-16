@@ -6,7 +6,7 @@ class Public::GroupsController < ApplicationController
   end
 
   def index
-    @groups = Group.all
+    @groups = Group.order(created_at: :desc).page(params[:page]).per(8)
   end
 
   def show
@@ -19,7 +19,7 @@ class Public::GroupsController < ApplicationController
     @group = Group.new(group_params)
     @group.owner_id = current_user.id
     if @group.save
-      redirect_to groups_path(@group), notice: "サークルを作成しました。"
+      redirect_to group_path(@group), notice: "サークルを作成しました。"
     else
       flash.now[:alert] = "サークルの作成に失敗しました。"
       render :new
@@ -33,7 +33,7 @@ class Public::GroupsController < ApplicationController
   def update
     @group = Group.find(params[:id])
     if @group.update(group_params)
-      redirect_to groups_path(@group.id)
+      redirect_to group_path(@group)
     else
       render :edit
     end

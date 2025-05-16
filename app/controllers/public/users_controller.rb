@@ -19,6 +19,10 @@ class Public::UsersController < ApplicationController
     @user =User.find(params[:id])
     @artists = @user.artists
     @favorite = @user.favorites.map(&:artist)  # これは
+    @groups = @user.owned_groups
+    if @user == current_user && params[:skip_redirect].blank?
+      redirect_to users_mypage_path and return
+    end
   end
 
   def update

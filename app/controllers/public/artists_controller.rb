@@ -18,9 +18,9 @@ class Public::ArtistsController < ApplicationController
     @artist = Artist.new(artist_params)
     @artist.user_id = current_user.id
     if @artist.save
-      redirect_to artists_path(@artist), notice: "トピックを作成しました。"
+      redirect_to artist_path(@artist), notice: "アーティストを作成しました。"
     else
-      flash.now[:alert] = "トピックの作成に失敗しました。"
+      flash.now[:alert] = "アーティストの作成に失敗しました。"
       render :new
     end
   end
@@ -32,7 +32,7 @@ class Public::ArtistsController < ApplicationController
   def update
     @artist = Artist.find(params[:id])
     if @artist.update(artist_params)
-      redirect_to artists_path(@artist.id)
+      redirect_to artist_path(@artist)
     else
       render :edit
     end

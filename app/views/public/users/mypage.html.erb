@@ -32,6 +32,7 @@
 
     <div class= "col-3">
       <div><%= link_to "ユーザー情報編集", edit_user_path(@user), class: "btn btn-success mt-5 mb-3" %></div>
+      <%= link_to "他者から見た自分のページを見る", user_path(current_user, skip_redirect: true) %>
       <div><%= link_to "パスワード変更", edit_user_path(@user), class: "btn btn-success mb-3" %></div>
       <div><%= link_to "退会する", users_unsubscribe_path, class: "btn btn-danger mb-3" %></div>
       <div><%= link_to "アーティストページ新規作成", new_artist_path, class: "btn btn-primary mt-5 mb-3" %></div>
