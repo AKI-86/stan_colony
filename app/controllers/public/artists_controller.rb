@@ -27,6 +27,9 @@ class Public::ArtistsController < ApplicationController
 
   def edit
     @artist = Artist.find(params[:id])
+    unless @artist.user == current_user
+      redirect_to artist_path(@artist), alert: "他のユーザーの作成したアーティストは編集できません。"
+    end
   end
 
   def update

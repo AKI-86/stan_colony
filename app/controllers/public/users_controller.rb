@@ -1,5 +1,6 @@
 class Public::UsersController < ApplicationController
-  before_action :reject_guest_user, only: [:show, :mypage]
+  before_action :reject_guest_user, only: [:show, :mypage, :edit, :withdraw, :unsubscribe]
+  before_action :authenticate_user!, only: [:show, :mypage, :edit, :withdraw, :unsubscribe]
 
   def mypage
     @user = current_user
@@ -13,6 +14,9 @@ class Public::UsersController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
+    unless @user == current_user
+      redirect_to users_mypage_path, alert: "他のユーザーの情報は編集できません。"
+    end
   end
 
   def show

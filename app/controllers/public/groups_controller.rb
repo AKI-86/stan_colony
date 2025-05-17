@@ -28,6 +28,9 @@ class Public::GroupsController < ApplicationController
 
   def edit
     @group = Group.find(params[:id])
+    unless @group.owner == current_user
+      redirect_to group_path(@group), alert: "他のユーザーの作成したサークルは編集できません。"
+    end
   end
 
   def update
