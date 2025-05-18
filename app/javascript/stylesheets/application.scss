@@ -10,6 +10,18 @@ body, html {
   // background-image: image-url("hoge.jpg"); カリキュラム参考・背景画像を表示できるようにする
 }
 
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: row; /* sidebar と main-area を横並びにしてるなら横方向 */
+}
+
+.main-area {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1; /* 横幅いっぱいに */
+  min-height: 100vh; /* 高さいっぱいに */
+}
 
 .main-content {
   flex-grow: 1; /* メインコンテンツが残りのスペースを埋める */
@@ -115,5 +127,4 @@ footer {
   padding: 10px;
   color: #fff;
   width: 100%; /* フッターを画面幅いっぱいに */
-  bottom: 0; /* フッターを下部に配置 */
 }

@@ -8,6 +8,15 @@
       <div class="col-md-8">
         <h2 class="my-3"><%= @artist.name %></h2>
         <p><%= truncate(@artist.introduction, length: 1000) %></p>
+        <p>タグ：
+          <% if @artist.artist_tags.any? %>
+          <% @artist.artist_tags.each do |tag| %>
+            <%= link_to tag.name, artist_tag_path(tag.name), class: "badge badge-pill badge-success me-1" %>
+          <% end %>
+        <% else %>
+          タグはまだありません
+        <% end %>
+        </p>
         <p>作成ユーザー：
           <%= link_to user_path(@artist.user) do %>
             <%= @artist.user.name %>

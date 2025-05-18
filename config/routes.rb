@@ -1,10 +1,13 @@
 Rails.application.routes.draw do
 
+  
 # 管理者用
 # URL /admin/sign_in ...
 devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
   sessions: "admin/sessions"
 }
+
+mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 # resources :users, only: []
 namespace :admin do
   get 'top' => 'homes#top', as: 'top'
@@ -44,6 +47,7 @@ end
     patch 'users/withdraw', to: "users#withdraw"
     get 'users/follows', to: "users#follows"
     get 'users/followers', to: "users#followers"
+    get 'artist_tags/:name', to: 'artist_tags#show', as: 'artist_tag'
 
     resources :users, only: [:index, :show, :edit, :create, :update] do
       resources :relationships, only: [:create, :destroy]

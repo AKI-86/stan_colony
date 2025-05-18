@@ -1,8 +1,8 @@
 <div class="container-fluid d-flex justify-content-center my-4">
-  <div class="w-100" style="max-width: 600px;">
+  <div class="w-100" style="max-width: 750px;">
     <div class="card shadow-sm p-4">
       <h2 class="text-center mb-4">新規会員登録</h2>
-      <%= form_with model: @user, url: user_registration_path do |f| %>
+        <%= form_with model: @user, url: user_registration_path do |f| %>
         <%= render "public/shared/error_messages", resource: @user %>
         <div class="mb-3">
           <%= f.label :name, "名前", class: "form-label" %>
@@ -40,7 +40,7 @@
     </div>
   </div>
 </div>
-
+</div>
 
 
 <style>
