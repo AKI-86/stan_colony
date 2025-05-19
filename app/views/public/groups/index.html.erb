@@ -11,6 +11,11 @@
           <div class="card-body">
           <h5 class="card-title" style="overflow: hidden; word-break: break-word;"><%= truncate(group.name, length: 30) %></h5>
             <p class="card-text"><%= truncate(group.introduction, length: 40) %></p>
+            <p>
+              <% group.group_tags.each do |tag| %>
+                <%= link_to tag.name, group_tag_path(tag.name), class: "badge badge-pill badge-success me-1" %>
+              <% end %>
+            </p>
             <p>作成者：
               <%= link_to user_path(group.owner) do %>
                 <%= group.owner.name %>

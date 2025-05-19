@@ -5,7 +5,12 @@ class Public::UsersController < ApplicationController
   def mypage
     @user = current_user
     @favorite = @user.favorites.map(&:artist)  # これは
-    @artists = @user.artists
+    @favorite_artists = Artist.joins(:favorites).where(favorites: { user_id: @user.id }).page(params[:page]).per(10)
+    @artists = @user.artists.page(params[:page]).per(10)
+    @groups = @user.owned_groups.page(params[:page]).per(10)
+    @following_users = @user.followings.page(params[:following_page]).per(10)
+    @follower_users = @user.followers.page(params[:follower_page]).per(10)
+    @joined_groups = @user.joined_groups.order(created_at: :desc).page(params[:page]).per(10)
   end
 
   def index
@@ -21,12 +26,16 @@ class Public::UsersController < ApplicationController
 
   def show
     @user =User.find(params[:id])
-    @artists = @user.artists
+    @artists = @user.artists.page(params[:page]).per(10)
     @favorite = @user.favorites.map(&:artist)  # これは
-    @groups = @user.owned_groups
+    @favorite_artists = Artist.joins(:favorites).where(favorites: { user_id: @user.id }).page(params[:page]).per(10)
+    @groups = @user.owned_groups.page(params[:page]).per(10)
     if @user == current_user && params[:skip_redirect].blank?
       redirect_to users_mypage_path and return
     end
+    @following_users = @user.followings.page(params[:following_page]).per(10)
+    @follower_users = @user.followers.page(params[:follower_page]).per(10)
+    @joined_groups = @user.joined_groups.order(created_at: :desc).page(params[:page]).per(10)
   end
 
   def update

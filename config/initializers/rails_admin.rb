@@ -29,14 +29,23 @@ RailsAdmin.config do |config|
     index                         # mandatory
     new
     export
-    bulk_delete
     show
     edit
-    delete
     show_in_app
+    # 論理削除を採用しているため不要
+    # delete
+    # bulk_delete
 
     ## With an audit adapter, you can add:
     # history_index
     # history_show
+  end
+
+  # ダッシュボード・サイドバーに表示しない
+  config.model 'ATag' do
+    visible false  
+  end
+  config.model 'TTag' do
+    visible false
   end
 end

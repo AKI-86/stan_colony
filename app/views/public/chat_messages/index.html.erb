@@ -1,0 +1,31 @@
+<div class="container">
+  <div class= "row">
+    <div class= "col-3">
+    <p>参加メンバー一覧</p>
+      <% @group.members.each do |member| %>
+        <p><%= link_to member.name, user_path(member) %></p>
+      <% end %>
+    </div>
+
+    <div class= "col-8 chat-container">
+      <div class="messages mt-2">
+        <% @chat_messages.each do |msg| %>
+          <div class="message <%= 'mine' if msg.user == current_user %>">
+            <div class="content"><%= msg.body %></div>
+            <div class="info">
+              <span class="user"><%= msg.user.name %></span>
+              <span class="time"><%= msg.created_at.strftime("%H:%M") %></span>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="input-area">
+        <%= form_with(model: [@group, @chat_message], local: true) do |f| %>
+          <%= f.text_field :body, placeholder: "メッセージを入力...", autocomplete: "off" %>
+          <%= f.submit "送信" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

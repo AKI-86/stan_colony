@@ -6,6 +6,10 @@ class Group < ApplicationRecord
   has_many :members, through: :group_memberships, source: :user #source: :user により、group_memberships テーブルの user を members として扱う
   has_many :group_comments, dependent: :destroy
 
+  has_many :g_tags, dependent: :destroy
+  has_many :group_tags, through: :g_tags
+  has_many :chat_messages, dependent: :destroy
+  
   validates :name, presence: true
   validates :introduction, presence: true
 

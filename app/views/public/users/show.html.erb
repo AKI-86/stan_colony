@@ -24,80 +24,26 @@
           <td><%= @user.introduction %></td>
         </tr>
         <tr>
-          <td>フォロワー数</td>
-          <td>〇〇</td>
+          <td>フォロー</td>
+          <td><%= @user.followings.count %></td>
+        </tr>
+        <tr>
+          <td>フォロワー</td>
+          <td><%= @user.followers.count %></td>
         </tr>
       </tbody>
     </table>
+    <% if user_signed_in? && current_user != @user %>
+      <% if current_user.following?(@user) %>
+          <%= button_to 'フォローを外す', user_relationship_path(@user, current_user.relationships.find_by(followed_id: @user.id)), method: :delete, class: "btn btn-outline-danger" %>
+      <% else %>
+        <%= button_to 'フォローする', user_relationships_path(@user), method: :post, class: "btn btn-primary" %>
+      <% end %>
+    <% end %>
   </div>
 
 <!-- タブ -->
-  <div class="col-12 tabs">
-    <div class= "row mypage_date ">
-      <div class="tabs">
-        <ul class="nav nav-tabs">
-          <li class="nav-item">
-            <a class="nav-link active" data-toggle="tab" href="#section1">作成したアーティスト</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#section2">いいねをつけたアーティスト</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#section3">セクション3</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#section4">セクション4</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#section5">セクション5</a>
-          </li>
-        </ul>
-
-        <!-- タブ1 -->
-        <div class="tab-content">
-          <div id="section1" class="tab-pane fade show active my-3">
-            <% @artists.each do |artist| %>
-              <div class="my-2">
-                <%= link_to artist_path(artist.id), class: "text-decoration-none" do %>
-                  <%= image_tag artist.get_image(50, 50), class: "rounded-circle img-fluid" %>
-                  <span class="ml-2"><%= artist.name %></span>
-                <% end %>
-              </div>
-            <% end %>
-          </div>
-
-          <!-- タブ2 -->
-          <div id="section2" class="tab-pane fade my-3">
-            <% @favorite.each do |artist| %>
-              <div class="my-2">
-                <%= link_to artist_path(artist.id), class: "text-decoration-none" do %>
-                  <%= image_tag artist.get_image(50, 50), class: "rounded-circle img-fluid" %>
-                  <span class="ml-2"><%= artist.name %></span>
-                <% end %>
-              </div>
-            <% end %>
-          </div>
-
-          <!-- タブ3 -->
-          <div id="section3" class="tab-pane fade my-3">
-          <% @groups.each do |group| %>
-            <%= image_tag group.get_image(200, 200), class: "img-thumbnail", style: "object-fit: cover;" %>
-            <%= group.name %>
-          <% end %>
-          </div>
-          
-          <!-- タブ4 -->
-          <div id="section4" class="tab-pane fade my-3">
-            <p>セクション4のコンテンツが表示されます。</p>
-          </div>
-          
-          <!-- タブ5 -->
-          <div id="section5" class="tab-pane fade my-3">
-            <p>セクション5のコンテンツが表示されます。</p>
-          </div>
-
-        </div>
-      </div>
-    </div>
+  <div class="mypage_date">
+  <%= render 'public/shared/user_show_tab' %>
   </div>
 </div>

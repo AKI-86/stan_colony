@@ -45,9 +45,8 @@ end
     get 'users/mypage', to: "users#mypage"
     get 'users/unsubscribe', to: "users#unsubscribe"
     patch 'users/withdraw', to: "users#withdraw"
-    get 'users/follows', to: "users#follows"
-    get 'users/followers', to: "users#followers"
     get 'artist_tags/:name', to: 'artist_tags#show', as: 'artist_tag'
+    get 'group_tags/:name', to: 'group_tags#show', as: 'group_tag'
 
     resources :users, only: [:index, :show, :edit, :create, :update] do
       resources :relationships, only: [:create, :destroy]
@@ -65,7 +64,9 @@ end
     resources :favorites, only: [:create, :destroy]  # ユーザーによるアーティスト「いいね」
     resources :reports, only: [:create]
     resources :groups, only: [:index, :new, :show, :edit, :create, :update] do
+      resource :group_membership, only: [:create, :destroy]
       resources :group_comments, only: [:create, :destroy]
+      resources :chat_messages, only: [:index, :create]
     end
 
   end

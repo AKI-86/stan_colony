@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_05_15_065357) do
+ActiveRecord::Schema.define(version: 2025_05_19_071841) do
 
   create_table "a_tags", force: :cascade do |t|
     t.integer "artist_id", null: false
@@ -80,6 +80,16 @@ ActiveRecord::Schema.define(version: 2025_05_15_065357) do
     t.index ["user_id"], name: "index_artists_on_user_id"
   end
 
+  create_table "chat_messages", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "group_id", null: false
+    t.text "body", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["group_id"], name: "index_chat_messages_on_group_id"
+    t.index ["user_id"], name: "index_chat_messages_on_user_id"
+  end
+
   create_table "comments", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "topic_id", null: false
@@ -99,6 +109,16 @@ ActiveRecord::Schema.define(version: 2025_05_15_065357) do
     t.index ["artist_id"], name: "index_favorites_on_artist_id"
     t.index ["user_id", "artist_id"], name: "index_favorites_on_user_id_and_artist_id", unique: true
     t.index ["user_id"], name: "index_favorites_on_user_id"
+  end
+
+  create_table "g_tags", force: :cascade do |t|
+    t.integer "group_id", null: false
+    t.integer "group_tag_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["group_id", "group_tag_id"], name: "index_g_tags_on_group_id_and_group_tag_id", unique: true
+    t.index ["group_id"], name: "index_g_tags_on_group_id"
+    t.index ["group_tag_id"], name: "index_g_tags_on_group_tag_id"
   end
 
   create_table "group_comments", force: :cascade do |t|
@@ -121,6 +141,13 @@ ActiveRecord::Schema.define(version: 2025_05_15_065357) do
     t.index ["group_id"], name: "index_group_memberships_on_group_id"
     t.index ["user_id", "group_id"], name: "index_group_memberships_on_user_id_and_group_id", unique: true
     t.index ["user_id"], name: "index_group_memberships_on_user_id"
+  end
+
+  create_table "group_tags", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_group_tags_on_name", unique: true
   end
 
   create_table "groups", force: :cascade do |t|
@@ -214,10 +241,14 @@ ActiveRecord::Schema.define(version: 2025_05_15_065357) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "artists", "users"
+  add_foreign_key "chat_messages", "groups"
+  add_foreign_key "chat_messages", "users"
   add_foreign_key "comments", "topics"
   add_foreign_key "comments", "users"
   add_foreign_key "favorites", "artists"
   add_foreign_key "favorites", "users"
+  add_foreign_key "g_tags", "group_tags"
+  add_foreign_key "g_tags", "groups"
   add_foreign_key "group_comments", "groups"
   add_foreign_key "group_comments", "users"
   add_foreign_key "group_memberships", "groups"

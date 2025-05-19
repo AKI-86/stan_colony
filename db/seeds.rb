@@ -62,6 +62,69 @@ user6 = User.find_or_create_by!(email: "nicole@example.com") do |user|
   user.image = ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/sample-user6.jpg"), filename:"sample-user6.jpg")
 end
 
+user7 = User.find_or_create_by!(email: "angy@example.com") do |user|
+  user.name = "Angy"
+  user.password = "password"
+  user.introduction = "ピアノの音色に癒される毎日。"
+  user.gender = "男性"
+  user.age = "40代"
+  user.image = ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/sample-user7.jpg"), filename:"sample-user7.jpg")
+end
+
+user8 = User.find_or_create_by!(email: "yui@example.com") do |user|
+  user.name = "ゆい"
+  user.password = "password"
+  user.introduction = "野外フェス常連組です！"
+  user.gender = "女性"
+  user.age = "20代"
+  user.image = ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/sample-user8.jpg"), filename:"sample-user8.jpg")
+end
+
+user9 = User.find_or_create_by!(email: "squash@example.com") do |user|
+  user.name = "Squash"
+  user.password = "password"
+  user.introduction = "最近ジャズにハマってます。"
+  user.gender = "男性"
+  user.age = "40代"
+  user.image = ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/sample-user9.jpg"), filename:"sample-user9.jpg")
+end
+
+user10 = User.find_or_create_by!(email: "john@example.com") do |user|
+  user.name = "John"
+  user.password = "password"
+  user.introduction = "DIY楽器で音楽制作してます。"
+  user.gender = "男性"
+  user.age = "30代"
+  user.image = ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/sample-user10.jpg"), filename:"sample-user10.jpg")
+end
+
+user11 = User.find_or_create_by!(email: "nilo@example.com") do |user|
+  user.name = "Nilo"
+  user.password = "password"
+  user.introduction = "世界の伝統音楽を探求中。"
+  user.gender = "男性"
+  user.age = "50代"
+  user.image = ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/sample-user11.jpg"), filename:"sample-user11.jpg")
+end
+
+user12 = User.find_or_create_by!(email: "slash@example.com") do |user|
+  user.name = "斜線"
+  user.password = "password"
+  user.introduction = "音響機器マニア。自宅スタジオ完備！"
+  user.gender = "男性"
+  user.age = "40代"
+  user.image = ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/sample-user12.jpg"), filename:"sample-user12.jpg")
+end
+
+user13 = User.find_or_create_by!(email: "great@example.com") do |user|
+  user.name = "辰吉"
+  user.password = "password"
+  user.introduction = "歌うことが生きがいです！"
+  user.gender = "男性"
+  user.age = "20代"
+  user.image = ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/sample-user13.jpg"), filename:"sample-user13.jpg")
+end
+
 
 #  アーティスト
 artist1 = user1.artists.find_or_create_by!(name: "The Farmer Brothers") do |artist|
@@ -85,6 +148,45 @@ artist4 = Artist.find_or_create_by!(name: "Midnight Kaze") do |artist|
   artist.image = ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/sample-artist4.jpg"), filename:"sample-artist4.jpg")
   artist.introduction = "現れてはグルーヴを残して消える、謎多きセッションベーシスト。驚異的なフィンガリング、意外性のあるライン、空間を操るようなタッチ。ジャンルの枠にとらわれず、ジャズ、フュージョン、ヒップホップ、さらには民族音楽すらベース一本で繋ぐ。"
   artist.user = user3
+end
+artist5 = user7.artists.find_or_create_by!(name: "Velvet Echo") do |artist|
+  artist.image = ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/sample-artist5.jpg"), filename:"sample-artist5.jpg")
+  artist.introduction = "幻想的なピアノとエレクトロニカを融合させた唯一無二のユニット。静かに心に響く音世界を描く。"
+end
+
+artist6 = user8.artists.find_or_create_by!(name: "Sunset Riot") do |artist|
+  artist.image = ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/sample-artist6.jpg"), filename:"sample-artist6.jpg")
+  artist.introduction = "爆音ギターとグルーヴィーなベースで観客を揺らす、熱狂のロックバンド。フェスでの演奏は必見。"
+end
+
+artist7 = user9.artists.find_or_create_by!(name: "Mellow Phase") do |artist|
+  artist.image = ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/sample-artist7.jpg"), filename:"sample-artist7.jpg")
+  artist.introduction = "深夜のバーが似合う、心地よいジャズトリオ。サックスとウッドベースの掛け合いが絶妙。"
+end
+
+artist8 = user10.artists.find_or_create_by!(name: "Circuit Breaks") do |artist|
+  artist.image = ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/sample-artist8.jpg"), filename:"sample-artist8.jpg")
+  artist.introduction = "廃材から作った電子楽器で奏でる実験的ノイズサウンド。未来の音楽の可能性を示唆する。"
+end
+
+artist9 = user11.artists.find_or_create_by!(name: "Earthbound Spirits") do |artist|
+  artist.image = ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/sample-artist9.jpg"), filename:"sample-artist9.jpg")
+  artist.introduction = "世界各地の民族音楽をミックスし、現代のビートと融合させた新感覚ワールドミュージック。"
+end
+
+artist10 = user12.artists.find_or_create_by!(name: "Analog Mind") do |artist|
+  artist.image = ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/sample-artist10.jpg"), filename:"sample-artist10.jpg")
+  artist.introduction = "ビンテージシンセとリール録音機で作る温もりのあるエレクトロ。音の粒が聴く人を包み込む。"
+end
+
+artist11 = user13.artists.find_or_create_by!(name: "グレート辰吉") do |artist|
+  artist.image = ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/sample-artist11.jpg"), filename:"sample-artist11.jpg")
+  artist.introduction = "空に咲く花のように、透き通る歌声が特徴のシンガーソングライター。自然をテーマにした楽曲多数。"
+end
+
+artist12 = user4.artists.find_or_create_by!(name: "Iron Wrath") do |artist|
+  artist.image = ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/sample-artist12.jpg"), filename:"sample-artist12.jpg")
+  artist.introduction = "鋭いリフと激しいドラムが特徴のメタルバンド..."
 end
 
 #  トピックジャンル
@@ -143,7 +245,92 @@ group4.owner = user6
 group4.image.attach(io: File.open("#{Rails.root}/db/fixtures/sample-group4.jpg"), filename: "sample-group4.jpg")
 group4.save!
 
+group5 = Group.find_or_initialize_by(name: "ピアノ好きの会")
+group5.introduction = "ジャンル問わずピアノを愛する人の集まりです。"
+group5.owner = user7
+group5.image.attach(io: File.open("#{Rails.root}/db/fixtures/sample-group5.jpg"), filename: "sample-group5.jpg")
+group5.save!
+
+group6 = Group.find_or_initialize_by(name: "フェス行こうぜ！")
+group6.introduction = "一緒にフェスに行く仲間を探すサークルです。"
+group6.owner = user8
+group6.image.attach(io: File.open("#{Rails.root}/db/fixtures/sample-group6.jpg"), filename: "sample-group6.jpg")
+group6.save!
+
+group7 = Group.find_or_initialize_by(name: "ジャズ研究会")
+group7.introduction = "ジャズの歴史や演奏技術について語り合いましょう。"
+group7.owner = user9
+group7.image.attach(io: File.open("#{Rails.root}/db/fixtures/sample-group7.jpg"), filename: "sample-group7.jpg")
+group7.save!
+
+group8 = Group.find_or_initialize_by(name: "ノイズ音楽ラボ")
+group8.introduction = "ノイズや実験音楽に興味ある人集合！"
+group8.owner = user10
+group8.image.attach(io: File.open("#{Rails.root}/db/fixtures/sample-group8.jpg"), filename: "sample-group8.jpg")
+group8.save!
+
+group9 = Group.find_or_initialize_by(name: "ワールドミュージック探訪")
+group9.introduction = "民族音楽や伝統音楽の魅力を語りましょう。"
+group9.owner = user11
+group9.image.attach(io: File.open("#{Rails.root}/db/fixtures/sample-group9.jpg"), filename: "sample-group9.jpg")
+group9.save!
+
+group10 = Group.find_or_initialize_by(name: "アナログ機材愛好会")
+group10.introduction = "レトロな機材が好きな人の集まりです。"
+group10.owner = user12
+group10.image.attach(io: File.open("#{Rails.root}/db/fixtures/sample-group10.jpg"), filename: "sample-group10.jpg")
+group10.save!
+
+group11 = Group.find_or_initialize_by(name: "ドラマーの集い")
+group11.introduction = "ドラム好きな人、ハイハットについて話しましょう！"
+group11.owner = user13
+group11.image.attach(io: File.open("#{Rails.root}/db/fixtures/sample-group11.jpg"), filename: "sample-group11.jpg")
+group11.save!
+
 #  サークルのコメント
 GroupComment.find_or_create_by!(body: "初心者にお勧めの曲を教えてください", group: group1, user: user1)
 GroupComment.find_or_create_by!(body: "through the fire and flames", group: group1, user: user4)
 GroupComment.find_or_create_by!(body: "いい店を見つけました", group: group2, user: user3)
+
+
+
+# フォロー関係
+user7.follow(user8)
+user8.follow(user7)
+user9.follow(user7)
+user10.follow(user11)
+user11.follow(user10) 
+user12.follow(user13)
+user13.follow(user12)
+user13.follow(user7)
+
+# いいね情報（お気に入りアーティスト）
+user7.favorites.find_or_create_by!(artist: artist6)
+user7.favorites.find_or_create_by!(artist: artist9)
+user8.favorites.find_or_create_by!(artist: artist5)
+user8.favorites.find_or_create_by!(artist: artist10)
+user9.favorites.find_or_create_by!(artist: artist6)
+user9.favorites.find_or_create_by!(artist: artist11)
+user10.favorites.find_or_create_by!(artist: artist7)
+user10.favorites.find_or_create_by!(artist: artist9)
+user11.favorites.find_or_create_by!(artist: artist5)
+user12.favorites.find_or_create_by!(artist: artist8)
+user12.favorites.find_or_create_by!(artist: artist11)
+user13.favorites.find_or_create_by!(artist: artist10)
+
+
+
+# サークル参加（他人のサークルに参加した例）
+GroupMembership.find_or_create_by!(group: group5, user: user8)
+GroupMembership.find_or_create_by!(group: group5, user: user9)
+GroupMembership.find_or_create_by!(group: group6, user: user7)
+GroupMembership.find_or_create_by!(group: group6, user: user13)
+GroupMembership.find_or_create_by!(group: group7, user: user10)
+GroupMembership.find_or_create_by!(group: group7, user: user11)
+GroupMembership.find_or_create_by!(group: group8, user: user12)
+GroupMembership.find_or_create_by!(group: group9, user: user7)
+GroupMembership.find_or_create_by!(group: group9, user: user8)
+GroupMembership.find_or_create_by!(group: group10, user: user13)
+GroupMembership.find_or_create_by!(group: group10, user: user9)
+GroupMembership.find_or_create_by!(group: group11, user: user10)
+GroupMembership.find_or_create_by!(group: group11, user: user11)

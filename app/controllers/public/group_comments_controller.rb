@@ -1,6 +1,7 @@
 class Public::GroupCommentsController < ApplicationController
   before_action :set_group
-
+  before_action :reject_guest_user, only: [:create]
+  
   def create
     @group_comment = @group.group_comments.new(group_comment_params)
     @group_comment.user_id = current_user.id
@@ -29,5 +30,11 @@ class Public::GroupCommentsController < ApplicationController
 
   def group_comment_params
     params.require(:group_comment).permit(:body)
+  end
+
+  def reject_guest_user
+    if current_user&.guest?
+      redirect_to group_path(params[:group_id]), alert: 'ゲストユーザーはサークルへのコメントを投稿できません。'
+    end
   end
 end

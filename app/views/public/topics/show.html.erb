@@ -61,12 +61,17 @@
     <%= paginate @comments %>
   </div>
 
-  <%= form_with(model: [@artist, @topic, @comment], local: true) do |f| %>
-    <div class="form-group">
-      <%= f.text_area :body, class: "form-control", rows: 3 %>
-    </div>
-    <%= f.submit "コメントする", class: "btn btn-primary" %>
-  <% end %>
+
+  <!-- コメントフォーム -->
+  <div class="card p-3 mt-4">
+    <h5 class="mb-3">コメントする</h5>
+    <%= form_with(model: [@artist, @topic, @comment], local: true) do |f| %>
+      <div class="form-group">
+        <%= f.text_area :body, class: "form-control", rows: 3 %>
+      </div>
+      <%= f.submit "コメントする", class: "btn btn-primary" %>
+    <% end %>
+  </div>
 </div>
 
 
