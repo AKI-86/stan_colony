@@ -28,6 +28,14 @@
         <% if current_user && !current_user.guest? %>
           <p><%= render "public/favorites/btn", artist: @artist %></p>
         <% end %>
+        <p>
+          <%= link_to "このアーティストをいいねしているユーザー一覧", favorited_users_artist_path(@artist), class: "btn btn-outline-secondary btn-sm" %>
+        </p>
+        <% if current_user && !current_user.guest? %>
+          <%= link_to new_report_path(reportable_type: "Artist", reportable_id: @artist.id), class: "btn btn-sm btn-danger" do %>
+            <i class="fa-solid fa-bullhorn"></i> 通報
+          <% end %>
+        <% end %>
       </div>
     </div>
   </div>

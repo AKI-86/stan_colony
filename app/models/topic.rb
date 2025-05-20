@@ -4,6 +4,7 @@ class Topic < ApplicationRecord
   has_many :t_tags, dependent: :destroy
   has_many :topic_tags, through: :t_tags
   has_many :comments, dependent: :destroy
+  has_many :reports, as: :reportable, dependent: :destroy
   belongs_to :topic_genre
   belongs_to :artist
   belongs_to :user
@@ -17,5 +18,9 @@ class Topic < ApplicationRecord
       image.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
     end
     image
+  end
+
+  def active_status
+    is_active ? "表示中" : "非表示中"
   end
 end

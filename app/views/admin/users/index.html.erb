@@ -1,2 +1,35 @@
-<h1>Admin::Users#index</h1>
-<p>Find me in app/views/admin/users/index.html.erb</p>
+<div class="container admin-white-bg p-5">
+  <h4 class="admin-title">ユーザー一覧</h4>
+  <table class="table mt-5 admin-table table-borderless">
+    <thead>
+      <tr>
+        <th style="width: 10%;">ID</th>
+        <th>ユーザー名</th>
+        <th>作成アーティスト数</th>
+        <th>作成トピック数</th>
+        <th>作成サークル数</th>
+        <th>総コメント数</th>
+        <th>ステータス</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= user.id %></td>
+          <td><%= truncate(user.name, length: 12) %></td>
+          <td><%= user.artists.count %></td>
+          <td><%= user.topics.count %></td>
+          <td><%= user.owned_groups.count %></td>
+          <td><%= user.comments.count %></td>
+          <td><%= user.active_status %></td>
+          <td><%= link_to '詳細', admin_user_path(user), class: "btn btn-sm btn-info" %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <div class="d-flex justify-content-center">
+    <%= paginate @users %>
+  </div>
+</div>

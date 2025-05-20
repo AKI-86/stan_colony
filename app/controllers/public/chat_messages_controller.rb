@@ -1,5 +1,5 @@
 class Public::ChatMessagesController < ApplicationController
-  before_action :authenticate_user!
+  # before_action :authenticate_user!
   before_action :set_group
   before_action :authorize_group_member!
 
@@ -27,7 +27,11 @@ class Public::ChatMessagesController < ApplicationController
   end
 
   def authorize_group_member!
-    unless @group.members.include?(current_user)
+    if admin_signed_in?
+      # 管理者は閲覧OK
+    elsif current_user && @group.members.include?(current_user)
+      # メンバーOK
+    else
       redirect_to group_path(@group), alert: "このグループのメンバーだけがチャットを閲覧できます"
     end
   end

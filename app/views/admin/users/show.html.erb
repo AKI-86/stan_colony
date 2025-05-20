@@ -1,2 +1,101 @@
-<h1>Admin::Users#show</h1>
-<p>Find me in app/views/admin/users/show.html.erb</p>
+<div class="container admin-white-bg p-5">
+  <h4 class="admin-title">ユーザー名：「 <%= @user.name %> 」さんの詳細情報</h4>
+  <div class="user-info mb-3 mb-3 d-flex align-items-start">
+    <%= image_tag @user.get_image(200, 200), class: "mr-5" %>
+    <div>
+      <div><strong>ニックネーム：</strong><%= @user.name %></div>
+      <div><strong>紹介文：</strong><%= @user.introduction %></div>
+      <div><strong>性別：</strong><%= @user.gender %></div>
+      <div><strong>年齢：</strong><%= @user.age %></div>
+      <div><strong>メールアドレス：</strong><%= @user.email %></div>
+      <div><strong>登録日：</strong><%= @user.created_at.strftime("%Y-%m-%d") %></div>
+      <div><strong>状態：</strong><%= @user.active_status %></div>
+      <div class="mt-2">
+        <%= link_to "ユーザー情報を編集", edit_admin_user_path(@user.id), class: "btn btn-primary btn-sm" %>
+      </div>
+    </div>
+  </div>
+  
+  <hr>
+
+  <h4>作成したアーティスト</h4>
+  <div class="scroll-box">
+    <% if @artists.any? %>
+      <% @artists.each do |artist| %>
+           <div class="m-2">
+          <%= link_to artist_path(artist.id), class: "text-decoration-none mr-3" do %>
+          <%= image_tag artist.get_image(25, 25), class: "rounded-circle img-fluid" %>
+          <span class="ml-1"><%= artist.name %></span>
+          <% end %>
+          <%= link_to "編集", edit_admin_artist_path(artist), class: "btn btn-sm btn-outline-primary ms-2" %>
+          </div>
+  <% end %>
+    <% else %>
+      <p>作成したアーティストはありません。</p>
+    <% end %>
+  </div>
+
+  <h4>投稿したトピック</h4>
+  <div class="scroll-box">
+    <% if @topics.any? %>
+      <% @topics.each do |topic| %>
+          <div class="m-2">
+          <%= link_to topic.title, artist_topic_path(topic.artist, topic) %>
+          （<%= link_to topic.artist.name, artist_path(topic.artist) %>）
+          <%= link_to "編集", edit_admin_artist_topic_path(topic.artist, topic), class: "btn btn-sm btn-outline-primary ms-2" %>
+        </div>
+      <% end %>
+    <% else %>
+      <p>投稿したトピックはありません。</p>
+    <% end %>
+  </div>
+
+  <h4>投稿したコメント</h4>
+  <span>コメント内容（アーティスト名：トピック名）</span>
+  <div class="scroll-box">
+  <% if @comments.any? %>
+      <% @comments.each do |comment| %>
+          <div class="m-2">
+          <%= truncate(comment.body, length: 50) %>
+          （<%= comment.topic.artist.name %>：
+          <%= link_to comment.topic.title, artist_topic_path(comment.topic.artist, comment.topic) %>）
+        </div>
+      <% end %>
+    <% else %>
+    <p>投稿したコメントはありません。</p>
+    <% end %>
+  </div>
+
+  <h4>作成したグループ</h4>
+  <div class="scroll-box">
+    <% if @groups.any? %>
+        <% @groups.each do |group| %>
+          <div class="m-2">
+            <%= link_to group_path(group.id), class: "text-decoration-none" do %>
+              <%= image_tag group.get_image(25, 25), class: "img-fluid" %>
+              <span class="ml-2"><%= group.name %></span>
+            <% end %>
+          </div>
+        <% end %>
+    <% else %>
+      <p>作成したサークルはありません。</p>
+    <% end %>
+  </div>
+
+
+  <h4>参加しているグループ</h4>
+  <div class="scroll-box">
+    <% if @joined_groups.any? %>
+        <% @joined_groups.each do |group| %>
+          <div class="m-2">
+            <%= link_to group_path(group.id), class: "text-decoration-none" do %>
+              <%= image_tag group.get_image(25, 25), class: "img-fluid" %>
+              <span class="ml-2"><%= group.name %></span>
+            <% end %>
+          </div>
+        <% end %>
+    <% else %>
+      <p>参加中のサークルはありません。</p>
+    <% end %>
+  </div>
+</div>

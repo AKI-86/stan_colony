@@ -1,0 +1,53 @@
+<div class= "container py-4">
+  
+  <div class="my-3 d-flex align-items-center">
+    <%= link_to artist_path(@artist.id), class: "d-flex align-items-center text-decoration-none mr-2" do %>
+      <%= image_tag @artist.get_image(50, 50), class: "rounded-circle img-fluid" %>
+      <span class="ml-2" style="font-size: 1.5rem;"><%= @artist.name %></span>
+    <% end %>
+    <span style="font-size: 1.5rem;">にいいねをしたユーザー</span>
+  </div>
+
+  <div class= "row mypage_info">
+    <% if @users.any? %>
+      <table class="table mb-4">
+        <thead class="thead-light border-bottom">
+          <tr>
+            <th style="width: 30%">ユーザー名</th>
+            <th style="width: 70%">他に好みのアーティスト</th>
+          </tr>
+        </thead>
+        <tbody style="border-top: none;">
+          <% @users.each do |user| %>
+          <tr>
+            <td class="border-0">
+              <%= link_to user_path(user), class: "d-flex align-items-center text-decoration-none mr-2"  do %>
+                <%= image_tag user.get_image(40, 40), class: "rounded-circle img-fluid" %>
+                <span class="ml-2"><%= truncate(user.name, length: 15) %></span>
+              <% end %>
+            </td>
+            <td class="border-0">
+            <% if user.favorite_artists.where.not(id: @artist.id).any? %>
+              <div class="d-flex flex-wrap">
+              <% user.favorite_artists.where.not(id: @artist.id).sample(3).each do |fav_artist| %>
+                <div class="mr-3 mb-2">
+                  <%= link_to artist_path(fav_artist), class: "d-flex align-items-center text-decoration-none" do %>
+                    <%= image_tag fav_artist.get_image(25, 25), class: "rounded-circle" %>
+                    <span class="ml-2"><%= truncate(fav_artist.name, length: 20) %></span>
+                  <% end %>
+                </div>
+              <% end %>
+            </div>
+            <% else %>
+              <span class="text-muted">他に登録なし</span>
+            <% end %>
+          </td>
+          </tr>
+            <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <p>まだいいねをしたユーザーはいません。</p>
+    <% end %>
+  </div>
+</div>

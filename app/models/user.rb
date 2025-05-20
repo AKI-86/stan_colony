@@ -12,10 +12,14 @@ class User < ApplicationRecord
   has_many :topics
   has_many :comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
+  has_many :favorite_artists, through: :favorites, source: :artist
   has_many :owned_groups, class_name: "Group", foreign_key: "owner_id", dependent: :destroy
   has_many :group_memberships, dependent: :destroy
   has_many :joined_groups, through: :group_memberships, source: :group
   has_many :chat_messages, dependent: :destroy
+
+  has_many :reports, dependent: :destroy
+  has_many :reports_received, as: :reportable, class_name: "Report", dependent: :destroy # 通報されたもの
 
   validates :name, presence: true
   validates :email, uniqueness: { case_sensitive: false }
@@ -73,5 +77,9 @@ class User < ApplicationRecord
   #ゲストユーザーなら各投稿を禁止
   def guest?
     name&.start_with?("ゲスト-")
+  end
+
+  def active_status
+    is_active ? "有効" : "退会済み"
   end
 end

@@ -10,6 +10,8 @@ class Group < ApplicationRecord
   has_many :group_tags, through: :g_tags
   has_many :chat_messages, dependent: :destroy
   
+  has_many :reports, as: :reportable, dependent: :destroy
+  
   validates :name, presence: true
   validates :introduction, presence: true
 
@@ -20,5 +22,9 @@ class Group < ApplicationRecord
       image.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
     end
     image.variant(resize_to_fill: [width, height]).processed
+  end
+
+  def active_status
+    is_active ? "表示中" : "非表示中"
   end
 end

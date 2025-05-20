@@ -12,15 +12,22 @@
         <p><%= @topic.body %></p>
         <p>
           作成者：
-          <%= link_to user_path(@artist.user) do %>
-            <%= image_tag @artist.user.get_image(30, 30), class: "rounded-circle me-1" %>
-            <%= @artist.user.name %>
+          <%= link_to user_path(@topic.user) do %>
+            <%= image_tag @topic.user.get_image(30, 30), class: "rounded-circle me-1" %>
+            <%= @topic.user.name %>
           <% end %><br>
           作成日：<%= @artist.created_at.strftime("%Y年%m月%d日(%a) %H時%M分") %>
         </p>
         <p>
           <% if @topic.user == current_user %>
             <p><%= link_to "編集", edit_artist_topic_path(@topic.artist, @topic), class: "btn btn-sm btn-outline-secondary" %></p>
+          <% end %>
+        </p>
+        <p>
+          <% if current_user && !current_user.guest? %>
+            <%= link_to new_report_path(reportable_type: "Topic", reportable_id: @topic.id), class: "btn btn-sm btn-danger mb-2" do %>
+              <i class="fa-solid fa-bullhorn"></i> 通報
+            <% end %>
           <% end %>
         </p>
       </div>
@@ -49,9 +56,15 @@
           <p class="mb-2 text-muted">このコメントは削除されました。</p>
         <% else %>
           <p class="mb-2"><%= comment.body %></p>
-          <% if comment.user == current_user %>
+          <% if comment.user == current_user || admin_signed_in? %>
             <%= link_to "削除", artist_topic_comment_path(comment.topic.artist, comment.topic, comment), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-sm btn-outline-danger" %>
           <% end %>
+
+          <% if current_user && !current_user.guest? %>
+            <%= link_to new_report_path(reportable_type: "Comment", reportable_id: comment.id), class: "btn btn-sm btn-danger" do %>
+              <i class="fa-solid fa-bullhorn"></i> 通報
+            <% end %>
+            <% end %>
         <% end %>
       </div>
     </div>

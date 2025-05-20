@@ -1,2 +1,45 @@
-<h1>Admin::Groups#show</h1>
-<p>Find me in app/views/admin/groups/show.html.erb</p>
+<div class="container admin-white-bg p-5">
+  <h4 class="admin-title">サークル名：「 <%= @group.name %> 」の詳細情報</h4>
+  <div class="user-info mb-3 mb-3 d-flex align-items-start">
+    <%= image_tag @group.get_image(200, 200), class: "mr-5" %>
+    <div>
+      <div><strong>ニックネーム：</strong><%= @group.name %></div>
+      <div><strong>紹介文：</strong><%= @group.introduction %></div>
+      <div><strong>タグ：</strong>
+        <% if @group.group_tags.any? %>
+          <% @group.group_tags.each do |tag| %>
+            <%= link_to tag.name, group_tag_path(tag.name), class: "badge badge-pill badge-success me-1" %>
+          <% end %>
+        <% else %>
+          タグはまだありません
+        <% end %>
+      </div>
+      <div><strong>登録日：</strong><%= @group.created_at.strftime("%Y-%m-%d") %></div>
+      <div><strong>状態：</strong><%= @group.active_status %></div>
+      <div class="mt-2">
+        <%= link_to "サークル情報を編集", edit_admin_group_path(@group.id), class: "btn btn-primary btn-sm" %>
+      </div>
+    </div>
+  </div>
+  
+  <hr>
+
+  <h4>参加中のユーザー</h4>
+  <div class="scroll-box">
+    <% if @members.any? %>
+      <% @members.each do |member| %>
+           <div class="m-2">
+          <%= link_to admin_user_path(member), class: "text-decoration-none mr-3" do %>
+          <%= image_tag member.get_image(25, 25), class: "rounded-circle img-fluid" %>
+          <span class="ml-1"><%= member.name %></span>
+          <% end %>
+          </div>
+  <% end %>
+    <% else %>
+      <p>作成したアーティストはありません。</p>
+    <% end %>
+  </div>
+
+  <h4>コメント</h4>
+
+  <%= link_to '詳細を見る', group_path(@group), class: "d-inline-block text-truncate" %>

@@ -5,8 +5,10 @@ class Artist < ApplicationRecord
   has_many :a_tags, dependent: :destroy
   has_many :artist_tags, through: :a_tags
   has_many :favorites, dependent: :destroy
+  has_many :favorited_users, through: :favorites, source: :user
   has_many :topics, dependent: :destroy
-
+  has_many :reports, as: :reportable, dependent: :destroy
+  
   validates :name, presence: true, uniqueness: true
 
   paginates_per 12
@@ -22,5 +24,9 @@ class Artist < ApplicationRecord
       image.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
     end
     image.variant(resize_to_fill: [width, height]).processed
+  end
+
+  def active_status
+    is_active ? "表示中" : "非表示中"
   end
 end

@@ -1,7 +1,8 @@
 class GroupComment < ApplicationRecord
   belongs_to :group
   belongs_to :user
-
+  has_many :reports, as: :reportable, dependent: :destroy
+  
   validates :body, presence: true
 
   # コメントが削除されていないものだけを取得するスコープ

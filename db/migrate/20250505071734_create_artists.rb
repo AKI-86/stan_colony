@@ -11,3 +11,4 @@ class CreateArtists < ActiveRecord::Migration[6.1]
     add_index :artists, :name, unique: true
   end
 end
+

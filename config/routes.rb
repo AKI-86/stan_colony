@@ -7,19 +7,26 @@ devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
   sessions: "admin/sessions"
 }
 
-mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+# mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 # resources :users, only: []
 namespace :admin do
   get 'top' => 'homes#top', as: 'top'
   get 'searches', to: 'searches#search', as: 'search_results'
+  get 'users/unsubscribe', to: "users#unsubscribe"
+  patch 'users/withdraw', to: "users#withdraw" #退会処理
 
-  resources :users, only: [:index, :show, :edit, :update]
+  resources :users, only: [:index, :show, :edit, :update] do
+    member do
+      patch :withdraw  # 退会処理のみ
+    end
+  end
+  
   resources :artists, only: [:index, :new, :show, :edit, :create, :update] do
     resources :topics, only: [:index, :new, :show, :edit, :create, :update] do
       resources :comments, only: [:index, :destroy]
     end
   end
-  resources :reports, only: [:index, :show, :update]
+  resources :reports, only: [:index, :show, :edit, :update]
   resources :genres, only: [:index, :edit, :create, :update]
   resources :groups, only: [:index, :new, :show, :edit, :create, :update]
 end
@@ -44,7 +51,7 @@ end
 
     get 'users/mypage', to: "users#mypage"
     get 'users/unsubscribe', to: "users#unsubscribe"
-    patch 'users/withdraw', to: "users#withdraw"
+    patch 'users/withdraw', to: "users#withdraw" #退会処理
     get 'artist_tags/:name', to: 'artist_tags#show', as: 'artist_tag'
     get 'group_tags/:name', to: 'group_tags#show', as: 'group_tag'
 
@@ -53,6 +60,9 @@ end
     end
 
     resources :artists, only: [:index, :new, :show, :edit, :create, :update] do
+      member do
+        get :favorited_users #いいねをつけたユーザーの一覧表示
+      end
       resource :favorites, only: [:create, :destroy]# アーティストごとの「いいね」
       resources :artist_tags, only: [:create, :destroy]
       resources :topics, only: [:new, :show, :edit, :create, :update] do
@@ -62,7 +72,7 @@ end
     end
     
     resources :favorites, only: [:create, :destroy]  # ユーザーによるアーティスト「いいね」
-    resources :reports, only: [:create]
+    resources :reports, only: [:new, :create]
     resources :groups, only: [:index, :new, :show, :edit, :create, :update] do
       resource :group_membership, only: [:create, :destroy]
       resources :group_comments, only: [:create, :destroy]

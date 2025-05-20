@@ -204,3 +204,87 @@ footer {
   padding: 8px 16px;
   cursor: pointer;
 }
+
+
+  // 管理者側編集機能など中心部の背景を白に変更
+  .admin-white-bg {
+    background-color: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1); // 軽く影をつけると浮き上がる感じに
+    min-height: calc(100vh - 80px);
+  }
+
+  .admin-table {
+    background-color: #b2e7ff;    // セルの背景色
+    border: 2px solid #00222c;    // テーブル全体の外枠
+    border-radius: 12px;            // 角を丸く
+    border-collapse: separate;      // セルを独立させる（角丸を効かせるため）
+    border-spacing: 0;              // セル間の隙間をなくす
+    overflow: hidden;               // はみ出し防止（角丸に必要）
+    font-size: 1.1rem;
+
+    thead {
+      background-color: #2c5268; 
+      color: #2c1804;
+      font-weight: bold;
+      border-bottom: 2px solid #201301; // thead 下に罫線を追加
+    }
+    tbody tr:first-child td {
+      border-top: none; // 重複防止のため
+    }
+    th {
+      border: none;
+      text-align: center;
+      padding: 12px;
+    }
+    td {
+      border: 1px solid #c2b2a5;  // セルの中の枠線
+      text-align: center;
+      padding: 12px;
+    }
+    tbody tr:hover {
+      background-color: #f9f9f9;
+    }
+    /* 最初と最後のセルの角を丸く（thead） */
+    thead th:first-child {
+      border-top-left-radius: 12px;
+    }
+    thead th:last-child {
+      border-top-right-radius: 12px;
+    }
+    /* 最後の行の角を丸く（tbody） */
+    tbody tr:last-child td:first-child {
+      border-bottom-left-radius: 12px;
+    }
+    tbody tr:last-child td:last-child {
+      border-bottom-right-radius: 12px;
+    }
+    /* tbody の最初の行に top border を追加して、thead とtbody の区切り線を強調 */
+    tbody tr:first-child td {
+      border-top: 2px solid #201301;
+    }
+  }
+
+  // 管理者側（新規登録、編集、詳細画面の視認性を上げるためフォントサイズ変更）
+  .ex-admin-table{
+    font-size: 1.25rem;
+  }
+
+  // 見出し部分のバー
+  .admin-title {
+    padding: 0.4em 0.5em;/*文字の上下 左右の余白*/
+    color: #494949;/*文字色*/
+    font-weight: bold;
+    background: #f4f4f4;/*背景色*/
+    border-left: solid 5px #256988; /*左線*/
+    border-bottom: solid 3px #d7d7d7;/*下線*/
+  }
+
+  // 管理者のユーザー情報をスクロール表示
+  .scroll-box {
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    padding: 8px;
+  }

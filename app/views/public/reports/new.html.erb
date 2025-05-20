@@ -1,0 +1,25 @@
+<div class="container mt-4">
+  <h2>通報フォーム</h2>
+
+  <%= form_with model: @report, url: reports_path(reportable_type: @reportable.class.name, reportable_id: @reportable.id), local: true do |f| %>
+    <div class="form-group">
+      <%= f.label :reason, "通報理由" %>
+      <%= f.text_area :reason, class: "form-control", rows: 5, placeholder: "通報したい理由を具体的にご記入ください" %>
+      <% if @report.errors[:reason].any? %>
+        <div class="text-danger mt-1">
+          <%= @report.errors[:reason].first %>
+        </div>
+      <% end %>
+    </div>
+
+    <%= f.submit "通報を送信する", class: "btn btn-danger" %>
+    <%= link_to "キャンセル", case @reportable
+  when Artist then artist_path(@reportable)
+  when Topic then artist_topic_path(@reportable.artist, @reportable)
+  when Group then group_path(@reportable)
+  when Comment then artist_topic_path(@reportable.topic.artist, @reportable.topic)
+  when GroupComment then group_path(@reportable.group)
+  else root_path
+end, class: "btn btn-secondary ml-2" %>
+  <% end %>
+</div>

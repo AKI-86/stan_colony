@@ -1,7 +1,8 @@
 class Comment < ApplicationRecord
-  belongs_to :user
+  belongs_to :user, optional: true
   belongs_to :topic
 
+  has_many :reports, as: :reportable, dependent: :destroy
   validates :body, presence: true
 
   # コメントが削除されていないものだけを取得するスコープ

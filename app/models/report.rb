@@ -1,3 +1,6 @@
 class Report < ApplicationRecord
-  # 通報機能は余裕があれば実装する
+  belongs_to :user
+  belongs_to :reportable, polymorphic: true
+
+  validates :reason, presence: true
 end

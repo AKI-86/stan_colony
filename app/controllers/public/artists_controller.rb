@@ -39,8 +39,8 @@ class Public::ArtistsController < ApplicationController
 
   def edit
     @artist = Artist.find(params[:id])
-    unless @artist.user == current_user
-      redirect_to artist_path(@artist), alert: "他のユーザーの作成したアーティストは編集できません。"
+    unless current_user.admin? || @artist.user_id == current_user.id
+      redirect_to admin_artists_path, alert: "編集権限がありません"
     end
   end
 
@@ -68,6 +68,11 @@ class Public::ArtistsController < ApplicationController
     end
   end
 
+  def favorited_users
+    @artist = Artist.find(params[:id])
+    @users = @artist.favorited_users # アソシエーションから取得
+  end
+
   private
 
   def artist_params
@@ -90,5 +95,7 @@ class Public::ArtistsController < ApplicationController
     # 中間テーブルを更新
     artist.artist_tag_ids = tag_ids
   end
+
+
 end
 

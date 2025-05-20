@@ -26,19 +26,30 @@
         <% end %>
         </p>
         <p>
-          <% if current_user && !current_user.guest? %>
-            <% if current_user.joined_groups.include?(@group) %>
-              <%= link_to "チャットルームへ", group_chat_messages_path(@group) %>
+        <% if (current_user && !current_user.guest?) || admin_signed_in? %>
+          <% if current_user && current_user.joined_groups.include?(@group) || admin_signed_in? %>
+            <%= link_to "チャットルームへ", group_chat_messages_path(@group) %>
+            <% if current_user && current_user.joined_groups.include?(@group) %>
               <%= button_to "脱退する", group_group_membership_path(@group), method: :delete, class: "btn btn-danger" %>
-            <% else %>
-              <%= button_to "参加する", group_group_membership_path(@group), method: :post, class: "btn btn-primary" %>
             <% end %>
           <% else %>
-            <p class="text-danger">未ログイン・ゲストユーザーはサークルに参加できません。</p>
+            <% if current_user %>
+              <%= button_to "参加する", group_group_membership_path(@group), method: :post, class: "btn btn-primary" %>
+            <% else %>
+            <% end %>
           <% end %>
-        </p>
+        <% else %>
+          <p class="text-danger">未ログイン・ゲストユーザーはサークルに参加できません。</p>
+        <% end %>
+      </p>
         <% if @group.owner == current_user %>
           <p><%= link_to "編集", edit_group_path(@group.id), class: "btn btn-sm btn-outline-secondary" %></p>
+        <% end %>
+
+        <% if current_user && !current_user.guest? %>
+          <%= link_to new_report_path(reportable_type: "Group", reportable_id: @group.id), class: "btn btn-sm btn-danger" do %>
+            <i class="fa-solid fa-bullhorn"></i> 通報
+          <% end %>
         <% end %>
       </div>
     </div>
@@ -69,9 +80,15 @@
           <p class="mb-2 text-muted">このコメントは削除されました。</p>
         <% else %>
         <p class="mb-2"><%= comment.body %></p>
-        <% if comment.user == current_user %>
+        <% if comment.user == current_user || admin_signed_in? %>
           <%= link_to "削除", group_group_comment_path(@group, comment), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-sm btn-outline-danger" %>
         <% end %>
+
+            <% if current_user && !current_user.guest? %>
+            <%= link_to new_report_path(reportable_type: "GroupComment", reportable_id: comment.id), class: "btn btn-sm btn-danger" do %>
+              <i class="fa-solid fa-bullhorn"></i> 通報
+            <% end %>
+            <% end %>
         <% end %>
       </div>
     </div>
@@ -81,6 +98,7 @@
     <%= paginate @group_comments %>
   </div>
 
+  <% if current_user && current_user.joined_groups.include?(@group) %>
   <!-- コメントフォーム -->
   <div class="card p-3 mt-4">
     <h5 class="mb-3">コメントする</h5>
@@ -91,4 +109,7 @@
       <%= f.submit "投稿", class: "btn btn-primary" %>
     <% end %>
   </div>
+  <% else %>
+  <p class="text-muted">サークルのメンバーのみコメントが可能です。参加申請をしてください。</p>
+<% end %>
 </div>
