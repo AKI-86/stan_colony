@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_05_20_060130) do
+ActiveRecord::Schema.define(version: 2025_05_21_011816) do
 
   create_table "a_tags", force: :cascade do |t|
     t.integer "artist_id", null: false
@@ -175,9 +175,11 @@ ActiveRecord::Schema.define(version: 2025_05_20_060130) do
     t.integer "user_id", null: false
     t.string "reportable_type", null: false
     t.integer "reportable_id", null: false
-    t.text "reason", null: false
+    t.text "reason"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "status", default: 0, null: false
+    t.integer "reason_category", default: 0, null: false
     t.index ["reportable_type", "reportable_id"], name: "index_reports_on_reportable"
     t.index ["user_id"], name: "index_reports_on_user_id"
   end

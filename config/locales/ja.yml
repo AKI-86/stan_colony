@@ -51,6 +51,15 @@ ja:
         body: コメント
       group_comment:
         body: コメント
+      report:
+        statuses:
+          unchecked: "未確認"
+          no_action_needed: "対応不要"
+          handled: "完了"
+        reason_categories:
+          inappropriate: "誹謗中傷・不適切な表現"
+          spam: "スパム"
+          other: "その他"
   devise:
     confirmations:
       confirmed: メールアドレスが確認できました。

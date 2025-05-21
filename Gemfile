@@ -72,3 +72,4 @@ gem 'rails_admin'
 gem 'cancancan'
 
 gem 'rails-i18n'
+gem "enum_help"

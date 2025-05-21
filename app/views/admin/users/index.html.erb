@@ -10,7 +10,6 @@
         <th>作成サークル数</th>
         <th>総コメント数</th>
         <th>ステータス</th>
-        <th></th>
       </tr>
     </thead>
 
@@ -18,13 +17,12 @@
       <% @users.each do |user| %>
         <tr>
           <td><%= user.id %></td>
-          <td><%= truncate(user.name, length: 12) %></td>
+          <td><%= link_to truncate(user.name, length: 12), admin_user_path(user) %></td>
           <td><%= user.artists.count %></td>
           <td><%= user.topics.count %></td>
           <td><%= user.owned_groups.count %></td>
           <td><%= user.comments.count %></td>
           <td><%= user.active_status %></td>
-          <td><%= link_to '詳細', admin_user_path(user), class: "btn btn-sm btn-info" %></td>
       </tr>
       <% end %>
     </tbody>

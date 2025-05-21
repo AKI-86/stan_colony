@@ -288,3 +288,16 @@ footer {
     border: 1px solid #ccc;
     padding: 8px;
   }
+
+  .status-no_action_needed {
+    background-color: #6c757d !important;
+    color: white !important;
+  }
+  .status-handled {
+    background-color: #b2e7ff !important;
+    color: #6c757d !important;
+  }
+  .status-unchecked {
+    background-color: white !important;
+    color: black !important;
+  }

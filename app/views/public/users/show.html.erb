@@ -40,6 +40,12 @@
         <%= button_to 'フォローする', user_relationships_path(@user), method: :post, class: "btn btn-primary" %>
       <% end %>
     <% end %>
+
+    <% if current_user && !current_user.guest? %>
+      <%= link_to new_report_path(reportable_type: "User", reportable_id: @user.id), class: "btn btn-sm btn-danger" do %>
+        <i class="fa-solid fa-bullhorn"></i> 通報
+      <% end %>
+    <% end %>
   </div>
 
 <!-- タブ -->

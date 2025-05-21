@@ -1,13 +1,17 @@
-<h2>通報一覧</h2>
+<div class="container admin-white-bg p-5">
+  <h4 class="admin-title">通報一覧</h4>
+  <%= render "icon_guide" %>
 
-<table class="table">
+  <table class="table mt-5 admin-table table-borderless">
   <thead>
     <tr>
-      <th>ID</th>
+      <th style="width: 6%;">No.</th>
       <th>通報対象</th>
       <th>通報理由</th>
       <th>通報者</th>
       <th>日時</th>
+      <th>状態</th>
+      <th></th>
       <th></th>
     </tr>
   </thead>
@@ -17,35 +21,31 @@
         <td><%= report.id %></td>
         <td>
           <% if report.reportable.present? %>
-            <% case report.reportable_type %>
-            <% when "Artist" %>
-              <%= link_to report.reportable.name, edit_admin_artist_path(report.reportable.id) %>
-            <% when "Topic" %>
-              <% topic = report.reportable %>
-              <%= link_to "トピック編集: #{truncate(topic.title, length: 20)}", edit_admin_artist_topic_path(topic.artist, topic) %>
-            <% when "Group" %>
-              <%= link_to report.reportable.name, edit_admin_group_path(report.reportable.id) %>
-            <% when "Comment" %>
-              <% comment = report.reportable %>
-              <% topic = comment.topic %>
-              <% artist = topic.artist %>
-              <%= link_to "コメント編集（トピック）", artist_topic_path(artist, topic) %>
-            <% when "GroupComment" %>
-              <% group_comment = report.reportable %>
-              <% group = group_comment.group %>
-              <%= link_to "コメント編集（グループ）", group_path(group) %>
-            <% else %>
-              不明な対象
-            <% end %>
+            <%= reportable_link(report) %>
           <% else %>
             通報対象が存在しません
           <% end %>
         </td>
-        <td><%= truncate(report.reason, length: 30) %></td>
+        <td><%= report.reason_category_i18n %></td>
+
         <td><%= report.user.name %></td>
         <td><%= l(report.created_at, format: :short) %></td>
+        <td>
+        <%= form_with model: report, url: update_status_admin_report_path(report), method: :patch, local: true do |f| %>
+          <div class="input-group input-group-sm">
+            <%= f.select :status,
+              Report.statuses.keys.map { |key| [t("activerecord.attributes.report.statuses.#{key}"), key] },
+              {},
+              class: "custom-select status-#{report.status}" %>
+            <div class="input-group-append">
+              <%= f.submit "変更", class: "btn btn-outline-primary" %>
+            </div>
+          </div>
+        <% end %>
+      </td>
         <td><%= link_to "詳細", admin_report_path(report) %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
+</div>

@@ -21,6 +21,16 @@ class Admin::ReportsController < ApplicationController
       render :edit
     end
   end
+  
+
+  def update_status
+  report = Report.find(params[:id])
+    if report.update(status: params[:report][:status])
+      redirect_to admin_reports_path
+    else
+      redirect_to admin_reports_path, alert: "ステータスの更新に失敗しました。"
+    end
+  end
 
   private
 

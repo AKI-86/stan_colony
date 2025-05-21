@@ -26,7 +26,9 @@ namespace :admin do
       resources :comments, only: [:index, :destroy]
     end
   end
-  resources :reports, only: [:index, :show, :edit, :update]
+  resources :reports, only: [:index, :show, :edit, :update] do
+    patch :update_status, on: :member
+  end
   resources :genres, only: [:index, :edit, :create, :update]
   resources :groups, only: [:index, :new, :show, :edit, :create, :update]
 end

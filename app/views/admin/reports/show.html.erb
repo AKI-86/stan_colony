@@ -1,41 +1,39 @@
-<h2>通報詳細</h2>
+<div class="container admin-white-bg p-5">
+  <h4 class="admin-title mb-3">通報詳細</h4>
+  <%= render "icon_guide" %>
 
-<p><strong>ID:</strong> <%= @report.id %></p>
-<p><strong>通報対象:</strong>
-<% if @report.reportable.present? %>
-  <% case @report.reportable_type %>
-  <% when "Artist" %>
-    <%= link_to @report.reportable.name, edit_admin_artist_path(@report.reportable.id) %>
-  <% when "Topic" %>
-    <% topic = @report.reportable %>
-    <%= link_to "トピック編集: #{truncate(topic.title, length: 20)}", edit_admin_artist_topic_path(topic.artist, topic) %>
-  <% when "Group" %>
-    <%= link_to @report.reportable.name, edit_admin_group_path(@report.reportable.id) %>
-<% when "Comment" %>
-  <% comment = @report.reportable %>
-  <% topic = comment.topic %>
-  <% artist = topic.artist %>
-  <p>通報対象コメント:</p>
-  <blockquote><%= comment.body.truncate(100) %></blockquote>
-  <%= link_to "該当トピックを見る", artist_topic_path(artist, topic, anchor: "comment_#{comment.id}") %>
+  <dl class="row mt-5">
+    <dt class="col-sm-3">通報No.</dt>
+    <dd class="col-sm-8"><%= @report.id %></dd>
 
-<% when "GroupComment" %>
-  <% group_comment = @report.reportable %>
-  <% group = group_comment.group %>
-  <p>通報対象コメント:</p>
-  <blockquote><%= group_comment.body.truncate(100) %></blockquote>
-  <%= link_to "該当グループを見る", group_path(group, anchor: "group_comment_#{group_comment.id}") %>
+    <dt class="col-sm-3">通報者</dt>
+    <dd class="col-sm-9"><%= @report.user.name %></dd>
 
-  <% else %>
-    不明な対象
-  <% end %>
-<% else %>
-  通報対象が存在しません
-<% end %>
-</p>
-<p><strong>通報者:</strong> <%= @report.user.name %></p>
-<p><strong>通報理由:</strong></p>
-<p><%= simple_format(@report.reason) %></p>
-<p><strong>通報日時:</strong> <%= l(@report.created_at, format: :long) %></p>
+    <dt class="col-sm-3">通報内容</dt>
+    <dd class="col-sm-9">
+      <% if @report.reportable.present? %>
+        <%= reportable_link(@report) %>
+      <% else %>
+        通報対象が存在しません
+      <% end %>
+    </dd>
 
-<%= link_to "一覧に戻る", admin_reports_path %>
+    <% if number = comment_number_for(@report) %>
+      <dt class="col-sm-3">コメントNo.</dt>
+      <dd class="col-sm-9">No.<%= number %></dd>
+    <% end %>
+
+    <dt class="col-sm-3">通報項目</dt>
+    <dd class="col-sm-9"><%= @report.reason_category_i18n %></dd>
+
+    <dt class="col-sm-3">通報理由</dt>
+    <dd class="col-sm-9"><%= @report.reason %></dd>
+
+    <dt class="col-sm-3">通報日時</dt>
+    <dd class="col-sm-9"><%= l(@report.created_at, format: :long) %></dd>
+
+  </dl>
+  <div class="mt-4">
+    <%= link_to "一覧に戻る", admin_reports_path, class: "btn btn-secondary" %>
+  </div>
+</div>

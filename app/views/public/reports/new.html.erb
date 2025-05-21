@@ -2,8 +2,29 @@
   <h2>通報フォーム</h2>
 
   <%= form_with model: @report, url: reports_path(reportable_type: @reportable.class.name, reportable_id: @reportable.id), local: true do |f| %>
+    <div class="form-group mb-3">
+      <%= f.label :reason_category, "通報の種類（必須）" %><br>
+      <div class="form-check">
+        <%= f.radio_button :reason_category, :inappropriate, class: "form-check-input" %>
+        <%= f.label :reason_category_abusive, "誹謗中傷・不適切な表現", class: "form-check-label" %>
+      </div>
+      <div class="form-check">
+        <%= f.radio_button :reason_category, :spam, class: "form-check-input" %>
+        <%= f.label :reason_category_spam, "スパム", class: "form-check-label" %>
+      </div>
+      <div class="form-check">
+        <%= f.radio_button :reason_category, :other, class: "form-check-input" %>
+        <%= f.label :reason_category_other, "その他（作成ミスなど）", class: "form-check-label" %>
+      </div>
+      <% if @report.errors[:reason_category].any? %>
+        <div class="text-danger mt-1">
+          <%= @report.errors[:reason_category].first %>
+        </div>
+      <% end %>
+    </div>
+  
     <div class="form-group">
-      <%= f.label :reason, "通報理由" %>
+      <%= f.label :reason, "通報理由の詳細（任意）" %>
       <%= f.text_area :reason, class: "form-control", rows: 5, placeholder: "通報したい理由を具体的にご記入ください" %>
       <% if @report.errors[:reason].any? %>
         <div class="text-danger mt-1">
@@ -13,13 +34,6 @@
     </div>
 
     <%= f.submit "通報を送信する", class: "btn btn-danger" %>
-    <%= link_to "キャンセル", case @reportable
-  when Artist then artist_path(@reportable)
-  when Topic then artist_topic_path(@reportable.artist, @reportable)
-  when Group then group_path(@reportable)
-  when Comment then artist_topic_path(@reportable.topic.artist, @reportable.topic)
-  when GroupComment then group_path(@reportable.group)
-  else root_path
-end, class: "btn btn-secondary ml-2" %>
+    <%= link_to "キャンセル", reportable_path(@reportable), class: "btn btn-secondary ml-2" %>
   <% end %>
 </div>

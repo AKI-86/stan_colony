@@ -1,5 +1,6 @@
 class Public::ReportsController < ApplicationController
   before_action :authenticate_user!
+  include Public::ReportsHelper
 
   def new
     # 通報対象の取得（パラメータで渡す）
@@ -21,29 +22,12 @@ class Public::ReportsController < ApplicationController
 
   private
 
-  def reportable_path(reportable)
-    case reportable
-    when Artist
-      artist_path(reportable)
-    when Topic
-      artist_topic_path(reportable.artist, reportable)
-    when Group
-      group_path(reportable)
-    when Comment
-      artist_topic_path(reportable.topic.artist, reportable.topic)
-    when GroupComment
-      group_path(reportable.group)
-    else
-      root_path
-    end
-  end
-
   def find_reportable
     # パラメータで渡されたparams[:reportable_type], params[:reportable_id] で通報対象を取得
     params[:reportable_type].constantize.find(params[:reportable_id])
   end
 
   def report_params
-    params.require(:report).permit(:reason)
+    params.require(:report).permit(:reason, :reason_category)
   end
 end
