@@ -2,8 +2,9 @@ class Admin::ReportsController < ApplicationController
   before_action :authenticate_admin!
 
   def index
-    @reports = Report.includes(:user, :reportable).order(created_at: :desc)
+    @reports = Report.includes(:user, :reportable).order(created_at: :desc).page(params[:page]).per(155)
   end
+
 
   def show
     @report = Report.find(params[:id])

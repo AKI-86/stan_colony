@@ -3,11 +3,14 @@
   <table class="table mt-5 admin-table table-borderless">
     <thead>
       <tr>
-        <th style="width: 10%;">ID</th>
-        <th style="width: 20%;">名前</th>
-        <th style="width: 25%;">登録日</th>
-        <th style="width: 20%;">ステータス</th>
-        <th></th>
+        <th style="width: 8%;">ID</th>
+        <th>名前</th>
+        <th style="width: 8%;"><i class="fa-solid fa-heart"></i></th>
+        <th style="width: 8%;"><i class="fa-solid fa-list"></i></th>
+        <th style="width: 8%;"><i class="fa-solid fa-comment"></i></th>
+        <th style="width: 12%;">登録日</th>
+        <th style="width: 12%;">ステータス</th>
+        <th style="width: 10%;"></th>
       </tr>
     </thead>
 
@@ -15,7 +18,10 @@
       <% @artists.each do |artist| %>
         <tr>
         <td><%= artist.id %></td>
-        <td><%= truncate(artist.name, length: 12) %></td>
+        <td><%= truncate(artist.name, length: 20) %></td>
+        <td><%= artist.favorites.size %></td>
+        <td><%= artist.topics.size %></td>
+        <td><%= artist.topics.sum { |t| t.comments.size } %></td>
         <td><%= artist.created_at.strftime("%Y-%m-%d") %></td>
         <td><%= artist.active_status %></td>
         <td><%= link_to '詳細', admin_artist_path(artist), class: "btn btn-sm btn-info" %></td>

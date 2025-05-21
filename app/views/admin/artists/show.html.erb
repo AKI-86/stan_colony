@@ -1,27 +1,40 @@
 <div class="container admin-white-bg p-5">
-  <h4 class="admin-title"><%= @artist.name %> の詳細</h4>
-  <div class="user-info mb-3">
-    <%= image_tag @artist.get_image(200, 200) %>
-    <div><strong>アーティスト名：</strong><%= @artist.name %></div>
-    <div><strong>紹介文：</strong><%= @artist.introduction %></div>
-    <div><strong>タグ：</strong>
-      <% if @artist.artist_tags.any? %>
-        <% @artist.artist_tags.each do |tag| %>
-          <%= link_to tag.name, artist_tag_path(tag.name), class: "badge badge-pill badge-success me-1" %>
-        <% end %>
-      <% else %>
-        タグはまだありません
-      <% end %>
+  <h4 class="admin-title mb-3"><%= @artist.name %> の詳細</h4>
+  <div class="row">
+    <div class="col-3">
+      <%= image_tag @artist.get_image(230, 230) %>
+      <%= link_to "アーティスト情報を編集", edit_admin_artist_path(@artist.id), class: "btn btn-primary my-4" %>
     </div>
+    <div class="col-md-9">
+      <dl class="row">
+        <dt class="col-sm-3">アーティスト名</dt>
+        <dd class="col-sm-9"><%= @artist.name %></dd>
 
-    <div><strong>登録日：</strong><%= @artist.created_at.strftime("%Y-%m-%d") %></div>
-    <div><strong>状態：</strong><%= @artist.active_status %></div>
-    <%= link_to "アーティスト情報を編集", edit_admin_artist_path(@artist.id), class: "btn btn-primary" %>
+        <dt class="col-sm-3">紹介文</dt>
+        <dd class="col-sm-9"><%= @artist.introduction %></dd>
+
+        <dt class="col-sm-3">タグ</dt>
+        <dd class="col-sm-9">
+          <% if @artist.artist_tags.any? %>
+            <% @artist.artist_tags.each do |tag| %>
+              <%= link_to tag.name, artist_tag_path(tag.name), class: "badge badge-pill badge-success me-1" %>
+            <% end %>
+          <% else %>
+            タグはまだありません
+          <% end %>
+        </dd>
+        <dt class="col-sm-3">登録日</dt>
+        <dd class="col-sm-9"><%= @artist.created_at.strftime("%Y-%m-%d") %></dd>
+        <dt class="col-sm-3">状態</dt>
+        <dd class="col-sm-9"><%= @artist.active_status %></dd>
+      </dl>
+    </div>
   </div>
 
   <hr>
 
   <h4 class="admin-title">トピック一覧</h4>
+  <% if @topics.any? %>
   <table class="table mt-2 admin-table table-borderless">
     <thead>
       <tr>
@@ -62,7 +75,11 @@
   </table>
 
   <div class="d-flex justify-content-center">
-
+    <%= paginate @topics %>
   </div>
+
+  <% else %>
+    トピックはまだありません
+  <% end %>
 </div>
 

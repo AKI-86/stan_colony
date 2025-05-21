@@ -1,51 +1,58 @@
 <div class="container admin-white-bg p-5">
   <h4 class="admin-title">通報一覧</h4>
+
+  <!-- アイコンの説明 -->
   <%= render "icon_guide" %>
 
-  <table class="table mt-5 admin-table table-borderless">
-  <thead>
-    <tr>
-      <th style="width: 6%;">No.</th>
-      <th>通報対象</th>
-      <th>通報理由</th>
-      <th>通報者</th>
-      <th>日時</th>
-      <th>状態</th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @reports.each do |report| %>
+  <!-- 通報一覧 -->
+  <table class="table mt-4 admin-table table-borderless">
+    <thead>
       <tr>
-        <td><%= report.id %></td>
-        <td>
-          <% if report.reportable.present? %>
-            <%= reportable_link(report) %>
-          <% else %>
-            通報対象が存在しません
-          <% end %>
-        </td>
-        <td><%= report.reason_category_i18n %></td>
-
-        <td><%= report.user.name %></td>
-        <td><%= l(report.created_at, format: :short) %></td>
-        <td>
-        <%= form_with model: report, url: update_status_admin_report_path(report), method: :patch, local: true do |f| %>
-          <div class="input-group input-group-sm">
-            <%= f.select :status,
-              Report.statuses.keys.map { |key| [t("activerecord.attributes.report.statuses.#{key}"), key] },
-              {},
-              class: "custom-select status-#{report.status}" %>
-            <div class="input-group-append">
-              <%= f.submit "変更", class: "btn btn-outline-primary" %>
-            </div>
-          </div>
-        <% end %>
-      </td>
-        <td><%= link_to "詳細", admin_report_path(report) %></td>
+        <th style="width: 6%;">No.</th>
+        <th>通報対象</th>
+        <th>通報理由</th>
+        <th>通報者</th>
+        <th>日時</th>
+        <th>状態</th>
+        <th></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @reports.each do |report| %>
+        <tr>
+          <td class="align-middle"><%= report.id %></td>
+          <td class="align-middle" style="font-size: 0.875rem;">
+            <% if report.reportable.present? %>
+              <%= reportable_link(report) %>
+            <% else %>
+              通報対象が存在しません
+            <% end %>
+          </td>
+          <td class="align-middle" style="font-size: 0.875rem;"><%= report.reason_category_i18n %></td>
+
+          <td class="align-middle" style="font-size: 0.875rem;"><%= report.user.name %></td>
+          <td><%= l(report.created_at, format: :short) %></td>
+          <td class="align-middle">
+            <%= form_with model: report, url: update_status_admin_report_path(report), method: :patch, local: true do |f| %>
+              <div class="input-group input-group-sm">
+                <%= f.select :status,
+                  Report.statuses.keys.map { |key| [t("activerecord.attributes.report.statuses.#{key}"), key] },
+                  {},
+                  class: "custom-select status-#{report.status}" %>
+                <div class="input-group-append">
+                  <%= f.submit "変更", class: "btn btn-outline-primary" %>
+                </div>
+              </div>
+            <% end %>
+          </td>
+          <td class="align-middle"><%= link_to "詳細", admin_report_path(report), class: "btn btn-sm btn-info" %></td></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <!-- ページネーション -->
+  <div class="d-flex justify-content-center">
+    <%= paginate @reports %>
+  </div>
 </div>
