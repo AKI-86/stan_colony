@@ -6,21 +6,16 @@
     <a class="navbar-brand" href="#">Stan Colony</a>
     <div class="ml-auto d-flex align-items-center">
       <!-- タブ部分 -->
-      <%= form_with url: search_results_path, method: :get, local: true do |form| %>
-        <div class="search-form">
-          <!-- カテゴリー選択のドロップダウン -->
-          <div class="search-category">
-            <%= form.select :category, options_for_select(['アーティスト', 'ユーザー', 'コミュニティ']), { include_blank: 'カテゴリー選択' }, class: 'form-control' %>
-          </div>
-          <!-- 検索テキストフィールド -->
-          <div class="search-input">
-            <%= form.text_field :keyword, placeholder: "検索...", class: "form-control" %>
-          </div>
-          <!-- 検索ボタン -->
-          <div class="search-button">
-            <%= form.submit "検索", class: "btn btn-primary" %>
-          </div>
-        </div>
+      <% if admin_signed_in? %>
+        <%= form_with url: admin_search_path, method: :get, local: true, class: "d-flex" do |f| %>
+          <%= f.search_field :q, value: params[:q], placeholder: "管理者用検索", class: "form-control" %>
+          <%= f.submit "検索", class: "btn btn-outline-light" %>
+        <% end %>
+      <% else %>
+        <%= form_with url: search_path, method: :get, local: true, class: "d-flex" do |f| %>
+          <%= f.search_field :q, value: params[:q], placeholder: "ユーザー / アーティスト / グループを検索", class: "form-control" %>
+          <%= f.submit "検索", class: "btn btn-outline-light" %>
+        <% end %>
       <% end %>
     </div>
   </nav>

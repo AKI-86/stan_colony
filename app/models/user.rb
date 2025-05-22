@@ -4,8 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  scope :without_guests, -> { where.not("email LIKE ?", "guest+%@example.com") }
-
+  scope :without_guests, -> { where(guest: [false, nil]) }
   has_one_attached :image
   
   has_many :artists
@@ -71,15 +70,20 @@ class User < ApplicationRecord
       # SecureRandom.urlsafe_base64:ランダムな文字列を生成するRubyのメソッド
       user.password = SecureRandom.urlsafe_base64
       user.name = guest_name
+      user.guest = true
     end
   end
 
   #ゲストユーザーなら各投稿を禁止
   def guest?
-    name&.start_with?("ゲスト-")
+    guest == true
   end
 
   def active_status
     is_active ? "有効" : "退会済み"
+  end
+
+  def self.ransackable_attributes(auth_object = nil)
+    ["name"]
   end
 end

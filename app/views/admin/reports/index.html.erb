@@ -2,16 +2,17 @@
   <h4 class="admin-title">通報一覧</h4>
 
   <!-- アイコンの説明 -->
-  <%= render "icon_guide" %>
+  <%= render partial: "admin/shared/icon_guide", locals: { context: :report } %>
 
   <!-- 通報一覧 -->
-  <table class="table mt-4 admin-table table-borderless">
+  <h4 class="mt-3">未対応の通報: <%= Report.where(status: "unchecked").count %>件</h4>
+  <table class="table mt-3 admin-table table-borderless">
     <thead>
       <tr>
         <th style="width: 6%;">No.</th>
-        <th>通報対象</th>
+        <th class="text-left">通報対象</th>
         <th>通報理由</th>
-        <th>通報者</th>
+        <th style="width: 10%;">通報者</th>
         <th>日時</th>
         <th>状態</th>
         <th></th>
@@ -21,7 +22,7 @@
       <% @reports.each do |report| %>
         <tr>
           <td class="align-middle"><%= report.id %></td>
-          <td class="align-middle" style="font-size: 0.875rem;">
+          <td class="align-middle text-left" style="font-size: 0.875rem;">
             <% if report.reportable.present? %>
               <%= reportable_link(report) %>
             <% else %>

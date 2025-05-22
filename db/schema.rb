@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_05_21_011816) do
+ActiveRecord::Schema.define(version: 2025_05_22_065904) do
 
   create_table "a_tags", force: :cascade do |t|
     t.integer "artist_id", null: false
@@ -235,6 +235,7 @@ ActiveRecord::Schema.define(version: 2025_05_21_011816) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "gender"
     t.string "age"
+    t.boolean "guest"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

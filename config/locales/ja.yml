@@ -47,6 +47,8 @@ ja:
         title: トピック名
         body: 本文
         topic_genre: ジャンル
+      topic_genre:
+        name: ジャンル名
       comment:
         body: コメント
       group_comment:

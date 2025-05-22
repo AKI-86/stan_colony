@@ -46,6 +46,7 @@
         <h4 class="mb-0">トピック一覧</h4>
         <%= link_to "新しいトピックを作成", new_artist_topic_path(@artist), class: "btn btn-primary ml-auto" %>
       </div>
+
       <div class="d-flex justify-content-center mb-2">
         <%= paginate @topics %>
       </div>

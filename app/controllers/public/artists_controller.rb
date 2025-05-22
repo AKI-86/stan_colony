@@ -12,6 +12,11 @@ class Public::ArtistsController < ApplicationController
   def show
     @artist = Artist.find(params[:id])
     @topics = @artist.topics.order(created_at: :desc).page(params[:page]).per(10)
+    # Ransackの検索オブジェクトを生成（params[:q]が検索条件）
+    @q = @artist.topics.ransack(params[:q])
+
+    # 検索結果を取得し、ページネーション
+    @topics = @q.result(distinct: true).order(created_at: :desc).page(params[:page]).per(10)
   end
 
   def create

@@ -1,13 +1,17 @@
 <div class="container admin-white-bg p-5">
   <h4 class="admin-title">サークル一覧</h4>
+
+  <%= render partial: "admin/shared/icon_guide", locals: { context: :group } %>
+
   <table class="table mt-5 admin-table table-borderless">
     <thead>
       <tr>
         <th style="width: 10%;">ID</th>
-        <th style="width: 20%;">名前</th>
-        <th style="width: 25%;">参加人数</th>
-        <th style="width: 20%;">ステータス</th>
-        <th></th>
+        <th>名前</th>
+        <th style="width: 10%;"><i class="fa-solid fa-user"></i></th>
+        <th style="width: 10%;"><i class="fa-solid fa-comment"></i></th>
+        <th style="width: 15%;">ステータス</th>
+        <th style="width: 10%;"></th>
       </tr>
     </thead>
 
@@ -15,9 +19,10 @@
       <% @groups.each do |group| %>
         <tr>
         <td><%= group.id %></td>
-        <td><%= truncate(group.name, length: 12) %></td>
+        <td><%= truncate(group.name, length: 15) %></td>
         <td><%= group.members.count %></td>
-        <td><%= group.active_status %></td>
+        <td><%= group.group_comments.count %></td>
+        <td><%= status_label(group) %></td>
         <td><%= link_to '詳細', admin_group_path(group), class: "btn btn-sm btn-info" %></td>
       </tr>
       <% end %>

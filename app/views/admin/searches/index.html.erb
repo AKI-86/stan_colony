@@ -1,0 +1,15 @@
+<h1>管理者用検索結果</h1>
+<h2>アーティスト検索結果</h2>
+<% @artists.each do |artist| %>
+  <p><%= link_to artist.name, artist_path(artist) %></p>
+<% end %>
+
+<h2>ユーザー検索結果</h2>
+<% @users.each do |user| %>
+  <p><%= link_to user.name, user_path(user) %></p>
+<% end %>
+
+<h2>グループ検索結果</h2>
+<% @groups.each do |group| %>
+  <p><%= link_to group.name, group_path(group) %></p>
+<% end %>

@@ -1,13 +1,13 @@
 <div class="container admin-white-bg p-5">
   <h4 class="admin-title">通報詳細</h4>
-  <%= render "icon_guide" %>
+  <%= render partial: "admin/shared/icon_guide", locals: { context: :report } %>
 
-  <dl class="row mt-5">
+  <dl class="row mt-3">
     <dt class="col-sm-3">通報No.</dt>
-    <dd class="col-sm-8"><%= @report.id %></dd>
+    <dd class="col-sm-9"><%= @report.id %></dd>
 
     <dt class="col-sm-3">通報者</dt>
-    <dd class="col-sm-9"><%= @report.user.name %></dd>
+    <dd class="col-sm-9"><%= link_to @report.user.name, admin_user_path(@report.user) %></dd>
 
     <dt class="col-sm-3">通報内容</dt>
     <dd class="col-sm-9">
@@ -27,13 +27,19 @@
     <dd class="col-sm-9"><%= @report.reason_category_i18n %></dd>
 
     <dt class="col-sm-3">通報理由</dt>
-    <dd class="col-sm-9"><%= @report.reason %></dd>
+    <dd class="col-sm-9">
+      <% if @report.reason.present? %>
+        <%= @report.reason %>
+      <% else %>
+        通報理由未記入
+      <% end %>
+    </dd>
 
     <dt class="col-sm-3">通報日時</dt>
     <dd class="col-sm-9"><%= l(@report.created_at, format: :long) %></dd>
 
   </dl>
-  <div class="mt-4">
+  <div class="text-center mt-4">
     <%= link_to "一覧に戻る", admin_reports_path, class: "btn btn-secondary" %>
   </div>
 </div>

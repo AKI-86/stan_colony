@@ -1,15 +1,19 @@
 <div class="container admin-white-bg p-5">
   <h4 class="admin-title">ユーザー一覧</h4>
+
+  <%= render partial: "admin/shared/icon_guide", locals: { context: :user } %>
+
   <table class="table mt-5 admin-table table-borderless">
     <thead>
       <tr>
         <th style="width: 10%;">ID</th>
         <th>ユーザー名</th>
-        <th>作成アーティスト数</th>
-        <th>作成トピック数</th>
-        <th>作成サークル数</th>
-        <th>総コメント数</th>
-        <th>ステータス</th>
+        <th style="width: 10%;"><i class="fa-solid fa-music mr-1"></i></th>
+        <th style="width: 10%;"><i class="fa-solid fa-list mr-1"></i></th>
+        <th style="width: 10%;"><i class="fa-solid fa-users mr-1"></i></th>
+        <th style="width: 10%;"><i class="fa-solid fa-comment mr-1"></i></th>
+        <th style="width: 15%;">ステータス</th>
+        <th style="width: 10%;"></th>
       </tr>
     </thead>
 
@@ -17,12 +21,13 @@
       <% @users.each do |user| %>
         <tr>
           <td><%= user.id %></td>
-          <td><%= link_to truncate(user.name, length: 12), admin_user_path(user) %></td>
+          <td><%= truncate(user.name, length: 12) %></td>
           <td><%= user.artists.count %></td>
           <td><%= user.topics.count %></td>
           <td><%= user.owned_groups.count %></td>
           <td><%= user.comments.count %></td>
-          <td><%= user.active_status %></td>
+          <td><%= status_label(user) %></td>
+          <td><%= link_to '詳細', admin_user_path(user), class: "btn btn-sm btn-info" %></td>
       </tr>
       <% end %>
     </tbody>

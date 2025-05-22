@@ -27,4 +27,8 @@ class Group < ApplicationRecord
   def active_status
     is_active ? "表示中" : "非表示中"
   end
+
+  def self.ransackable_attributes(auth_object = nil)
+    ["name"]
+  end
 end

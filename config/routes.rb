@@ -11,7 +11,7 @@ devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
 # resources :users, only: []
 namespace :admin do
   get 'top' => 'homes#top', as: 'top'
-  get 'searches', to: 'searches#search', as: 'search_results'
+  get 'search', to: 'searches#index', as: 'search'
   get 'users/unsubscribe', to: "users#unsubscribe"
   patch 'users/withdraw', to: "users#withdraw" #退会処理
 
@@ -49,7 +49,7 @@ end
   scope module: :public do
     root 'homes#top'
     get 'homes/about', to: "homes#about"
-    get 'searches', to: 'searches#search', as: 'search_results'
+    get 'search', to: 'searches#index', as: 'search'
 
     get 'users/mypage', to: "users#mypage"
     get 'users/unsubscribe', to: "users#unsubscribe"

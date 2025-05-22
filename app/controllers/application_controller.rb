@@ -3,7 +3,8 @@ class ApplicationController < ActionController::Base
   #ログイン前の制限をかけている
   before_action :authenticate_any!
   # before_action :authenticate_user!, only: [:new, :create, :edit, :update]
-  
+
+
   protected
 
   def authenticate_any!
@@ -50,4 +51,6 @@ class ApplicationController < ActionController::Base
       root_path
     end
   end
+
+
 end
