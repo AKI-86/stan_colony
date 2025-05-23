@@ -1,5 +1,6 @@
 class Admin::CommentsController < ApplicationController
     before_action :set_artist
+    before_action :authenticate_admin!
     
     def create
       topic = @artist.topics.find(params[:topic_id])

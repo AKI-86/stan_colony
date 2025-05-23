@@ -1,4 +1,6 @@
 class Admin::SearchesController < ApplicationController
+  before_action :authenticate_admin!
+  
   def index
     @keyword = params[:q]  # 検索キーワード
 

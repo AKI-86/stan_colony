@@ -1,5 +1,5 @@
 <div class="container p-5">
-  <%= link_to "アーティストページに戻る", artist_path(@artist) %>
+  <%= link_to "アーティストページに戻る", artist_path(@artist), class: "btn return-btn mb-2" %>
   <%= link_to artist_path(@artist), class: "d-flex align-items-center text-decoration-none" do %>
     <%= image_tag @artist.get_image(40, 40), class: "rounded-circle m-2" %>
     <span class="h5 mb-0 text-dark"><%= @artist.name %></span>
@@ -18,18 +18,10 @@
           <% end %><br>
           作成日：<%= @artist.created_at.strftime("%Y年%m月%d日(%a) %H時%M分") %>
         </p>
-        <p>
-          <% if @topic.user == current_user %>
-            <p><%= link_to "編集", edit_artist_topic_path(@topic.artist, @topic), class: "btn btn-sm btn-outline-secondary" %></p>
-          <% end %>
-        </p>
-        <p>
-          <% if current_user && !current_user.guest? %>
-            <%= link_to new_report_path(reportable_type: "Topic", reportable_id: @topic.id), class: "btn btn-sm btn-danger mb-2" do %>
-              <i class="fa-solid fa-bullhorn"></i> 通報
-            <% end %>
-          <% end %>
-        </p>
+
+        <% if current_user && !current_user.guest? %>
+          <%= render 'public/shared/dropdown_menu', type: :topic, topic: @topic, dropdown_id: "topic_dropdown" %>
+        <% end %>
       </div>
     </div>
   </div>
@@ -56,15 +48,9 @@
           <p class="mb-2 text-muted">このコメントは削除されました。</p>
         <% else %>
           <p class="mb-2"><%= comment.body %></p>
-          <% if comment.user == current_user || admin_signed_in? %>
-            <%= link_to "削除", artist_topic_comment_path(comment.topic.artist, comment.topic, comment), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-sm btn-outline-danger" %>
-          <% end %>
 
-          <% if current_user && !current_user.guest? %>
-            <%= link_to new_report_path(reportable_type: "Comment", reportable_id: comment.id), class: "btn btn-sm btn-danger" do %>
-              <i class="fa-solid fa-bullhorn"></i> 通報
-            <% end %>
-            <% end %>
+            <%= render 'public/shared/dropdown_menu', type: :topic_comment, dropdown_id: "topic_comment#{comment.id}", comment: comment %>
+
         <% end %>
       </div>
     </div>

@@ -61,8 +61,9 @@ class User < ApplicationRecord
     super && is_active
   end
 
-  def self.guest
-    unique_token = SecureRandom.hex(4) # 例: "f1a2b3c4"
+  # ゲストユーザー機能 selfなのでクラスメソッド、User.guestで呼び出せる
+  def self.guest 
+    unique_token = SecureRandom.hex(4)
     guest_name = "ゲスト-#{unique_token}"
     guest_email = "guest-#{unique_token}@example.com"
 

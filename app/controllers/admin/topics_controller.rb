@@ -1,17 +1,5 @@
 class Admin::TopicsController < ApplicationController
-  # skip_before_action :authenticate_user!
   before_action :authenticate_admin! 
-  def index
-  end
-
-  def new
-  end
-
-  def show
-  end
-
-  def create
-  end
 
   def edit
     @artist = Artist.find(params[:artist_id])

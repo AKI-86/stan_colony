@@ -1,5 +1,6 @@
 class Public::ArtistsController < ApplicationController
-  before_action :reject_guest_user, only: [:new, :create]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update]
+  before_action :reject_guest_user, only: [:new, :create, :edit, :update]
 
   def new
     @artist = Artist.new
@@ -12,11 +13,6 @@ class Public::ArtistsController < ApplicationController
   def show
     @artist = Artist.find(params[:id])
     @topics = @artist.topics.order(created_at: :desc).page(params[:page]).per(10)
-    # Ransackの検索オブジェクトを生成（params[:q]が検索条件）
-    @q = @artist.topics.ransack(params[:q])
-
-    # 検索結果を取得し、ページネーション
-    @topics = @q.result(distinct: true).order(created_at: :desc).page(params[:page]).per(10)
   end
 
   def create
@@ -44,7 +40,7 @@ class Public::ArtistsController < ApplicationController
 
   def edit
     @artist = Artist.find(params[:id])
-    unless current_user.admin? || @artist.user_id == current_user.id
+    unless admin_signed_in? || @artist.user_id == current_user.id
       redirect_to admin_artists_path, alert: "編集権限がありません"
     end
   end
@@ -84,6 +80,7 @@ class Public::ArtistsController < ApplicationController
     params.require(:artist).permit(:name, :image, :introduction)
   end
 
+  # ゲストユーザーの投稿を禁止
   def reject_guest_user
     if current_user.guest?
       redirect_to artists_path, alert: 'ゲストユーザーはアーティストページを作成できません。'

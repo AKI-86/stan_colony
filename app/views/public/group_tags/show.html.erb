@@ -1,5 +1,5 @@
 <div class="container-fluid my-5">
-  <h2>タグ: <%= @group_tag.name %> のアーティスト一覧</h2>
+  <h2>タグ: <%= @group_tag.name %> のサークル一覧</h2>
   <div class="row">
     <% if @groups.any? %>
       <% @groups.each do |group| %>
@@ -16,7 +16,7 @@
         <%= paginate @groups %>
       </div>
     <% else %>
-      <p>このタグに紐づくアーティストはいません。</p>
+      <p>このタグに紐づくサークルはいません。</p>
     <% end %>
   </div>
 </div>

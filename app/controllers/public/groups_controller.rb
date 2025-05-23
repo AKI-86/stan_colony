@@ -1,5 +1,6 @@
 class Public::GroupsController < ApplicationController
-  before_action :reject_guest_user, only: [:new, :create]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update]
+  before_action :reject_guest_user, only: [:new, :create, :edit, :update]
 
   def new
     @group = Group.new
@@ -80,14 +81,16 @@ class Public::GroupsController < ApplicationController
     end
   end
 
-  def update_tags(group)
-    # タグ名をカンマ区切りで受け取り、前後空白を除去して配列化
-    tag_names = params[:tag_names].to_s.split(",").map(&:strip).reject(&:blank?)
-    # 既存タグを取得or新規作成しIDリストに変換
-    tag_ids = tag_names.map do |name|
-      GroupTag.find_or_create_by(name: name).id
-    end
-    # 中間テーブルを更新
-    group.group_tag_ids = tag_ids
-  end
+
+  # これいる？
+  # def update_tags(group)
+  #   # タグ名をカンマ区切りで受け取り、前後空白を除去して配列化
+  #   tag_names = params[:tag_names].to_s.split(",").map(&:strip).reject(&:blank?)
+  #   # 既存タグを取得or新規作成しIDリストに変換
+  #   tag_ids = tag_names.map do |name|
+  #     GroupTag.find_or_create_by(name: name).id
+  #   end
+  #   # 中間テーブルを更新
+  #   group.group_tag_ids = tag_ids
+  # end
 end

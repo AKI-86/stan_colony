@@ -1,68 +1,77 @@
-<h2 class="mt-4 mb-3">統計情報</h2>
-<table class="table table-bordered">
-  <tbody>
-    <tr>
-      <th>登録ユーザー数</th>
-      <td><%= User.where(guest: [false, nil]).count %></td>
-    </tr>
-    <tr>
-      <th>ゲストユーザー数</th>
-      <td><%= User.where(guest: true).count %></td>
-    </tr>
-    <tr>
-      <th>登録アーティスト数</th>
-      <td><%= Artist.count %></td>
-    </tr>
-    <tr>
-      <th>コミュニティ数</th>
-      <td><%= Group.count %></td>
-    </tr>
-    <tr>
-      <th>未対応の通報</th>
-      <td><%= Report.where(status: "unchecked").count %></td>
-    </tr>
-  </tbody>
-</table>
-
-<h2 class="mt-5 mb-3">最近の更新情報</h2>
-
-<div class="mb-3">
-  <h5>最近登録されたユーザー（最新5件）</h5>
-  <ul>
-    <% User.where(guest: [false, nil]).order(created_at: :desc).limit(5).each do |user| %>
-      <li><%= link_to user.name, admin_user_path(user) %>（<%= l(user.created_at, format: :short) %>）</li>
+<div class="container admin-white-bg p-5">
+  <h1 class="display-5 mb-5">Stan Colony管理者画面</h1>
+  <h4 class="mb-3 ">
+    <%= link_to admin_reports_path, class: "admin-top-link" do %>
+      未対応の通報: <span class="text-danger h4"><%= Report.where(status: "unchecked").count %></span>件
     <% end %>
-  </ul>
-</div>
+  </h4>
 
-<div class="mb-3">
-  <h5>最近作成されたアーティスト（最新5件）</h5>
-  <ul>
-    <% Artist.order(created_at: :desc).limit(5).each do |artist| %>
-      <li><%= link_to artist.name, admin_artist_path(artist) %>（<%= l(artist.created_at, format: :short) %>）</li>
-    <% end %>
-  </ul>
-</div>
 
-<div class="mb-3">
-  <h5>最近作成されたコミュニティ（最新5件）</h5>
-  <ul>
-    <% Group.order(created_at: :desc).limit(5).each do |group| %>
-      <li><%= link_to group.name, admin_group_path(group) %>（<%= l(group.created_at, format: :short) %>）</li>
-    <% end %>
-  </ul>
-</div>
+  <h4 class="admin-title">統計情報</h4>
+  <table class="table table-borderless">
+    <tbody>
+      <tr>
+        <th>ユーザー数</th>
+        <td><%= User.where(guest: [false, nil]).count %></td>
+      </tr>
+      <tr>
+        <th>ゲストユーザー数</th>
+        <td><%= User.where(guest: true).count %></td>
+      </tr>
+      <tr>
+        <th>アーティスト数</th>
+        <td><%= Artist.count %></td>
+      </tr>
+      <tr>
+        <th>コミュニティ数</th>
+        <td><%= Group.count %></td>
+      </tr>
+    </tbody>
+  </table>
 
-<div class="mb-3">
-  <h5>最近の通報（最新5件）</h5>
-  <ul>
-    <% Report.order(created_at: :desc).limit(5).each do |report| %>
-      <li>
-        No.<%= report.id %> - 
-        <%= report.reportable_type %> -
-        <%= l(report.created_at, format: :short) %>
-        （<%= link_to "詳細", admin_report_path(report) %>）
-      </li>
-    <% end %>
-  </ul>
+  <h4 class="admin-title mb-4">最近の更新情報</h4>
+
+  <div class="mb-3">
+    <h5><%= link_to "最近の通報（最新5件）", admin_reports_path, class: "admin-top-link" %></h5>
+    <ul>
+      <% @reports.each do |report| %>
+        <li>
+          <% if report.reportable.present? %>
+            <%= reportable_link(report) %>
+          <% else %>
+            通報対象が存在しません
+          <% end %>
+          （<%= l(report.created_at, format: :short) %>）
+          （<%= link_to "詳細", admin_report_path(report) %>）
+        </li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div class="mb-3">
+    <h5><%= link_to "最近作成されたアーティスト（最新5件）", admin_artists_path, class: "admin-top-link" %></h5>
+    <ul>
+      <% @artists.each do |artist| %>
+        <li><%= link_to artist.name, admin_artist_path(artist) %>（<%= l(artist.created_at, format: :short) %>）</li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div class="mb-3">
+    <h5><%= link_to "最近作成されたコミュニティ（最新5件）", admin_groups_path, class: "admin-top-link" %></h5>
+    <ul>
+      <% Group.order(created_at: :desc).limit(5).each do |group| %>
+        <li><%= link_to group.name, admin_group_path(group) %>（<%= l(group.created_at, format: :short) %>）</li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div class="mb-3">
+    <h5><%= link_to "最近登録されたユーザー（最新5件）", admin_users_path, class: "admin-top-link" %></h5>
+    <ul>
+      <% @users.each do |user| %>
+        <li><%= link_to user.name, admin_user_path(user) %>（<%= l(user.created_at, format: :short) %>）</li>
+      <% end %>
+    </ul>
+  </div>
 </div>

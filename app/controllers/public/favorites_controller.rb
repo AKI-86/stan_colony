@@ -1,4 +1,5 @@
 class Public::FavoritesController < ApplicationController
+  before_action :authenticate_user!, only: [:create, :destroy]
   before_action :reject_guest_user, only: [:create, :destroy]
 
   def create

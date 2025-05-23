@@ -1,6 +1,7 @@
 class Public::CommentsController < ApplicationController
   before_action :set_artist
-  
+  before_action :authenticate_user!, only: [:create, :destroy]
+
   def create
     topic = @artist.topics.find(params[:topic_id])
     @comment = Comment.new(comment_params)

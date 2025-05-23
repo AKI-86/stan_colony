@@ -1,0 +1,33 @@
+<table class="table mt-5 admin-table table-borderless">
+  <thead>
+    <tr>
+      <th style="width: 10%;">ID</th>
+      <th>ユーザー名</th>
+      <th style="width: 10%;"><i class="fa-solid fa-music mr-1"></i></th>
+      <th style="width: 10%;"><i class="fa-solid fa-list mr-1"></i></th>
+      <th style="width: 10%;"><i class="fa-solid fa-users mr-1"></i></th>
+      <th style="width: 10%;"><i class="fa-solid fa-comment mr-1"></i></th>
+      <th style="width: 15%;">ステータス</th>
+      <th style="width: 10%;"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% users.each do |user| %>
+      <tr>
+        <td><%= user.id %></td>
+        <td><%= truncate(user.name, length: 12) %></td>
+        <td><%= user.artists.count %></td>
+        <td><%= user.topics.count %></td>
+        <td><%= user.owned_groups.count %></td>
+        <td><%= user.comments.count %></td>
+        <td><%= status_label(user) %></td>
+        <td><%= link_to '詳細', admin_user_path(user), class: "btn btn-sm btn-info" %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<div class="d-flex justify-content-center">
+<%= paginate users, param_name: param_name %>
+</div>

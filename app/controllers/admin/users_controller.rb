@@ -1,9 +1,9 @@
 class Admin::UsersController < ApplicationController
-  # skip_before_action :authenticate_user!
   before_action :authenticate_admin! 
 
   def index
-    @users = User.without_guests.includes(:artists, :topics, :owned_groups, :comments).page(params[:page]).per(10)
+    @users = User.without_guests.includes(:artists, :topics, :owned_groups, :comments).page(params[:normal_page]).per(10)
+    @guest_users = User.where(guest: true).includes(:artists, :topics, :owned_groups, :comments).page(params[:guest_page]).per(10)
   end
 
   def show

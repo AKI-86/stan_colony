@@ -4,7 +4,7 @@
     <span style="font-size: 30px;"><%= @user.name %>さんのプロフィール</span>
   </div>
 
-  <div class="mypage_info my-3">
+  <div class="mypage_info my-3" style="position: relative;">
     <table class= "table table-hover table-borderless">
       <tbody>
         <tr>
@@ -41,10 +41,9 @@
       <% end %>
     <% end %>
 
+
     <% if current_user && !current_user.guest? %>
-      <%= link_to new_report_path(reportable_type: "User", reportable_id: @user.id), class: "btn btn-sm btn-danger" do %>
-        <i class="fa-solid fa-bullhorn"></i> 通報
-      <% end %>
+      <%= render 'public/shared/dropdown_menu', type: :user, dropdown_id: "user", user: @user %>
     <% end %>
   </div>
 

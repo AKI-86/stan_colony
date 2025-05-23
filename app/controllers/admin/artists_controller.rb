@@ -1,5 +1,4 @@
 class Admin::ArtistsController < ApplicationController
-  skip_before_action :authenticate_user!, raise: false
   before_action :authenticate_admin!
 
   def index

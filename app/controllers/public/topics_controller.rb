@@ -1,6 +1,7 @@
 class Public::TopicsController < ApplicationController
   before_action :set_artist
-  before_action :reject_guest_user, only: [:new, :create]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update]
+  before_action :reject_guest_user, only: [:new, :create, :edit, :update]
 
 
   def new

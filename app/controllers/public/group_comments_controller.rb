@@ -1,6 +1,8 @@
 class Public::GroupCommentsController < ApplicationController
   before_action :set_group
+  before_action :authenticate_user!, only: [:create]
   before_action :reject_guest_user, only: [:create]
+  before_action :reject_non_member_user, only: [:create]
   
   def create
     @group_comment = @group.group_comments.new(group_comment_params)
@@ -30,6 +32,12 @@ class Public::GroupCommentsController < ApplicationController
 
   def group_comment_params
     params.require(:group_comment).permit(:body)
+  end
+
+  def reject_non_member_user
+    unless user_signed_in? && @group.users.include?(current_user)
+      redirect_to group_path(@group), alert: "サークルメンバーのみコメントできます。"
+    end
   end
 
   def reject_guest_user

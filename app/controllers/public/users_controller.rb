@@ -1,6 +1,6 @@
 class Public::UsersController < ApplicationController
-  before_action :reject_guest_user, only: [:show, :mypage, :edit, :withdraw, :unsubscribe]
-  before_action :authenticate_user!, only: [:show, :mypage, :edit, :withdraw, :unsubscribe]
+  before_action :authenticate_user!
+  before_action :reject_guest_user
 
   def mypage
     @user = current_user

@@ -22,21 +22,20 @@ class Public::ChatMessagesController < ApplicationController
 
   private
 
+  def chat_message_params
+    params.require(:chat_message).permit(:body)
+  end
+
   def set_group
     @group = Group.find(params[:group_id])
   end
 
+  # チャットは会員or管理者のみに設定
   def authorize_group_member!
     if admin_signed_in?
-      # 管理者は閲覧OK
     elsif current_user && @group.members.include?(current_user)
-      # メンバーOK
     else
       redirect_to group_path(@group), alert: "このグループのメンバーだけがチャットを閲覧できます"
     end
-  end
-
-  def chat_message_params
-    params.require(:chat_message).permit(:body)
   end
 end

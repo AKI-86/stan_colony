@@ -1,4 +1,7 @@
 class Public::RelationshipsController < ApplicationController
+  before_action :authenticate_user!
+  before_action :reject_guest_user
+
   def create
     user = User.find(params[:user_id])
     current_user.follow(user)
@@ -11,14 +14,11 @@ class Public::RelationshipsController < ApplicationController
     redirect_to  request.referer
   end
 
-  # # マイページ上で表示するため一旦は不要
-  # def followings
-  #   user = User.find(params[:user_id])
-  #   @users = user.followings
-  # end
-  
-  # def followers
-  #   user = User.find(params[:user_id])
-  #   @users = user.followers
-  # end
+  private
+
+  def reject_guest_user
+    if current_user&.guest?
+      redirect_back fallback_location: root_path, alert: 'ゲストユーザーはフォロー操作ができません。'
+    end
+  end
 end
