@@ -39,7 +39,7 @@
     <% if @artists.any? %>
       <% @artists.each do |artist| %>
            <div class="m-2">
-          <%= link_to artist_path(artist.id), class: "text-decoration-none mr-3" do %>
+          <%= link_to admin_artist_path(artist.id), class: "text-decoration-none mr-3" do %>
           <%= image_tag artist.get_image(25, 25), class: "rounded-circle img-fluid" %>
           <span class="ml-1"><%= artist.name %></span>
           <% end %>
@@ -51,13 +51,13 @@
     <% end %>
   </div>
 
-  <h5 class="my-3">投稿したトピック</h5>
+  <h5 class="my-3">作成したトピック</h5>
   <div class="scroll-box">
     <% if @topics.any? %>
       <% @topics.each do |topic| %>
           <div class="m-2">
-          <%= link_to topic.title, artist_topic_path(topic.artist, topic) %>
-          （<%= link_to topic.artist.name, artist_path(topic.artist) %>）
+          <%= link_to topic.title, admin_artist_topic_path(topic.artist, topic) %>
+          （<%= link_to topic.artist.name, admin_artist_path(topic.artist) %>）
           <%= link_to "編集", edit_admin_artist_topic_path(topic.artist, topic), class: "btn btn-sm btn-outline-primary ms-2" %>
         </div>
       <% end %>
@@ -74,7 +74,7 @@
           <div class="m-2">
           <%= truncate(comment.body, length: 50) %>
           （<%= comment.topic.artist.name %>：
-          <%= link_to comment.topic.title, artist_topic_path(comment.topic.artist, comment.topic) %>）
+          <%= link_to comment.topic.title, admin_artist_topic_path(comment.topic.artist, comment.topic) %>）
         </div>
       <% end %>
     <% else %>
@@ -87,7 +87,7 @@
     <% if @groups.any? %>
         <% @groups.each do |group| %>
           <div class="m-2">
-            <%= link_to group_path(group.id), class: "text-decoration-none" do %>
+            <%= link_to admin_group_path(group.id), class: "text-decoration-none" do %>
               <%= image_tag group.get_image(25, 25), class: "img-fluid" %>
               <span class="ml-2"><%= group.name %></span>
             <% end %>
@@ -104,7 +104,7 @@
     <% if @joined_groups.any? %>
         <% @joined_groups.each do |group| %>
           <div class="m-2">
-            <%= link_to group_path(group.id), class: "text-decoration-none" do %>
+            <%= link_to admin_group_path(group.id), class: "text-decoration-none" do %>
               <%= image_tag group.get_image(25, 25), class: "img-fluid" %>
               <span class="ml-2"><%= group.name %></span>
             <% end %>

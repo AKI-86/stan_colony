@@ -1,30 +1,29 @@
 <div class="container admin-white-bg p-5">
   <h1 class="display-5 mb-5">Stan Colony管理者画面</h1>
   <h4 class="mb-3 ">
-    <%= link_to admin_reports_path, class: "admin-top-link" do %>
-      未対応の通報: <span class="text-danger h4"><%= Report.where(status: "unchecked").count %></span>件
+    <%= link_to admin_reports_path, class: "admin-top-link-color" do %>
+      未対応の通報: <span class="text-danger h4"><%= @unchecked_report_count %></span>件
     <% end %>
   </h4>
-
 
   <h4 class="admin-title">統計情報</h4>
   <table class="table table-borderless">
     <tbody>
       <tr>
         <th>ユーザー数</th>
-        <td><%= User.where(guest: [false, nil]).count %></td>
+        <td><%= @user_count %></td>
       </tr>
       <tr>
         <th>ゲストユーザー数</th>
-        <td><%= User.where(guest: true).count %></td>
+        <td><%= @guest_user_count %></td>
       </tr>
       <tr>
         <th>アーティスト数</th>
-        <td><%= Artist.count %></td>
+        <td><%= @artist_count %></td>
       </tr>
       <tr>
         <th>コミュニティ数</th>
-        <td><%= Group.count %></td>
+        <td><%= @group_count %></td>
       </tr>
     </tbody>
   </table>
@@ -32,7 +31,7 @@
   <h4 class="admin-title mb-4">最近の更新情報</h4>
 
   <div class="mb-3">
-    <h5><%= link_to "最近の通報（最新5件）", admin_reports_path, class: "admin-top-link" %></h5>
+    <h5><%= link_to "最近の通報（最新5件）", admin_reports_path, class: "admin-top-link-color" %></h5>
     <ul>
       <% @reports.each do |report| %>
         <li>
@@ -49,7 +48,7 @@
   </div>
 
   <div class="mb-3">
-    <h5><%= link_to "最近作成されたアーティスト（最新5件）", admin_artists_path, class: "admin-top-link" %></h5>
+    <h5><%= link_to "最近作成されたアーティスト（最新5件）", admin_artists_path, class: "admin-top-link-color" %></h5>
     <ul>
       <% @artists.each do |artist| %>
         <li><%= link_to artist.name, admin_artist_path(artist) %>（<%= l(artist.created_at, format: :short) %>）</li>
@@ -58,16 +57,16 @@
   </div>
 
   <div class="mb-3">
-    <h5><%= link_to "最近作成されたコミュニティ（最新5件）", admin_groups_path, class: "admin-top-link" %></h5>
+    <h5><%= link_to "最近作成されたコミュニティ（最新5件）", admin_groups_path, class: "admin-top-link-color" %></h5>
     <ul>
-      <% Group.order(created_at: :desc).limit(5).each do |group| %>
+      <% @groups.each do |group| %>
         <li><%= link_to group.name, admin_group_path(group) %>（<%= l(group.created_at, format: :short) %>）</li>
       <% end %>
     </ul>
   </div>
 
   <div class="mb-3">
-    <h5><%= link_to "最近登録されたユーザー（最新5件）", admin_users_path, class: "admin-top-link" %></h5>
+    <h5><%= link_to "最近登録されたユーザー（最新5件）", admin_users_path, class: "admin-top-link-color" %></h5>
     <ul>
       <% @users.each do |user| %>
         <li><%= link_to user.name, admin_user_path(user) %>（<%= l(user.created_at, format: :short) %>）</li>

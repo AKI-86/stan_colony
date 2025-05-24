@@ -15,6 +15,7 @@ class Group < ApplicationRecord
   validates :name, presence: true
   validates :introduction, presence: true
 
+  scope :active, -> { where(is_active: true) }
 
   def get_image(width, height)
     unless image.attached?

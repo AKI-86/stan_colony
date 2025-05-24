@@ -1,15 +1,56 @@
-<h1>管理者用検索結果</h1>
-<h2>アーティスト検索結果</h2>
-<% @artists.each do |artist| %>
-  <p><%= link_to artist.name, artist_path(artist) %></p>
-<% end %>
+<div class="container admin-black-bg p-5">
+  <h1>管理者用検索結果</h1>
+  <h2 class="mt-5">アーティスト検索結果</h2>
+  <hr class="white-hr">
+  <% if @artists.any? %>
+    <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 search-scroll-box-artist">
+      <% @artists.each do |artist| %>
+        <div class="col text-center">
+          <%= link_to admin_artist_path(artist) do %>
+            <%= image_tag artist.get_image(60, 60), class: "img-fluid rounded-circle mb-2" %><br>
+            <small class="d-block text-muted text-break mb-3">
+              <%= content_tag(:i, "", class: "fa-solid fa-ban") unless artist.is_active %>
+              <%= truncate(artist.name, length: 30) %>
+            </small>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p>該当するアーティストはありません</p>
+  <% end %>
+  
+  <h2 class="mt-5">ユーザー検索結果</h2>
+  <hr class="white-hr">
+  <% if @users.any? %>
+    <div class="search-scroll-box">
+      <% @users.each do |user| %>
+        <p>
+          <%= link_to admin_user_path(user) do %>
+            <%= content_tag(:i, "", class: "fa-solid fa-ban") unless user.is_active %>
+            <%= user.name %>
+          <% end %>
+        </p>
+      <% end %>
+    </div>
+  <% else %>
+    <p>未ログイン、ゲストログインユーザーはユーザーの検索はできません</p>
+  <% end %>
 
-<h2>ユーザー検索結果</h2>
-<% @users.each do |user| %>
-  <p><%= link_to user.name, user_path(user) %></p>
-<% end %>
-
-<h2>グループ検索結果</h2>
-<% @groups.each do |group| %>
-  <p><%= link_to group.name, group_path(group) %></p>
-<% end %>
+  <h2 class="mt-5">グループ検索結果</h2>
+  <hr class="white-hr">
+  <% if @groups.any? %>
+    <div class="search-scroll-box">
+      <% @groups.each do |group| %>
+        <p>
+          <%= link_to admin_group_path(group) do %>
+            <%= content_tag(:i, "", class: "fa-solid fa-ban") unless group.is_active %>
+            <%= group.name %>
+          <% end %>
+        </p>
+      <% end %>
+    </div>
+  <% else %>
+    <p>該当するサークルはありません</p>
+  <% end %>
+</div>

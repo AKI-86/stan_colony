@@ -26,14 +26,21 @@ class Public::CommentsController < ApplicationController
     @topic = @comment.topic  # コメントに関連するトピックを取得
     @artist = @topic.artist  # トピックに関連するアーティストを取得
     @comment.soft_delete
-    flash[:notice] = "コメントは削除されました"
-    redirect_to artist_topic_path(@artist, @topic)
+
+    if admin_signed_in?
+      redirect_to admin_artist_topic_path(@artist, @topic), notice: "コメントを削除しました。"
+    else
+      redirect_to artist_topic_path(@artist, @topic), notice: "コメントを削除しました。"
+    end
   end
 
   private
 
   def set_artist
-    @artist = Artist.find(params[:artist_id])  # artist_idを使って、@artistを設定
+    @artist = Artist.active.find(params[:artist_id])  # artist_idを使って、@artistを設定
+    unless @artist
+      redirect_to root_path, alert: "そのページは表示できません"
+    end
   end
 
   def comment_params

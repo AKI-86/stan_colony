@@ -39,12 +39,12 @@
     </div>
   </div>
 
-  <hr>
 
-  <h3 class="my-5">新着アーティスト</h3>
+  <h3 class="mt-5">新着アーティスト</h3>
+  <hr class="white-hr">
   <div class="row">
     <% @recent_artists.each do |artist| %>
-      <div class="col-6 col-md-4 col-lg-3 mb-4 d-flex justify-content-center">
+      <div class="col-6 col-md-4 col-lg-3 d-flex justify-content-center">
         <div class="text-center">
           <%= link_to artist_path(artist) do %>
             <%= image_tag artist.get_image(200, 200), class: "img-fluid rounded-circle mb-2" %>
@@ -54,10 +54,14 @@
       </div>
     <% end %>
   </div>
+  <div class="text-right">
+    <%= link_to ">>アーティスト一覧", artists_path, class: "btn return-btn-a" %>
+  </div>
 
   <hr>
   
-  <h3 class="my-4">活動的なサークル</h3>
+  <h3 class="mt-4">活動的なサークル</h3>
+  <hr class="white-hr">
   <div class="row">
     <% @active_groups.each do |group| %>
       <div class="col-6 col-md-4 col-lg-3 mb-4 d-flex justify-content-center">
@@ -71,5 +75,8 @@
         </div>
       </div>
     <% end %>
+  </div>
+  <div class="text-right">
+    <%= link_to ">>サークル一覧", groups_path, class: "btn return-btn-a" %>
   </div>
 </div>

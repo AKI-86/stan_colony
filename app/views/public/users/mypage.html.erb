@@ -1,7 +1,7 @@
 <div class= "container py-4">
   <h2 class="mb-3">マイページ</h2>
   
-  <div class= "row mypage_info">
+  <div class= "row mypage-info">
     <div class= "col-5">
     <h5 class="ml-1">登録情報</h5>
     <%= image_tag @user.get_image(100, 100), class: "rounded-circle me-1" %>
@@ -24,8 +24,12 @@
             <td><%= @user.introduction %></td>
           </tr>
           <tr>
-            <td>フォロワー数</td>
-            <td>〇〇</td>
+            <td>フォロー</td>
+            <td><%= @user.followings.count %></td>
+          </tr>
+          <tr>
+            <td>フォロワー</td>
+            <td><%= @user.followers.count %></td>
           </tr>
         </tbody>
       </table>

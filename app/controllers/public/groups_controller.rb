@@ -7,11 +7,11 @@ class Public::GroupsController < ApplicationController
   end
 
   def index
-    @groups = Group.order(created_at: :desc).page(params[:page]).per(8)
+    @groups = Group.active.order(created_at: :desc).page(params[:page]).per(8)
   end
 
   def show
-    @group = Group.find(params[:id])
+    @group = Group.active.find(params[:id])
     @group_comment = GroupComment.new
     @group_comments = @group.group_comments.includes(:user).order(created_at: :desc).page(params[:page]).per(10)
     @members = @group.members
@@ -39,14 +39,14 @@ class Public::GroupsController < ApplicationController
   end
 
   def edit
-    @group = Group.find(params[:id])
+    @group = Group.active.find(params[:id])
     unless @group.owner == current_user
       redirect_to group_path(@group), alert: "他のユーザーの作成したサークルは編集できません。"
     end
   end
 
   def update
-    @group = Group.find(params[:id])
+    @group = Group.active.find(params[:id])
     tag_names = params[:tag_names].to_s.split(',').map(&:strip).reject(&:blank?).uniq
 
     if tag_names.size > 10
@@ -80,17 +80,5 @@ class Public::GroupsController < ApplicationController
       redirect_to groups_path, alert: 'ゲストユーザーはサークルを作成できません。'
     end
   end
-
-
-  # これいる？
-  # def update_tags(group)
-  #   # タグ名をカンマ区切りで受け取り、前後空白を除去して配列化
-  #   tag_names = params[:tag_names].to_s.split(",").map(&:strip).reject(&:blank?)
-  #   # 既存タグを取得or新規作成しIDリストに変換
-  #   tag_ids = tag_names.map do |name|
-  #     GroupTag.find_or_create_by(name: name).id
-  #   end
-  #   # 中間テーブルを更新
-  #   group.group_tag_ids = tag_ids
-  # end
+  
 end

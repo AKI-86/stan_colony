@@ -11,6 +11,9 @@ class Artist < ApplicationRecord
   
   validates :name, presence: true, uniqueness: true
 
+
+  scope :active, -> { where(is_active: true) }
+  
   paginates_per 12
 
   def favorited_by?(user)

@@ -14,7 +14,7 @@ module ApplicationHelper
       end
     when "Topic"
       topic = report.reportable
-      link_to artist_topic_path(topic.artist, topic) do
+      link_to admin_artist_topic_path(topic.artist, topic) do
         content_tag(:i, "", class: "fa-solid fa-list mr-1") +
         truncate(topic.title, length: 10)
       end
@@ -27,14 +27,14 @@ module ApplicationHelper
       comment = report.reportable
       topic = comment.topic
       artist = topic.artist
-      link_to artist_topic_path(artist, topic) do
+      link_to admin_artist_topic_path(artist, topic) do
         content_tag(:i, "", class: "fa-solid fa-comment mr-1") +
         truncate(comment.body, length: 10)
       end
     when "GroupComment"
       group_comment = report.reportable
       group = group_comment.group
-      link_to group_path(group) do
+      link_to admin_group_path(group) do
         content_tag(:i, "", class: "fa-solid fa-comments mr-1") +
         truncate(group_comment.body, length: 10)
       end

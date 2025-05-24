@@ -2,8 +2,14 @@
   <div class= "row">
     <div class= "col-3">
     <p>参加メンバー一覧</p>
-      <% @group.members.each do |member| %>
-        <p><%= link_to member.name, user_path(member) %></p>
+      <% if admin_signed_in?%>
+        <% @group.members.each do |member| %>
+          <p><%= link_to member.name, admin_user_path(member) %></p>
+        <% end %>
+      <% else %>
+        <% @group.members.each do |member| %>
+          <p><%= link_to member.name, user_path(member) %></p>
+        <% end %>
       <% end %>
     </div>
 

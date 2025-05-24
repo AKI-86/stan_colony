@@ -3,13 +3,13 @@ class Public::GroupMembershipsController < ApplicationController
   before_action :reject_guest_user, only: [:create]
 
   def create
-    @group = Group.find(params[:group_id])
+    @group = Group.active.find(params[:group_id])
     current_user.group_memberships.create(group: @group)
     redirect_to group_path(@group), notice: "参加しました"
   end
 
   def destroy
-    @group = Group.find(params[:group_id])
+    @group = Group.active.find(params[:group_id])
     membership = current_user.group_memberships.find_by(group: @group)
     membership&.destroy
     redirect_to group_path(@group), notice: "脱退しました"

@@ -55,7 +55,7 @@
       <% @topics.each do |topic| %>
         <tr>
           <td class="text-truncate" style="max-width: 200px;">
-            <%= link_to topic.title, artist_topic_path(@artist, topic), class: "d-inline-block text-truncate", style: "max-width: 100%;" %>
+            <%= link_to topic.title, admin_artist_topic_path(@artist, topic), class: "d-inline-block text-truncate", style: "max-width: 100%;" %>
           </td>
           <td><%= truncate(topic.user.name, length: 12) %></td>
           <td><%= topic.created_at.strftime("%Y-%m-%d") %></td>
@@ -70,7 +70,7 @@
               <small>コメントなし</small>
             <% end %>
           </td>
-          <td><%= topic.active_status %></td>
+          <td><%= status_label(topic) %></td>
         <td><%= link_to '詳細', edit_admin_artist_topic_path(topic.artist, topic), class: "btn btn-sm btn-info" %></td>
       </tr>
       <% end %>

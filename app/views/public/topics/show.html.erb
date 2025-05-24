@@ -1,8 +1,8 @@
 <div class="container p-5">
-  <%= link_to "アーティストページに戻る", artist_path(@artist), class: "btn return-btn mb-2" %>
+  <%= link_to "アーティストページに戻る", artist_path(@artist), class: "btn return-btn-a mb-2" %>
   <%= link_to artist_path(@artist), class: "d-flex align-items-center text-decoration-none" do %>
     <%= image_tag @artist.get_image(40, 40), class: "rounded-circle m-2" %>
-    <span class="h5 mb-0 text-dark"><%= @artist.name %></span>
+    <span class="h5 mb-0 text-white"><%= @artist.name %></span>
   <% end %>
   
   <div class="card mt-2 mb-4">
@@ -38,10 +38,20 @@
       <div class="card-body">
         <div class="d-flex align-items-center mb-2">
           <span class="mr-1"><%= number %>.</span>
-          <%= link_to user_path(comment.user) do %>
-            <%= image_tag comment.user.get_image(20, 20), class: "rounded-circle me-1" %>
-            <%= comment.user.name %>
-          <% end %><br>
+            <% if comment.user.guest? %>
+             <%= comment.user.name %>
+            <% elsif admin_signed_in? %>
+              <%= link_to admin_user_path(comment.user) do %>
+                <%= image_tag comment.user.get_image(20, 20), class: "rounded-circle me-1" %>
+                <%= comment.user.name %>
+              <% end %>
+            <% else %>
+              <%= link_to user_path(comment.user) do %>
+                <%= image_tag comment.user.get_image(20, 20), class: "rounded-circle me-1" %>
+                <%= comment.user.name %>
+              <% end %>
+            <% end %>
+            <br>
           <span class="ms-auto text-muted ml-2" style="font-size: 0.85em;"><%= comment.created_at.strftime("%Y年%m月%d日(%a) %H時%M分") %></span>
         </div>
         <% if comment.deleted? %>
@@ -49,8 +59,9 @@
         <% else %>
           <p class="mb-2"><%= comment.body %></p>
 
+          <% if (current_user.present? || admin_signed_in?) %>
             <%= render 'public/shared/dropdown_menu', type: :topic_comment, dropdown_id: "topic_comment#{comment.id}", comment: comment %>
-
+          <% end %>
         <% end %>
       </div>
     </div>

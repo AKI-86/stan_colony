@@ -1,3 +1,6 @@
+<!--  -->
+
+
 <div class="dropdown dropleft" style="position: absolute; bottom: 0.5rem; right: 0.5rem;" >
   <button class="btn btn-secondary dropdown-toggle btn-sm" type="button" id="<%= dropdown_id %>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
   …
@@ -7,7 +10,9 @@
     <% case type %>
       <% when :group %>
         <% if group.owner == current_user %>
-          <%= link_to "編集", edit_group_path(group.id), class: "dropdown-item" %>
+          <%= link_to edit_group_path(group.id), class: "dropdown-item" do %>
+            <i class="fa-solid fa-pen-nib"></i> 編集
+          <% end %>
         <% end %>
         <%= link_to new_report_path(reportable_type: "Group", reportable_id: group.id), class: "dropdown-item" do %>
           <i class="fa-solid fa-bullhorn"></i> 通報
@@ -15,8 +20,10 @@
 
       <% when :group_comment %>
         <% if comment.user == current_user || admin_signed_in? %>
-          <%= link_to "削除", group_group_comment_path(group, comment), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "dropdown-item" %>
-        <% end %>
+          <%= link_to group_group_comment_path(group, comment), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "dropdown-item" do %>
+            <i class="fa-solid fa-trash"></i> 削除
+          <% end %>
+          <% end %>
         <% if current_user && !current_user.guest? %>
           <%= link_to new_report_path(reportable_type: "GroupComment", reportable_id: comment.id), class: "dropdown-item" do %>
             <i class="fa-solid fa-bullhorn"></i> 通報
@@ -25,7 +32,9 @@
 
       <% when :artist %>
         <% if artist.user == current_user %>
-          <%= link_to "編集", edit_artist_path(artist.id), class: "dropdown-item" %>
+          <%= link_to edit_artist_path(artist.id), class: "dropdown-item" do %>
+            <i class="fa-solid fa-pen-nib"></i> 編集
+          <% end %>
         <% end %>
         <%= link_to new_report_path(reportable_type: "Artist", reportable_id: artist.id), class: "dropdown-item" do %>
           <i class="fa-solid fa-bullhorn"></i> 通報
@@ -33,7 +42,9 @@
 
       <% when :topic %>
         <% if topic.user == current_user %>
-          <%= link_to "編集", edit_artist_topic_path(topic.artist, topic), class: "dropdown-item" %>
+          <%= link_to edit_artist_topic_path(topic.artist, topic), class: "dropdown-item" do %>
+            <i class="fa-solid fa-pen-nib"></i> 編集
+          <% end %>
         <% end %>
         <%= link_to new_report_path(reportable_type: "Topic", reportable_id: topic.id), class: "dropdown-item" do %>
           <i class="fa-solid fa-bullhorn"></i> 通報
@@ -41,12 +52,15 @@
 
       <% when :topic_comment %>
         <% if comment.user == current_user || admin_signed_in? %>
-          <%= link_to "削除", artist_topic_comment_path(comment.topic.artist, comment.topic, comment), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "dropdown-item" %>
+          <%= link_to artist_topic_comment_path(comment.topic.artist, comment.topic, comment), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "dropdown-item" do %>
+            <i class="fa-solid fa-trash"></i> 削除
+          <% end %>
         <% end %>
-        <% if current_user && !current_user.guest? %>
+        <% if (current_user && !current_user.guest?) %>
           <%= link_to new_report_path(reportable_type: "Comment", reportable_id: comment.id), class: "dropdown-item" do %>
               <i class="fa-solid fa-bullhorn"></i> 通報
             <% end %>
+          <% elsif admin_signed_in? %>
           <% else %>
           <span class="dropdown-item disabled">ゲストには通報権限がありません</span>
         <% end %>

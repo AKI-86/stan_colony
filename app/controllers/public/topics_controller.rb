@@ -26,11 +26,11 @@ class Public::TopicsController < ApplicationController
   end
 
   def edit
-    @topic =Topic.find(params[:id])
+    @topic =Topic.active.find(params[:id])
   end
 
   def update
-    @topic =Topic.find(params[:id])
+    @topic =Topic.active.find(params[:id])
     if @topic.update(topic_params)
       redirect_to artist_topic_path(@artist, @topic)
     else
@@ -41,7 +41,10 @@ class Public::TopicsController < ApplicationController
   private
 
   def set_artist
-    @artist = Artist.find(params[:artist_id])
+    @artist = Artist.active.find(params[:artist_id])
+    unless @artist
+      redirect_to root_path, alert: "現在非公開のアーティストです。"
+    end
   end
 
   def topic_params

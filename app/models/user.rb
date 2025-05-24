@@ -5,13 +5,17 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   scope :without_guests, -> { where(guest: [false, nil]) }
+  scope :active, -> { where(is_active: true) }
+  
   has_one_attached :image
   
   has_many :artists
   has_many :topics
   has_many :comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
-  has_many :favorite_artists, through: :favorites, source: :artist
+
+  # いいねをしたユーザー一覧で非アクティブなアーティストを拾ってしまう
+  has_many :favorite_artists, -> { merge(Artist.active) }, through: :favorites, source: :artist
   has_many :owned_groups, class_name: "Group", foreign_key: "owner_id", dependent: :destroy
   has_many :group_memberships, dependent: :destroy
   has_many :joined_groups, through: :group_memberships, source: :group

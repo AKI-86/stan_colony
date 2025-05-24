@@ -7,11 +7,16 @@ class Public::ArtistsController < ApplicationController
   end
 
   def index
-    @artists = Artist.page(params[:page])
+    @artists = Artist.active.page(params[:page])
   end
 
   def show
-    @artist = Artist.find(params[:id])
+    @artist = Artist.active.find_by(id: params[:id])
+    unless @artist
+      redirect_to root_path, alert: "そのページは表示できません"
+      return
+    end
+
     @topics = @artist.topics.order(created_at: :desc).page(params[:page]).per(10)
   end
 
@@ -70,7 +75,7 @@ class Public::ArtistsController < ApplicationController
   end
 
   def favorited_users
-    @artist = Artist.find(params[:id])
+    @artist = Artist.active.find(params[:id])
     @users = @artist.favorited_users # アソシエーションから取得
   end
 
