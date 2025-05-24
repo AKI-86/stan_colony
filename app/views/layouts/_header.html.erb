@@ -9,12 +9,18 @@
       <% if admin_signed_in? %>
         <%= form_with url: admin_search_path, method: :get, local: true, class: "d-flex" do |f| %>
           <%= f.search_field :q, value: params[:q], placeholder: "管理者用検索", class: "form-control" %>
-          <%= f.submit "検索", class: "btn btn-outline-light" %>
+        <button type="submit" class="btn search-btn">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
         <% end %>
       <% else %>
         <%= form_with url: search_path, method: :get, local: true, class: "d-flex" do |f| %>
+          <div class="search-input">
           <%= f.search_field :q, value: params[:q], placeholder: "ユーザー / アーティスト / グループを検索", class: "form-control" %>
-          <%= f.submit "検索", class: "btn btn-outline-light" %>
+          </div>
+          <button type="submit" class="btn search-btn">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
         <% end %>
       <% end %>
     </div>
