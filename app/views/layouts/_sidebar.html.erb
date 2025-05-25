@@ -1,41 +1,80 @@
-<div class="sidebar d-flex flex-column" style="min-height: 100vh;">
-  <div class="fa-solid"><%= link_to 'Slan Colony', (admin_signed_in? ? admin_top_path : root_path ), class: "logo" %></div>
-    <ul>
-      <% if admin_signed_in? %>
-        <h5 class="mt-3">INDEX</h5>
-        <ul class="pl-3 mt-2 mb-4">
-          <li><%= link_to '通報', admin_reports_path %></li>
-          <li><%= link_to 'ユーザー', admin_users_path %></li>
-          <li><%= link_to 'アーティスト', admin_artists_path %></li>
-          <li><%= link_to 'サークル', admin_groups_path %></li>
-        </ul>
-        <ul>
-          <li><%= link_to 'ジャンル作成', admin_genres_path %></li>
-          <li>
-            <%= link_to 'ログアウト', destroy_admin_session_path, method: :delete %>
-          </li>
-        </ul>
-      <% elsif user_signed_in? %>
-        <li><%= link_to 'アーティスト', artists_path %></li>
-        <li><%= link_to 'サークル', groups_path %></li>
-        <li><%= link_to 'アバウト', homes_about_path %></li>
+<div class="sidebar d-flex flex-column">
+    <!-- 管理者メニュー -->
+    <% if admin_signed_in? %>
+      <h5 class="mt-3">INDEX</h5>
+      <ul class="pl-3 mt-2 mb-4">
+        <li><%= link_to '通報', admin_reports_path %></li>
+        <li><%= link_to 'ユーザー', admin_users_path %></li>
+        <li><%= link_to 'アーティスト', admin_artists_path %></li>
+        <li><%= link_to 'サークル', admin_groups_path %></li>
+      </ul>
+      <ul>
+        <li><%= link_to 'ジャンル作成', admin_genres_path %></li>
+        <li>
+          <%= link_to 'ログアウト', destroy_admin_session_path, method: :delete %>
+        </li>
+      </ul>
+    <!-- 会員メニュー -->
+    <% elsif user_signed_in? %>
+      <ul class="sidebar-public">
+        <li class="mb-4">
+          <%= link_to artists_path, class: "d-flex align-items-center" do %>
+            <i class="fa-solid fa-music mr-2"></i> アーティスト
+          <% end %>
+        </li>
+        <li class="mb-4">
+          <%= link_to groups_path, class: "d-flex align-items-center" do %>
+            <i class="fa-solid fa-users mr-2"></i> サークル
+          <% end %>
+        </li>
         <% if current_user && !current_user.guest? %>
-          <li><%= link_to "マイページ", users_mypage_path %></li>
+          <li class="mb-4">
+            <%= link_to users_mypage_path, class: "d-flex align-items-center" do %>
+              <i class="fas fa-user mr-2"></i> マイページ
+            <% end %>
+          </li>
         <% end %>
-        <li>
-          <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
+        <li class="mb-4">
+          <%= link_to homes_about_path, class: "d-flex align-items-center" do %>
+            <i class="fas fa-info-circle mr-2"></i> アバウト
+          <% end %>
         </li>
+          <li class="mb-4">
+          <%= link_to  destroy_user_session_path, method: :delete, class: "d-flex align-items-center" do %>
+            <i class="fas fa-sign-out-alt mr-2"></i> ログアウト
+          <% end %>
+        </li>
+      </ul>
+    <!-- 非会員メニュー -->
+    <ul class="sidebar-public">
       <% else %>
-        <li><%= link_to 'アーティスト', artists_path %></li>
-        <li><%= link_to 'サークル', groups_path %></li>
-        <li><%= link_to 'アバウト', homes_about_path %></li>
-        <li>
-          <%= link_to '新規登録', new_user_registration_path %>
+        <li class="mb-4">
+          <%= link_to artists_path, class: "d-flex align-items-center fa-solid" do %>
+            <i class="fa-solid fa-music mr-2"></i> アーティスト
+          <% end %>
         </li>
-        <li>
-          <%= link_to 'ログイン', new_user_session_path %>
+        <li class="mb-4">
+          <%= link_to groups_path, class: "d-flex align-items-center fa-solid" do %>
+            <i class="fa-solid fa-users mr-2"></i> サークル
+          <% end %>
         </li>
-      <% end %>
-    </ul>
-  </div>
+        <li class="mb-4">
+          <%= link_to homes_about_path, class: "d-flex align-items-center fa-solid" do %>
+            <i class="fas fa-info-circle mr-2"></i> アバウト
+          <% end %>
+        </li>
+        <li class="mb-4">
+          <%= link_to new_user_registration_path, class: "d-flex align-items-center fa-solid" do %>
+            <i class="fa-solid fa-user-plus mr-2"></i> 新規登録
+          <% end %>
+        </li>
+
+        <li class="mb-4">
+          <%= link_to new_user_session_path, class: "d-flex align-items-center fa-solid" do %>
+            <i class="fa-solid fa-right-to-bracket mr-2"></i> ログイン
+          <% end %>
+        </li>
+      </ul>
+    <% end %>
+  </ul>
 </div>

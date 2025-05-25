@@ -1,10 +1,9 @@
-<footer class="text-dark text-center py-3">
+<footer class="text-center py-3">
   <div class="container">
     <div class="fa-solid">
-      <%= link_to 'Slan Colony', (admin_signed_in? ? admin_top_path : root_path), class: "logo text-secondary" %>
-    </div>
-    <div>
-      <%= link_to new_admin_session_path,class: "text-dark" do %>
+      <%= link_to 'Slan Colony', (admin_signed_in? ? admin_top_path : root_path), class: "logo text-secondary ml-5" %>
+    
+      <%= link_to new_admin_session_path,class: "text-dark ml-5" do %>
         <i class="fa-solid fa-lock"></i>
       <% end %>
     </div>

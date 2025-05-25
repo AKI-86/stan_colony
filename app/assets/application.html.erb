@@ -9,22 +9,18 @@
     <script src="https://kit.fontawesome.com/2fbf5c023b.js" crossorigin="anonymous"></script>
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Monomaniac+One&family=Yusei+Magic&display=swap" rel="stylesheet">
-    </head>
+  </head>
 
   <body>
-    <%= render 'layouts/header' %>
-
+    <%= render 'layouts/sidebar' %>
     <!-- メインエリア全体 -->
     <div class="main-area">
-      <%= render 'layouts/sidebar' %>
+        <%= render 'layouts/header' %>
       <div class="main-content flex-grow-1">
-        <%= render 'layouts/flash_messages' %>
+      <%= render 'layouts/flash_messages' %>
         <%= yield %>
       </div>
+      <%= render 'layouts/footer' %>
     </div>
-    <%= render 'layouts/footer' %>
   </body>
 </html>

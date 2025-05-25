@@ -6,47 +6,42 @@ body, html {
   height: 100%;
   font-family: sans-serif;
   display: flex;
-  flex-direction: column; // htmlとbodyをフレックスコンテナにし、子要素を縦に並べる（縦方向のフレックス）ように指定
+  flex-direction: column; // コンテンツを縦方向に配置
   // background-image: image-url("hoge.jpg"); カリキュラム参考・背景画像を表示できるようにする
 }
 
 body {
-  min-height: 100vh; // 最低でも画面の高さ分を確保し、縦スクロールが無い場合でも画面いっぱいに高さを持たせる
+  display: flex;
+  min-height: 100vh; // 画面の高さ分の最小高さを確保
+  flex-direction: row; // sidebar と main-area を横並びにしてるなら横方向
 }
 
 .main-area {
   display: flex; //縦方向のFlexbox
-  flex: 1;
-  flex-direction: row; // sidebar と main-area を横並びにしてるなら横方向
-  // flex-grow: 1; //親コンテナ内で可能な限り横幅を広げる
-  padding-top: 60px;
-  // height: 100vh; //画面の高さいっぱいに高さを確保 レスポンシブで余白ができる
+  flex-direction: column;
+  flex-grow: 1; //親コンテナ内で可能な限り横幅を広げる
+  min-height: 100vh; //画面の高さいっぱいに高さを確保
 }
 
 .main-content {
   flex-grow: 1; // メインコンテンツが残りのスペースを埋める
   background-color: #000000;
-  margin-left: 180px;
+  margin-left: 166px;
   padding: 20px;
   color: #cccbcb;
+  min-height: 0;  /* Flexbox内部の高さ調整 */
 }
 
 .sidebar {
   position: fixed; //サイドバーを固定位置（画面の左上）に配置。
-  top: 60px;       /* ヘッダーの高さ分だけ下げる */
+  top: 0;
   left: 0;
-  width: 180px;
-  height: calc(100vh - 100px); /* ヘッダー分の高さを引く */
-  background-color: #0097b2;
-  padding: 10px 15px 15px 15px;
-  min-height: 100vh;
-  border-right: 15px solid #014758; /* 縁取り（右に2pxの線、色は濃い青） */
+  width: 166px; //幅を固定
+  height: 100vh; //画面の高さいっぱいに高さを確保
+  background-color: #1ed760;
+  padding: 20px;
+  z-index: 1000; //他の要素より前面に表示
 }
-
-.sidebar-public {
-  font-family: "Dela Gothic One", sans-serif;
-}
-
 
 .sidebar ul { //リストの点をなくす
   list-style-type: none;
@@ -69,13 +64,7 @@ body {
 
 
 .header {
-  position: fixed; /* ヘッダーも固定にしてスクロール時も常に上 */
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 60px; /* 例: ヘッダーの高さ */
   background-color: #000000;
-  z-index: 1100; /* サイドバーより前面に表示 */
 }
 
 /* ヘッダー内の検索フォームを横並びに */
@@ -111,6 +100,7 @@ body {
 
 
 footer {
+  position: relative; // フッターの位置を親要素内に制御
   background-color: #3a3a3a;
   padding: 10px;
   color: #fff;
@@ -372,9 +362,9 @@ footer {
     font-size: 0.75rem !important;
     padding: 0.2rem 0.75rem !important;
     border-radius: 50rem !important;
-    border: 1px solid #001d22 !important;
+    border: 1px solid #3f3f3f !important;
     color: #222222 !important;
-    background-color: #0097b2 !important;
+    background-color: #1ed760 !important;
     transition: all 0.2s ease-in-out !important;
   }
 
@@ -383,61 +373,25 @@ footer {
     font-size: 0.75rem !important;
     padding: 0.2rem 0.75rem !important;
     border-radius: 50rem !important;
-    border: 1px solid #001d22 !important;
+    border: 1px solid #3f3f3f !important;
     color: #000000 !important;
     background-color: transparent !important;
     transition: all 0.2s ease-in-out !important;
-    background-color: #0097b2 !important;
+    background-color: #1ed760 !important;
   }
   
   .return-btn:hover {
-    background-color: #014758 !important;
+    background-color: #262b31 !important;
     color: #ffffff !important;
     text-decoration: none !important;
   }
 
   .return-btn-a:hover {
-    background-color: #014758 !important;
+    background-color: #818181 !important;
     color: #fff !important;
     text-decoration: none !important;
   }
 
 
-  .btn-success {
-    background-color: #0097b2 !important;
-    border-color: #0097b2 !important;
-  }
-  
-  .btn-success:hover {
-    background-color: #014758 !important;
-    border-color: #014758 !important;
-  }
-
-  .btn-primary {
-    background-color: #0097b2 !important;
-    border-color: #0097b2 !important;
-  }
-  
-  .btn-primary:hover {
-    background-color: #014758 !important;
-    border-color: #014758 !important;
-  }
 
   
-  /* ページネーション */
-  .pagination .page-link {
-    color: #ffffff;               /* リンク文字色 */
-    background-color: #0097b2;    /* 背景色 */
-    border: 1px solid #007c99;    /* 枠線色 */
-  }
-  
-  .pagination .page-item.active .page-link {
-    background-color: #014758;    /* 現在のページの背景色 */
-    border-color: #014758;
-    color: #ffffff;
-  }
-  
-  .pagination .page-link:hover {
-    background-color: #007c99;    /* ホバー時の背景色 */
-    color: #ffffff;
-  }

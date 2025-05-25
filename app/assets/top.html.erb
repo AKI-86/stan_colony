@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container my-5">
   <div class="row">
     <div class="col-8">
       <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -40,9 +40,7 @@
   </div>
 
 
-  <h3 class="mt-5">
-    <img src="<%= asset_path('title-new-artist.png') %>" alt="新着アーティスト">
-  </h3>
+  <h3 class="mt-5">新着アーティスト</h3>
   <hr class="white-hr">
   <div class="row">
     <% @recent_artists.each do |artist| %>
@@ -62,9 +60,7 @@
 
   <hr>
   
-  <h3 class="mt-4">
-    <img src="<%= asset_path('title-active-group.png') %>" alt="活動的なサークル">
-  </h3>
+  <h3 class="mt-4">活動的なサークル</h3>
   <hr class="white-hr">
   <div class="row">
     <% @active_groups.each do |group| %>

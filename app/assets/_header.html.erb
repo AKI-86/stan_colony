@@ -1,14 +1,13 @@
 <header class="header text-center">
-  <div class="header-inner d-flex align-items-center justify-content-between px-1">
-    <div class="logo">
-      <a class="navbar-brand" href="<%= admin_signed_in? ? admin_top_path : root_path %>">
-        <img src="/assets/logo-5.png" alt="StanColony" height="50">
-      </a>
-
-    </div>
-
-    <div class="search-form ml-auto d-flex align-items-center">
-      <!-- 検索窓 -->
+  <div class="logo">
+    <a class="navbar-brand ml-5 pl-5" href="/">
+      <img src="/assets/logo.png" alt="StanColony" height="100">
+    </a>
+  </div>
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <a class="navbar-brand" href="#">Stan Colony</a>
+    <div class="ml-auto d-flex align-items-center">
+      <!-- タブ部分 -->
       <% if admin_signed_in? %>
         <%= form_with url: admin_search_path, method: :get, local: true, class: "d-flex" do |f| %>
           <%= f.search_field :q, value: params[:q], placeholder: "管理者用検索", class: "form-control" %>
@@ -26,7 +25,6 @@
           </button>
         <% end %>
       <% end %>
-
     </div>
-  </div>
+  </nav>
 </header>
