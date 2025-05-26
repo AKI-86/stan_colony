@@ -1,10 +1,6 @@
 <div class="container admin-black-bg p-5">
-  <h1 class="mt-5">
-    <img src="<%= asset_path('title-searched.png') %>" alt="検索結果">
-  </h1>
-  <h2 class="mt-5">
-    <img src="<%= asset_path('title-searched-artist.png') %>" alt="アーティスト検索結果">
-  </h2>
+  <div class="heading">検索結果</div>
+  <div class="mt-5 heading-mini">アーティスト検索結果</div>
   <hr class="white-hr">
   <% if @artists.any? %>
     <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 search-scroll-box-artist">
@@ -23,9 +19,7 @@
     <p>該当するアーティストはありません</p>
   <% end %>
 
-  <h2 class="mt-5">
-    <img src="<%= asset_path('title-searched-user.png') %>" alt="ユーザー検索結果">
-  </h2>
+  <div class="mt-5 heading-mini">ユーザー検索結果</div>
   <hr class="white-hr">
     <% if (current_user && !current_user.guest?) || admin_signed_in? %>
       <% if @users.any? %>
@@ -41,9 +35,7 @@
       <p>未ログイン、ゲストログインユーザーはユーザーの検索はできません</p>
     <% end %>
 
-  <h2 class="mt-5">
-    <img src="<%= asset_path('title-searched-group.png') %>" alt="サークル検索結果">
-  </h2>
+  <div class="mt-5 heading-mini">サークル検索結果</div>
   <hr class="white-hr">
   <% if @groups.any? %>
     <div class="search-scroll-box">

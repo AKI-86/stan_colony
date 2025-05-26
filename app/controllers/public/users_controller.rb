@@ -72,7 +72,7 @@ class Public::UsersController < ApplicationController
 
   private
   def user_params
-    params.require(:user).permit(:name, :introduction, :email, :gender, :age, :image)
+    params.require(:user).permit(:name, :introduction, :email, :gender, :age, :my_taste,:image)
   end
 
   def reject_guest_user

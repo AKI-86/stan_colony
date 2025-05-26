@@ -1,16 +1,18 @@
 <div class="container">
   <div class= "row">
     <div class= "col-3">
-    <p>参加メンバー一覧</p>
-      <% if admin_signed_in?%>
-        <% @group.members.each do |member| %>
-          <p><%= link_to member.name, admin_user_path(member) %></p>
+      <p>メンバー数：<%= @group.members.count %>人</p>
+      <p>参加メンバー一覧</p>
+        <% if admin_signed_in?%>
+          <% @group.members.each do |member| %>
+            <p><%= link_to member.name, admin_user_path(member) %></p>
+          <% end %>
+        <% else %>
+          <% @group.members.each do |member| %>
+            <p><%= link_to member.name, user_path(member) %></p>
+          <% end %>
         <% end %>
-      <% else %>
-        <% @group.members.each do |member| %>
-          <p><%= link_to member.name, user_path(member) %></p>
-        <% end %>
-      <% end %>
+      
     </div>
 
     <div class= "col-8 chat-container">

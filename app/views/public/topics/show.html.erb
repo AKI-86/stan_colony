@@ -7,18 +7,17 @@
   
   <div class="card mt-2 mb-4">
     <div class="row">
-      <div class="p-3 m-3">
+      <div class="pt-3 px-3 m-3">
         <h4><%= @topic.title %></h4>
-        <p><%= @topic.body %></p>
-        <p>
-          作成者：
-          <%= link_to user_path(@topic.user) do %>
-            <%= image_tag @topic.user.get_image(30, 30), class: "rounded-circle me-1" %>
+        <p class="mb-5"><%= @topic.body %></p>
+        <div class="d-flex align-items-center">
+          <span>作成者：</span>
+          <%= link_to user_path(@topic.user), class: "d-flex align-items-center text-dark" do %>
+            <%= image_tag @topic.user.get_image(25, 25), class: "rounded-circle mr-1" %>
             <%= @topic.user.name %>
-          <% end %><br>
-          作成日：<%= @artist.created_at.strftime("%Y年%m月%d日(%a) %H時%M分") %>
-        </p>
-
+          <% end %>
+        </div>
+        <span>作成日：<%= @artist.created_at.strftime("%Y年%m月%d日(%a) %H時%M分") %></span>
         <% if current_user && !current_user.guest? %>
           <%= render 'public/shared/dropdown_menu', type: :topic, topic: @topic, dropdown_id: "topic_dropdown" %>
         <% end %>
@@ -31,7 +30,7 @@
     <%= paginate @comments %>
   </div>
 
-  <h4 class="mb-3">コメント</h4>
+  <h4 class="mb-3 text-white">コメント</h4>
   <% @comments.each_with_index do |comment, index| %>
     <% number = @comments.total_count - ((@comments.current_page - 1) * @comments.limit_value + index) %>
     <div class="card mb-3">
@@ -41,18 +40,17 @@
             <% if comment.user.guest? %>
              <%= comment.user.name %>
             <% elsif admin_signed_in? %>
-              <%= link_to admin_user_path(comment.user) do %>
-                <%= image_tag comment.user.get_image(20, 20), class: "rounded-circle me-1" %>
+              <%= link_to admin_user_path(comment.user), class: "d-flex align-items-center text-dark mr-2" do %>
+                <%= image_tag comment.user.get_image(20, 20), class: "rounded-circle mr-1" %>
                 <%= comment.user.name %>
               <% end %>
             <% else %>
-              <%= link_to user_path(comment.user) do %>
-                <%= image_tag comment.user.get_image(20, 20), class: "rounded-circle me-1" %>
+              <%= link_to user_path(comment.user), class: "d-flex align-items-center text-dark mr-2" do %>
+                <%= image_tag comment.user.get_image(20, 20), class: "rounded-circle mr-1" %>
                 <%= comment.user.name %>
               <% end %>
             <% end %>
-            <br>
-          <span class="ms-auto text-muted ml-2" style="font-size: 0.85em;"><%= comment.created_at.strftime("%Y年%m月%d日(%a) %H時%M分") %></span>
+          <span class="text-muted ml-2" style="font-size: 0.85em;"><%= comment.created_at.strftime("%Y年%m月%d日(%a) %H時%M分") %></span>
         </div>
         <% if comment.deleted? %>
           <p class="mb-2 text-muted">このコメントは削除されました。</p>
@@ -79,7 +77,7 @@
       <div class="form-group">
         <%= f.text_area :body, class: "form-control", rows: 3 %>
       </div>
-      <%= f.submit "コメントする", class: "btn btn-primary" %>
+      <%= f.submit "投稿", class: "btn btn-primary" %>
     <% end %>
   </div>
 </div>

@@ -1,35 +1,35 @@
 <div class="container p-5">
   <%= link_to "サークル一覧に戻る", groups_path, class: "btn return-btn-a mb-2" %>
-  
-  <div class="card mb-4">
-    <div class="row">
-      <div class="col-md-3 d-flex align-items-center justify-content-center m-3">
-        <%= image_tag @group.get_image(200, 200), class: "img-thumbnail", style: "object-fit: cover;" %>
+  <div class="card mb-4 shadow-sm">
+    <div class="row p-3">
+      <div class="col-md-3 d-flex align-items-start justify-content-center m-3 ml-2">
+        <%= image_tag @group.get_image(250, 250), class: "img-thumbnail"%>
       </div>
-      <div class="col-md-8 p-3">
-        <h4><%= @group.name %></h4>
-        <p><%= @group.introduction %></p>
-        <p>
-          作成者：
-          <%= link_to user_path(@group.owner) do %>
-            <%= image_tag @group.owner.get_image(30, 30), class: "rounded-circle me-1" %>
-            <%= @group.owner.name %>
-          <% end %><br>
-          作成日：<%= @group.created_at.strftime("%Y年%m月%d日(%a) %H時%M分") %>
-        </p>
+      <div class="col-md-8">
+        <h2 class="my-3"><%= truncate(@group.name, length: 150) %></h2>
+        <p><%= truncate(@group.introduction, length: 1000) %></p>
         <p>タグ：
           <% if @group.group_tags.any? %>
-          <% @group.group_tags.each do |tag| %>
-            <%= link_to tag.name, group_tag_path(tag.name), class: "badge badge-pill badge-success me-1" %>
+            <% @group.group_tags.each do |tag| %>
+              <%= link_to tag.name, group_tag_path(tag.name), class: "badge badge-pill badge-success me-1" %>
+            <% end %>
+          <% else %>
+            タグはまだありません
           <% end %>
-        <% else %>
-          タグはまだありません
-        <% end %>
         </p>
+        <p>メンバー数：<%= @group.members.count %>人</p>
+        <div class="d-flex align-items-center">
+          <span>作成者：</span>
+          <%= link_to user_path(@group.owner), class: "d-flex align-items-center text-dark" do %>
+            <%= image_tag @group.owner.get_image(25, 25), class: "rounded-circle mr-1" %>
+            <%= @group.owner.name %>
+          <% end %>
+        </div>
+        <p>作成日：<%= @group.created_at.strftime("%Y年%m月%d日(%a) %H時%M分") %></p>
         <p>
         <% if (current_user && !current_user.guest?) || admin_signed_in? %>
           <% if current_user && current_user.joined_groups.include?(@group) || admin_signed_in? %>
-            <%= link_to "チャットルームへ", group_chat_messages_path(@group) %>
+            <%= link_to "チャットルームへ", group_chat_messages_path(@group), class: "btn btn-primary" %>
             <% if current_user && current_user.joined_groups.include?(@group) %>
               <%= button_to "脱退する", group_group_membership_path(@group), method: :delete, class: "btn btn-danger" %>
             <% end %>
@@ -46,17 +46,17 @@
       <% if current_user && !current_user.guest? %>
         <%= render 'public/shared/dropdown_menu', type: :group, dropdown_id: "group", group: @group %>
       <% end %>
-
       </div>
     </div>
   </div>
 
+  <!-- コメント部分 -->
   <div class="d-flex justify-content-center my-4">
     <%= paginate @group_comments %>
   </div>
 
   <% if (current_user && !current_user.guest?) || admin_signed_in? %>
-    <h4 class="mb-3">コメント</h4>
+    <h4 class="mb-3 text-white">コメント</h4>
     <% if @group_comments.any? %>
       <% @group_comments.each_with_index do |comment, index| %>
         <% number = @group_comments.total_count - ((@group_comments.current_page - 1) * @group_comments.limit_value + index) %>
@@ -65,18 +65,18 @@
             <div class="d-flex align-items-center mb-2">
               <span class="mr-1"><%= number %>.</span>
                 <% if admin_signed_in? %>
-                  <%= link_to admin_user_path(comment.user) do %>
-                    <%= image_tag comment.user.get_image(20, 20), class: "rounded-circle me-1" %>
-                    <strong><%= comment.user.name %></strong>
+                  <%= link_to admin_user_path(comment.user), class:"d-flex align-items-center text-dark mr-2" do %>
+                    <%= image_tag comment.user.get_image(20, 20), class: "rounded-circle mr-1" %>
+                    <%= comment.user.name %>
                   <% end %>
                 <% else %>
-                  <%= link_to user_path(comment.user) do %>
-                    <%= image_tag comment.user.get_image(20, 20), class: "rounded-circle me-1" %>
-                    <strong><%= comment.user.name %></strong>
+                  <%= link_to user_path(comment.user), class: "d-flex align-items-center text-dark mr-2" do %>
+                    <%= image_tag comment.user.get_image(20, 20), class: "rounded-circle mr-1" %>
+                    <%= comment.user.name %>
                   <% end %>
                 <% end %>
-              <br>
-              <span class="ms-auto text-muted ml-2" style="font-size: 0.85em;"><%= comment.created_at.strftime("%Y年%m月%d日(%a) %H時%M分") %></span>
+
+              <span class="text-muted ml-2" style="font-size: 0.85em;"><%= comment.created_at.strftime("%Y年%m月%d日(%a) %H時%M分") %></span>
             </div>
             <% if comment.deleted? %>
               <p class="mb-2 text-muted">このコメントは削除されました。</p>

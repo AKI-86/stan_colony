@@ -5,33 +5,43 @@
   </div>
 
   <div class="mypage-info my-3" style="position: relative;">
-    <table class= "table table-bordered table-sm mt-2 mb-3">
-    <tbody>
-      <tr>
-        <td style="width: 25%;">紹介文</td>
-        <td><%= truncate(@user.introduction, length: 500) %></td>
-      </tr>
-      <tr>
-        <td>性別</td>
-      <td><%= @user.gender %></td>
-      </tr>
-      <tr>
-        <td>年齢</td>
-        <td><%= @user.age %></td>
-      </tr>
-    </tbody>
-  </table>
-  <% if user_signed_in? && current_user != @user %>
-    <% if current_user.following?(@user) %>
-        <%= button_to 'フォローを外す', user_relationship_path(@user, current_user.relationships.find_by(followed_id: @user.id)), method: :delete, class: "btn btn-outline-danger" %>
-    <% else %>
-      <%= button_to 'フォローする', user_relationships_path(@user), method: :post, class: "btn btn-primary" %>
+    <table class= "table table-bordered mt-2 mb-4">
+      <tbody>
+        <tr>
+          <td style="width: 25%;">ニックネーム</td>
+          <td><%= @user.name %></td>
+        </tr>
+        <tr>
+          <td style="width: 25%;">紹介文</td>
+          <td><%= truncate(@user.introduction, length: 500) %></td>
+        </tr>
+        <tr>
+          <td>好み</td>
+          <td><%= @user.my_taste %></td>
+        </tr>
+        <tr>
+          <td>性別</td>
+        <td><%= @user.gender %></td>
+        </tr>
+        <tr>
+          <td>年齢</td>
+          <td><%= @user.age %></td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <!-- フォローボタン・メニューボタン -->
+    <% if user_signed_in? && current_user != @user %>
+      <% if current_user.following?(@user) %>
+          <%= button_to 'フォローを外す', user_relationship_path(@user, current_user.relationships.find_by(followed_id: @user.id)), method: :delete, class: "btn btn-danger" %>
+      <% else %>
+        <%= button_to 'フォローする', user_relationships_path(@user), method: :post, class: "btn btn-primary" %>
+      <% end %>
     <% end %>
-  <% end %>
 
-  <% if current_user && !current_user.guest? %>
-    <%= render 'public/shared/dropdown_menu', type: :user, dropdown_id: "user", user: @user %>
-  <% end %>
+    <% if current_user && !current_user.guest? %>
+      <%= render 'public/shared/dropdown_menu', type: :user, dropdown_id: "user", user: @user %>
+    <% end %>
   </div>
 
 <!-- タブ -->

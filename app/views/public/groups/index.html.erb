@@ -1,35 +1,28 @@
 <div class="container-fluid my-5">
     <div class="d-flex align-items-center my-5">
-      <div class="me-3 heading">サークル一覧</div>
-      <%= link_to "新規作成", new_group_path, class: "btn btn-custom-blue ml-5"%>
-    </div>
+    <div class="me-3 heading">サークル一覧</div>
+    <%= link_to "新規作成", new_group_path, class: "btn btn-custom-blue ml-5" %>
+  </div>
 
-  <div class="row">
+  <div class="list-group">
     <% @groups.each do |group| %>
-      <div class="col-md-3 mb-4 d-flex justify-content-center">
-        <div class="card" style="height: 100%; max-width: 280px;">
-          <%= link_to group_path(group) do %>
-            <%= image_tag group.get_image(280, 180), class: "img-thumbnail card-img-top", style: "object-fit: cover;" %>
-          <% end %>
-          <div class="card-body">
-          <h5 class="card-title" style="overflow: hidden; word-break: break-word;"><%= truncate(group.name, length: 30) %></h5>
-            <p class="card-text"><%= truncate(group.introduction, length: 40) %></p>
-            <p>
-              <% group.group_tags.each do |tag| %>
-                <%= link_to tag.name, group_tag_path(tag.name), class: "badge badge-pill badge-success me-1" %>
-              <% end %>
-            </p>
-            <p>作成者：
-              <%= link_to user_path(group.owner) do %>
-                <%= group.owner.name %>
-              <% end %>
-            </p>
+      <%= link_to group_path(group), class: "list-group-item list-group-item-action d-flex align-items-center" do %>
+        <%= image_tag group.get_image(80, 80), class: "img-thumbnail mr-3" %>
+        <div class="flex-grow-1">
+          <h5><%= truncate(group.name, length: 100) %></h5>
+          <p class="my-1" style="max-width: 1200px;"><%= truncate(group.introduction, length: 130) %></p>
+          <div>
+            <% group.group_tags.each do |tag| %>
+              <span class="badge bg-success mr-1"><%= tag.name %></span>
+            <% end %>
           </div>
         </div>
-      </div>
+        <small class="text-muted ml-3">作成者: <%= group.owner.name %></small>
+      <% end %>
     <% end %>
   </div>
   <div class="d-flex justify-content-center my-4">
     <%= paginate @groups %>
   </div>
 </div>
+

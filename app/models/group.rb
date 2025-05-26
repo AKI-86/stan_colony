@@ -12,11 +12,13 @@ class Group < ApplicationRecord
   
   has_many :reports, as: :reportable, dependent: :destroy
   
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: { case_sensitive: false }
   validates :introduction, presence: true
 
   scope :active, -> { where(is_active: true) }
 
+
+  # resize_to_limitから変更した
   def get_image(width, height)
     unless image.attached?
       file_path = Rails.root.join('app/assets/images/no_image.jpg')

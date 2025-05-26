@@ -146,6 +146,12 @@ footer {
   color: #fff;
 }
 
+.heading-mini {
+  font-family: "Dela Gothic One", sans-serif;
+  font-size: 2em;
+  color: #fff;
+}
+
 .heading-black {
 font-family: "Dela Gothic One", sans-serif;
 font-size: 2.5em;
@@ -495,4 +501,19 @@ color: #000000;
   .pagination .page-link:hover {
     background-color: #007c99;    /* ホバー時の背景色 */
     color: #ffffff;
+  }
+
+
+  .tabs {
+    overflow-x: auto; /* スクロールを表示 */
+    white-space: nowrap; /* 子要素のtabを1行に指定 */
+    max-width: 100%; /* 最大幅を親要素の幅に制限 */
+    border-bottom: 1px solid #dee2e6; /* 下線のデザイン */
+  }
+  .nav-tabs {
+    flex-wrap: nowrap; /* タブを折り返さずに一列に並べる */
+    min-width: max-content; /* 中にあるコンテンツのサイズに合わせて最低限必要な幅を確保 */
+  }
+  .nav-item {
+    white-space: nowrap; /* 1行に指定 */
   }

@@ -19,7 +19,8 @@ class Public::GroupsController < ApplicationController
 
   def create
     @group = Group.new(group_params)
-    @group.owner_id = current_user.id
+    @group = current_user.owned_groups.build(group_params)
+    
     tag_names = params[:tag_names].to_s.split(',').map(&:strip).reject(&:blank?)
     if tag_names.size > 10
       flash.now[:alert] = "タグは最大10個までです。"
@@ -31,6 +32,7 @@ class Public::GroupsController < ApplicationController
         tag = GroupTag.find_or_create_by(name: tag_name)
         GTag.create(group: @group, group_tag: tag)
       end
+      GroupMembership.create(user: current_user, group: @group)
       redirect_to group_path(@group), notice: "サークルを作成しました。"
     else
       flash.now[:alert] = "サークルの作成に失敗しました。"
