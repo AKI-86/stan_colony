@@ -40,9 +40,7 @@
   </div>
 
 
-  <h3 class="mt-5">
-    <img src="<%= asset_path('title-new-artist.png') %>" alt="新着アーティスト">
-  </h3>
+  <div class="mt-5 heading">新着アーティスト</div>
   <hr class="white-hr">
   <div class="row">
     <% @recent_artists.each do |artist| %>
@@ -60,11 +58,7 @@
     <%= link_to ">>アーティスト一覧", artists_path, class: "btn return-btn-a" %>
   </div>
 
-  <hr>
-  
-  <h3 class="mt-4">
-    <img src="<%= asset_path('title-active-group.png') %>" alt="活動的なサークル">
-  </h3>
+  <div class="mt-4 heading">活動的なサークル</div>
   <hr class="white-hr">
   <div class="row">
     <% @active_groups.each do |group| %>

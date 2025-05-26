@@ -1,63 +1,62 @@
 <div class= "container py-4">
-  <h2 class="mb-3">
-    <img src="<%= asset_path('title-mypage.png') %>" alt="マイページ">
-  </h2>
-  
-  <div class= "row mypage-info">
-    <div class= "col-5">
-    <h5 class="ml-1">登録情報</h5>
-    <%= image_tag @user.get_image(100, 100), class: "rounded-circle me-1" %>
-      <table class= "table table-hover mb-3 table-borderless">
-        <tbody>
-          <tr>
-            <td style="width: 30%;">ニックネーム</td>
-            <td><%= @user.name %></td>
-          </tr>
-          <tr>
-            <td>性別</td>
-          <td><%= @user.gender %></td>
-          </tr>
-          <tr>
-            <td>年齢</td>
-            <td><%= @user.age %></td>
-          </tr>
-          <tr>
-            <td>紹介文</td>
-            <td><%= @user.introduction %></td>
-          </tr>
-          <tr>
-            <td>フォロー</td>
-            <td><%= @user.followings.count %></td>
-          </tr>
-          <tr>
-            <td>フォロワー</td>
-            <td><%= @user.followers.count %></td>
-          </tr>
-        </tbody>
-      </table>
-      <div><%= link_to "他者から見た自分のページを見る", user_path(current_user, skip_redirect: true) %></div>
+  <div class="d-flex align-items-center mb-3">
+    <div class="heading mr-5">マイページ</div>
+      <%= link_to "アーティスト新規作成", new_artist_path, class: "btn btn-custom-blue-small mt-2"%>
+      <%= link_to "サークル新規作成", new_group_path, class: "btn btn-custom-blue-small mt-2 ml-3"%>
     </div>
+    <div class= "row">
+      <div class= "col-7 mypage-info mr-3">
+        <div class="text-center mb-2">
+          <%= image_tag @user.get_image(120, 120), class: "rounded-circle mb-3 shadow" %>
+          <h4 class="font-weight-bold"><%= @user.name %></h4>
+          <div><%= link_to "他者から見た自分のページを見る", user_path(current_user, skip_redirect: true) %></div>
+        </div>
+        <table class= "table table-bordered table-sm mt-2 mb-3">
+          <tbody>
+            <tr>
+              <td style="width: 25%;">紹介文</td>
+              <td><%= truncate(@user.introduction, length: 500) %></td>
+            </tr>
+            <tr>
+              <td>性別</td>
+            <td><%= @user.gender %></td>
+            </tr>
+            <tr>
+              <td>年齢</td>
+              <td><%= @user.age %></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="text-center">
+          <%= link_to "ユーザー情報編集", edit_user_path(@user), class: "btn btn-success mr-3" %>
+          <%= link_to "ログイン情報変更", edit_user_path(@user), class: "btn btn-success mr-3" %>
+          <%= link_to "退会する", users_unsubscribe_path, class: "btn btn-danger" %>
+        </div>
+      </div>
 
-    <div class= "col-3">
-      <div><%= link_to "ユーザー情報編集", edit_user_path(@user), class: "btn btn-success mt-5 mb-3" %></div>
-      <div><%= link_to "パスワード変更", edit_user_path(@user), class: "btn btn-success mb-3" %></div>
-      <div><%= link_to "退会する", users_unsubscribe_path, class: "btn btn-danger mb-2" %></div>
-      <div><%= link_to "アーティストページ新規作成", new_artist_path, class: "btn btn-primary mt-5 mb-3" %></div>
-      <div><%= link_to "サークル新規作成", new_group_path, class: "btn btn-primary" %></div>
+      <div class= "col mypage-info">
+        <h5 class="">あなたにおすすめのアーティスト</h5>
+        <% if @recommended_artists.any? %>
+          <% @recommended_artists.each do |artist| %>
+            <div class="my-2">
+              <%= link_to artist_path(artist.id), class: "text-decoration-none" do %>
+                <%= image_tag artist.get_image(50, 50), class: "rounded-circle" %>
+                <span class="ml-2"><%= artist.name %></span>
+              <% end %>
+            </div>
+          <% end %>
+        <% else %>
+          <p class="text-muted">現在おすすめはありません。</p>
+        <% end %>
+      </div>
     </div>
+    
+  <hr>
 
-    <div class= "col-4">
-      追加する機能を考案中
-      フォローしたユーザーがいいねをつけたアーティストを表示
-      自分がいいねをつけたものは除く、など
+    <!-- タブ -->
+    <div class= "row mypage_date ">
+      <%= render 'public/shared/user_show_tab' %>
     </div>
-  </div>
-
-<hr>
-
-<!-- タブ -->
-  <div class= "row mypage_date ">
-    <%= render 'public/shared/user_show_tab' %>
   </div>
 </div>
 

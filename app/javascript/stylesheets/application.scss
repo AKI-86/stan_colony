@@ -48,6 +48,7 @@ body {
 }
 
 
+
 .sidebar ul { //リストの点をなくす
   list-style-type: none;
   padding: 0;
@@ -128,6 +129,7 @@ footer {
 .mypage_date{
   background-color: #f8f9fa;
   padding: 20px;
+  color: #000000;
   border-radius: 8px;
 }
 
@@ -138,7 +140,17 @@ footer {
 
 
 
+.heading {
+  font-family: "Dela Gothic One", sans-serif;
+  font-size: 2.5em;
+  color: #fff;
+}
 
+.heading-black {
+font-family: "Dela Gothic One", sans-serif;
+font-size: 2.5em;
+color: #000000;
+}
 
 
 .card {
@@ -403,6 +415,39 @@ footer {
   }
 
 
+  .btn-custom-blue {
+    background-color: #0097b2 !important;
+    border-color: #0097b2 !important;
+    border-radius: 50px !important;
+    font-family: "Dela Gothic One", sans-serif;
+    padding: 2.5px 15px !important;
+    font-size: 1.5rem !important;
+    color: #ffffff !important;
+    display: inline-flex !important;
+    align-items: center !important;
+  }
+
+  .btn-custom-blue-small {
+    background-color: #0097b2 !important;
+    border-color: #0097b2 !important;
+    border-radius: 50px !important;
+    font-family: "Dela Gothic One", sans-serif;
+    font-size: 1rem !important;
+    color: #ffffff !important;
+    display: inline-flex !important;
+    align-items: center !important;
+  }
+
+  .btn-custom-blue:hover {
+    background-color: #014758 !important;
+    border-color: #014758 !important;
+  }
+
+  .btn-custom-blue-small:hover {
+    background-color: #014758 !important;
+    border-color: #014758 !important;
+  }
+
   .btn-success {
     background-color: #0097b2 !important;
     border-color: #0097b2 !important;
@@ -421,6 +466,16 @@ footer {
   .btn-primary:hover {
     background-color: #014758 !important;
     border-color: #014758 !important;
+  }
+
+  .btn-danger {
+    background-color: #b2004a !important;
+    border-color: #b2004a !important;
+  }
+  
+  .btn-danger:hover {
+    background-color: #6b002d !important;
+    border-color: #6b002d !important;
   }
 
   

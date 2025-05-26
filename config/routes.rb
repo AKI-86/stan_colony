@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-  
 # 管理者用
 # URL /admin/sign_in ...
 devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
@@ -32,7 +31,6 @@ namespace :admin do
   resources :genres, only: [:index, :edit, :create, :update]
   resources :groups, only: [:index, :new, :show, :edit, :create, :update]
 end
-
 
 # ユーザー用
 # URL /users/sign_in ...

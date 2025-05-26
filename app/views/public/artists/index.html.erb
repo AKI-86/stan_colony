@@ -1,19 +1,10 @@
 <div class="container-fluid my-5">
 
-  <div class="d-flex align-items-center mt-5 mb-3">
-    <h2 class="me-3">
-      <img src="<%= asset_path('title-artist.png') %>" alt="アーティスト一覧">
-    </h2>
-    <%= link_to new_artist_path do %>
-      <%= image_tag "1.png", alt: "新規作成", class: "new-artist-btn" %>
-    <% end %>
+  <div class="d-flex align-items-center my-5">
+    <div class="me-3 heading">アーティスト一覧</div>
+    <%= link_to "新規作成", new_artist_path, class: "btn btn-custom-blue ml-5"%>
   </div>
 
-  <%# <h2 class="mt-5"> %>
-    <%# <img src="<%= asset_path('title-artist.png') %>" alt="アーティスト一覧"> %>
-  <%# </h2> %>
-  <%# <p><%= link_to "新規作成", new_artist_path, class: "btn btn-success mb-3" %></p> %>
-  
   <div class="row">
     <% @artists.each do |artist| %>
       <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-4 d-flex justify-content-center">

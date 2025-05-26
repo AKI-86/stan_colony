@@ -1,7 +1,7 @@
 <div class="container-fluid d-flex justify-content-center my-4">
   <div class="w-100" style="max-width: 600px;">
   <div class="card shadow-sm p-4">
-  <h2 class="text-center mb-4">ユーザー情報編集</h2>
+  <h2 class="text-center mb-4 heading-black">ユーザー情報編集</h2>
     <%= form_with model: @user do |f| %>
       <%= render 'layouts/error_messages', model: f.object %>
       <div class="mb-3">
@@ -9,12 +9,8 @@
         <%= f.text_field :name, class: "form-control" %>
       </div>
       <div class="mb-3">
-        <%= f.label :email, "", class: "form-label" %>
-        <%= f.text_field :email, class: "form-control" %>
-      </div>
-      <div class="mb-3">
         <%= f.label :introduction, "紹介文", class: "form-label" %>
-        <%= f.text_field :introduction, class: "form-control" %>
+        <%= f.text_area :introduction, class: "form-control", rows: 7 %>
       </div>
       <div class="mb-3">
         <%= f.label :gender, "性別", class: "form-label" %>

@@ -91,4 +91,18 @@ class User < ApplicationRecord
   def self.ransackable_attributes(auth_object = nil)
     ["name"]
   end
+
+  def followed_users_favorite_artists_except_mine
+    # フォロー中のユーザーのIDを取得
+    followed_user_ids = self.followings.pluck(:id)
+  
+    # フォロー中ユーザーがいいねしたアーティストのID
+    artist_ids_liked_by_followed_users = Favorite.where(user_id: followed_user_ids).pluck(:artist_id)
+  
+    # 自分がいいねしたアーティストのID
+    my_favorite_artist_ids = self.favorite_artists.pluck(:id)
+  
+    # 自分のいいねを除外し、アクティブなアーティストからランダムに9件取得
+    Artist.active.where(id: artist_ids_liked_by_followed_users - my_favorite_artist_ids).sample(6)
+  end
 end

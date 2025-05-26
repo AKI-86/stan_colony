@@ -11,6 +11,7 @@ class Public::UsersController < ApplicationController
     @following_users = @user.followings.active.page(params[:following_page]).per(10)
     @follower_users = @user.followers.active.page(params[:follower_page]).per(10)
     @joined_groups = @user.joined_groups.active.order(created_at: :desc).page(params[:page]).per(10)
+    @recommended_artists = @user.followed_users_favorite_artists_except_mine
   end
 
   def index

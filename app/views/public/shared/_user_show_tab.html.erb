@@ -1,29 +1,29 @@
-
-  <div class="tabs">
-    <ul class="nav nav-tabs">
+<div class="tabs">
+  <ul class="nav nav-tabs" >
       <li class="nav-item">
-        <a class="nav-link active" data-toggle="tab" href="#section1">作成したアーティスト</a>
+        <a class="nav-link active" data-toggle="tab" href="#section1">作成アーティスト：<%= @user.artists.count %>件</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#section2">いいねをつけたアーティスト</a>
+        <a class="nav-link" data-toggle="tab" href="#section2"><i class="fas fa-heart"></i>したアーティスト：<%= @user.favorite_artists.count %>件</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#section3">作成したサークル</a>
+        <a class="nav-link" data-toggle="tab" href="#section3">作成サークル：<%= @user.owned_groups.count %>件</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#section4">フォロー</a>
+        <a class="nav-link" data-toggle="tab" href="#section4">参加中サークル：<%= @user.joined_groups.count %>件</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#section5">フォロワー</a>
+        <a class="nav-link" data-toggle="tab" href="#section5">フォロー：<%= @user.followings.count %>人</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#section6">参加中のサークル</a>
+        <a class="nav-link" data-toggle="tab" href="#section6">フォロワー：<%= @user.followers.count %>人</a>
       </li>
     </ul>
 
     <!-- タブ1 -->
     <div class="tab-content">
       <div id="section1" class="tab-pane fade show active my-3">
+        <% if @artists.present? %>
         <% @artists.each do |artist| %>
           <div class="my-2">
             <%= link_to artist_path(artist.id), class: "text-decoration-none" do %>
@@ -33,10 +33,14 @@
           </div>
         <% end %>
         <%= paginate @artists %>
+        <% else %>
+          <p>　作成したアーティストはありません</p>
+        <% end %>
       </div>
 
       <!-- タブ2 -->
       <div id="section2" class="tab-pane fade my-3">
+      <% if @favorite.present? %>
         <% @favorite.each do |artist| %>
           <div class="my-2">
             <%= link_to artist_path(artist.id), class: "text-decoration-none" do %>
@@ -46,57 +50,30 @@
           </div>
         <% end %>
         <%= paginate @favorite_artists %>
+        <% else %>
+          <p><i class="fas fa-heart"></i>したアーティストはいません</p>
+        <% end %>
       </div>
 
       <!-- タブ3 -->
       <div id="section3" class="tab-pane fade my-3">
-      <% @groups.each do |group| %>
-        <div class="my-2">
-          <%= link_to group_path(group.id), class: "text-decoration-none" do %>
-            <%= image_tag group.get_image(50, 50), class: "img-fluid" %>
-              <span class="ml-2"><%= group.name %></span>
-          <% end %>
-        </div>
-      <% end %>
-      <%= paginate @groups %>
-      </div>
-      
-      <!-- タブ4 -->
-      <div id="section4" class="tab-pane fade my-3">
-        <% if @following_users.present? %>
-        <% @following_users.each do |user| %>
+      <% if @groups.present? %>
+        <% @groups.each do |group| %>
           <div class="my-2">
-            <%= link_to user_path(user.id), class: "text-decoration-none" do %>
-              <%= image_tag user.get_image(50, 50), class: "rounded-circle me-1" %>
-              <%= user.name %>
+            <%= link_to group_path(group.id), class: "text-decoration-none" do %>
+              <%= image_tag group.get_image(50, 50), class: "img-fluid" %>
+                <span class="ml-2"><%= group.name %></span>
             <% end %>
           </div>
         <% end %>
-          <%= paginate @following_users, param_name: :following_page %>
+        <%= paginate @groups %>
         <% else %>
-          <p>フォローしているユーザーはいません</p>
-        <% end %>
-      </div>
-      
-      <!-- タブ5 -->
-      <div id="section5" class="tab-pane fade my-3">
-        <% if @follower_users.present? %>
-        <% @follower_users.each do |user| %>
-          <div class="my-2">
-            <%= link_to user_path(user.id), class: "text-decoration-none" do %>
-              <%= image_tag user.get_image(50, 50), class: "rounded-circle me-1" %>
-              <%= user.name %>
-            <% end %>
-          </div>
-        <% end %>
-          <%= paginate @follower_users, param_name: :follower_page %>
-        <% else %>
-          <p>フォロワーはいません</p>
+          <p>作成したサークルはありません</p>
         <% end %>
       </div>
 
-      <!-- タブ6 -->
-      <div id="section6" class="tab-pane fade my-3">
+      <!-- タブ4 -->
+      <div id="section4" class="tab-pane fade my-3">
         <% if @joined_groups.any? %>
           <% @joined_groups.each do |group| %>
             <div class="my-2">
@@ -111,5 +88,40 @@
         <% end %>
         <%= paginate @groups %>
       </div>
+      
+      <!-- タブ5 -->
+      <div id="section5" class="tab-pane fade my-3">
+        <% if @following_users.present? %>
+        <% @following_users.each do |user| %>
+          <div class="my-2">
+            <%= link_to user_path(user.id), class: "text-decoration-none" do %>
+              <%= image_tag user.get_image(50, 50), class: "rounded-circle me-1" %>
+              <span class="ml-2"><%= user.name %></span>
+            <% end %>
+          </div>
+        <% end %>
+          <%= paginate @following_users, param_name: :following_page %>
+        <% else %>
+          <p>フォローしているユーザーはいません</p>
+        <% end %>
+      </div>
+      
+      <!-- タブ6 -->
+      <div id="section6" class="tab-pane fade my-3">
+        <% if @follower_users.present? %>
+        <% @follower_users.each do |user| %>
+          <div class="my-2">
+            <%= link_to user_path(user.id), class: "text-decoration-none" do %>
+              <%= image_tag user.get_image(50, 50), class: "rounded-circle me-1" %>
+              <span class="ml-2"><%= user.name %></span>
+            <% end %>
+          </div>
+        <% end %>
+          <%= paginate @follower_users, param_name: :follower_page %>
+        <% else %>
+          <p>フォロワーはいません</p>
+        <% end %>
+      </div>
+
     </div>
   </div>
