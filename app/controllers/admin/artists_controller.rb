@@ -2,7 +2,7 @@ class Admin::ArtistsController < ApplicationController
   before_action :authenticate_admin!
 
   def index
-    @artists = Artist.includes(:favorites, topics: :comments).page(params[:page]).per(20)
+    @artists = Artist.includes(:favorites, topics: :comments).order(created_at: :desc).page(params[:page]).per(15)
   end
 
   def show

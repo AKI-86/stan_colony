@@ -28,9 +28,8 @@
         <!-- いいねボタン -->
         <% if current_user && !current_user.guest? %>
           <p><%= render "public/favorites/btn", artist: @artist %></p>
+          <p><%= link_to "このアーティストをいいねしているユーザー一覧", favorited_users_artist_path(@artist), class: "btn btn-primary btn-sm" %></p>
         <% end %>
-        <p><%= link_to "このアーティストをいいねしているユーザー一覧", favorited_users_artist_path(@artist), class: "btn btn-primary btn-sm" %></p>
-
         <!-- 通報ボタン -->
         <% if current_user && !current_user.guest? %>
           <%= render 'public/shared/dropdown_menu', type: :artist, dropdown_id: "artist", artist: @artist %>

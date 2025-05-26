@@ -20,15 +20,18 @@ body {
   flex-direction: row; // sidebar と main-area を横並びにしてるなら横方向
   // flex-grow: 1; //親コンテナ内で可能な限り横幅を広げる
   padding-top: 60px;
-  // height: 100vh; //画面の高さいっぱいに高さを確保 レスポンシブで余白ができる
+  height: 100vh; //画面の高さいっぱいに高さを確保 レスポンシブで余白ができる
 }
 
 .main-content {
-  flex-grow: 1; // メインコンテンツが残りのスペースを埋める
+  flex: 1; // メインコンテンツが残りのスペースを埋める
   background-color: #000000;
   margin-left: 180px;
   padding: 20px;
-  color: #cccbcb;
+  color: #ffffff;
+  min-width: 0;           /* 親要素からのはみ出しを防ぐ */
+  overflow-x: auto;       /* 必要に応じて横スクロール */
+  max-width: 100%;        /* 固定幅を避ける */
 }
 
 .sidebar {
@@ -40,7 +43,7 @@ body {
   background-color: #0097b2;
   padding: 10px 15px 15px 15px;
   min-height: 100vh;
-  border-right: 15px solid #014758; /* 縁取り（右に2pxの線、色は濃い青） */
+  border-right: 15px solid #014758; /* 縁取り（右に15pxの線、色は濃い青） */
 }
 
 .sidebar-public {
@@ -258,8 +261,8 @@ color: #000000;
 
 
   .admin-table {
-    background-color: #a6ddb9;    // セルの背景色
-    border: 2px solid #04200e;    // テーブル全体の外枠
+    background-color: #cef8ff;    // セルの背景色
+    border: 2px solid #014758;    // テーブル全体の外枠
     border-radius: 12px;            // 角を丸く
     border-collapse: separate;      // セルを独立させる（角丸を効かせるため）
     border-spacing: 0;              // セル間の隙間をなくす
@@ -267,7 +270,7 @@ color: #000000;
     font-size: 1.1rem;
 
     thead {
-      background-color: #127936; 
+      background-color: #0097b2; 
       color: #000000;
       font-weight: bold;
       border-bottom: 2px solid #000000; // thead 下に罫線を追加
@@ -281,7 +284,7 @@ color: #000000;
       padding: 12px;
     }
     td {
-      border: 1px solid #c2b2a5;  // セルの中の枠線
+      border: 1px solid #000000;  // セルの中の枠線
       text-align: center;
       padding: 12px;
     }
@@ -304,8 +307,21 @@ color: #000000;
     }
     /* tbody の最初の行に top border を追加して、thead とtbody の区切り線を強調 */
     tbody tr:first-child td {
-      border-top: 2px solid #201301;
+      border-top: 2px solid #000000;
     }
+  }
+
+  .status-no_action_needed {
+    background-color: #6c757d !important;
+    color: white !important;
+  }
+  .status-handled {
+    background-color: #cef8ff !important;
+    color: #6c757d !important;
+  }
+  .status-unchecked {
+    background-color: white !important;
+    color: black !important;
   }
 
   // 管理者側（新規登録、編集、詳細画面の視認性を上げるためフォントサイズ変更）
@@ -320,8 +336,8 @@ color: #000000;
     color: #494949;/*文字色*/
     font-weight: bold;
     background: #f4f4f4;/*背景色*/
-    border-left: solid 5px #0b5223; /*左線*/
-    border-bottom: solid 3px #d7d7d7;/*下線*/
+    border-left: solid 10px #014758; /*左線*/
+    border-bottom: solid 5px #d7d7d7;/*下線*/
   }
 
   // 管理者のユーザー情報をスクロール表示
@@ -360,20 +376,6 @@ color: #000000;
     border-top: 1px solid white;
   }
 
-
- 
-  .status-no_action_needed {
-    background-color: #6c757d !important;
-    color: white !important;
-  }
-  .status-handled {
-    background-color: #a6ddb9 !important;
-    color: #6c757d !important;
-  }
-  .status-unchecked {
-    background-color: white !important;
-    color: black !important;
-  }
 
 
   //adminトップページのリンクの色を青から変更 

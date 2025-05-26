@@ -1,5 +1,5 @@
 <div class="container admin-white-bg p-5">
-  <h1 class="display-5 mb-5">Stan Colony管理者画面</h1>
+  <h1 class="display-5 mb-5">STAN COLONY管理者画面</h1>
   <h4 class="mb-3 ">
     <%= link_to admin_reports_path, class: "admin-top-link-color" do %>
       未対応の通報: <span class="text-danger h4"><%= @unchecked_report_count %></span>件
@@ -51,7 +51,7 @@
     <h5><%= link_to "最近作成されたアーティスト（最新5件）", admin_artists_path, class: "admin-top-link-color" %></h5>
     <ul>
       <% @artists.each do |artist| %>
-        <li><%= link_to artist.name, admin_artist_path(artist) %>（<%= l(artist.created_at, format: :short) %>）</li>
+        <li><%= link_to truncate(artist.name, length: 50), admin_artist_path(artist) %>（<%= l(artist.created_at, format: :short) %>）</li>
       <% end %>
     </ul>
   </div>
@@ -60,7 +60,7 @@
     <h5><%= link_to "最近作成されたコミュニティ（最新5件）", admin_groups_path, class: "admin-top-link-color" %></h5>
     <ul>
       <% @groups.each do |group| %>
-        <li><%= link_to group.name, admin_group_path(group) %>（<%= l(group.created_at, format: :short) %>）</li>
+        <li><%= link_to truncate(group.name, length: 50), admin_group_path(group) %>（<%= l(group.created_at, format: :short) %>）</li>
       <% end %>
     </ul>
   </div>
@@ -69,7 +69,7 @@
     <h5><%= link_to "最近登録されたユーザー（最新5件）", admin_users_path, class: "admin-top-link-color" %></h5>
     <ul>
       <% @users.each do |user| %>
-        <li><%= link_to user.name, admin_user_path(user) %>（<%= l(user.created_at, format: :short) %>）</li>
+        <li><%= link_to truncate(user.name, length: 30), admin_user_path(user) %>（<%= l(user.created_at, format: :short) %>）</li>
       <% end %>
     </ul>
   </div>

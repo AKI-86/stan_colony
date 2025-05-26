@@ -1,5 +1,6 @@
 <div class="container-fluid my-5">
-  <h2>タグ: <%= @artist_tag.name %> のアーティスト一覧</h2>
+  <div class="me-3 heading my-5">タグ: <%= @artist_tag.name %> のアーティスト一覧</div>
+
   <div class="row">
     <% if @artists.any? %>
       <% @artists.each do |artist| %>

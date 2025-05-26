@@ -2,7 +2,7 @@ class Admin::GroupsController < ApplicationController
   before_action :authenticate_admin! 
   
   def index
-    @groups = Group.includes(:members).page(params[:page]).per(10)
+    @groups = Group.includes(:members).order(created_at: :desc).page(params[:page]).per(15)
   end
 
   def show
