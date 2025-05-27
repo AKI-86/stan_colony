@@ -1,50 +1,61 @@
 @import '~bootstrap/scss/bootstrap';
 
-body, html {
+html, body {
+  height: 100%;
   margin: 0;
   padding: 0;
-  height: 100%;
-  font-family: sans-serif;
-  display: flex;
-  flex-direction: column; // htmlとbodyをフレックスコンテナにし、子要素を縦に並べる（縦方向のフレックス）ように指定
-  // background-image: image-url("hoge.jpg"); カリキュラム参考・背景画像を表示できるようにする
 }
 
 body {
-  min-height: 100vh; // 最低でも画面の高さ分を確保し、縦スクロールが無い場合でも画面いっぱいに高さを持たせる
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* ビューポート高さに合わせる */
+}
+
+.header {
+  height: 60px;
+  /* fixedは外す */
+  position: static; /* または指定なし */
+  background-color: #000;
+  width: 100%;
+  z-index: auto;
 }
 
 .main-area {
-  display: flex; //縦方向のFlexbox
-  flex: 1;
-  flex-direction: row; // sidebar と main-area を横並びにしてるなら横方向
-  // flex-grow: 1; //親コンテナ内で可能な限り横幅を広げる
-  padding-top: 60px;
-  height: 100vh; //画面の高さいっぱいに高さを確保 レスポンシブで余白ができる
-}
-
-.main-content {
-  flex: 1; // メインコンテンツが残りのスペースを埋める
-  background-color: #000000;
-  margin-left: 180px;
-  padding: 20px;
-  color: #ffffff;
-  min-width: 0;           /* 親要素からのはみ出しを防ぐ */
-  overflow-x: auto;       /* 必要に応じて横スクロール */
-  max-width: 100%;        /* 固定幅を避ける */
+  flex: 1;  /* ここでメインが余った領域を埋める */
+  margin-top: 0; /* fixedヘッダー用のマージンも不要 */
+  display: flex;
 }
 
 .sidebar {
-  position: fixed; //サイドバーを固定位置（画面の左上）に配置。
-  top: 60px;       /* ヘッダーの高さ分だけ下げる */
-  left: 0;
+  position: static; /* fixed外す */
+  height: auto; /* 固定高さ外す */
   width: 180px;
-  height: calc(100vh - 100px); /* ヘッダー分の高さを引く */
   background-color: #0097b2;
-  padding: 10px 15px 15px 15px;
-  min-height: 100vh;
-  border-right: 15px solid #014758; /* 縁取り（右に15pxの線、色は濃い青） */
+  padding: 10px 15px;
+  border-right: 15px solid #014758;
+  overflow-y: auto;
 }
+
+.main-content {
+  flex: 1;
+  overflow-y: auto;
+  max-height: none; /* 固定高さ外す */
+  padding: 20px;
+  background-color: #000;
+  color: #fff;
+}
+
+footer {
+  height: 50px;
+  background-color: #3a3a3a;
+  color: #fff;
+  padding: 10px;
+  flex-shrink: 0;
+  width: 100%;
+  position: static; /* fixed外す */
+}
+
 
 .sidebar-public {
   font-family: "Dela Gothic One", sans-serif;
@@ -72,15 +83,15 @@ body {
 }
 
 
-.header {
-  position: fixed; /* ヘッダーも固定にしてスクロール時も常に上 */
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 60px; /* 例: ヘッダーの高さ */
-  background-color: #000000;
-  z-index: 1100; /* サイドバーより前面に表示 */
-}
+// .header {
+//   position: fixed; /* ヘッダーも固定にしてスクロール時も常に上 */
+//   top: 0;
+//   left: 0;
+//   width: 100%;
+//   height: 60px; /* 例: ヘッダーの高さ */
+//   background-color: #000000;
+//   z-index: 1100; /* サイドバーより前面に表示 */
+// }
 
 /* ヘッダー内の検索フォームを横並びに */
 .header .navbar-nav .ml-auto {
@@ -114,12 +125,7 @@ body {
 }
 
 
-footer {
-  background-color: #3a3a3a;
-  padding: 10px;
-  color: #fff;
-  width: 100%; // フッターを画面幅いっぱいに
-}
+
 
 
 .mypage-info{
@@ -518,4 +524,11 @@ color: #000000;
   }
   .nav-item {
     white-space: nowrap; /* 1行に指定 */
+  }
+
+
+  .mypage-tab-scroll {
+    max-height: 700px;    /* 好きな高さに調整 */
+    overflow-y: auto;     /* 縦スクロール */
+    padding-right: 10px;  /* スクロールバーが被らないように余白 */
   }

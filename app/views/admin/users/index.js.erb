@@ -1,0 +1,9 @@
+$("#normal-users").html("<%= j render(partial: 'admin/users/user_tab', locals: { users: @users, param_name: :normal_page, tab: 'normal' }) %>");
+$("#guest-users").html("<%= j render(partial: 'admin/users/user_tab', locals: { users: @guest_users, param_name: :guest_page, tab: 'guest' }) %>");
+
+// タブの表示切替はJavaScriptで制御
+<% if @tab == 'guest' %>
+  $('#guest-users-tab').tab('show');
+<% else %>
+  $('#normal-users-tab').tab('show');
+<% end %>

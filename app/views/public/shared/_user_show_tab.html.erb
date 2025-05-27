@@ -23,104 +23,110 @@
   <!-- タブ1 -->
   <div class="tab-content">
     <div id="section1" class="tab-pane fade show active my-3">
-      <% if @artists.present? %>
-      <% @artists.each do |artist| %>
-        <div class="my-2">
-          <%= link_to artist_path(artist.id), class: "text-decoration-none text-dark" do %>
-            <%= image_tag artist.get_image(50, 50), class: "rounded-circle img-fluid" %>
-            <span class="ml-2"><%= truncate(artist.name, length: 50) %></span>
+      <div class="mypage-tab-scroll">
+        <% if @artists.present? %>
+          <% @artists.each do |artist| %>
+            <div class="my-2">
+              <%= link_to artist_path(artist.id), class: "text-decoration-none text-dark" do %>
+                <%= image_tag artist.get_image(50, 50), class: "rounded-circle img-fluid" %>
+                <span class="ml-2"><%= truncate(artist.name, length: 50) %></span>
+              <% end %>
+            </div>
           <% end %>
-        </div>
-      <% end %>
-      <%= paginate @artists %>
-      <% else %>
-        <p>　作成したアーティストはありません</p>
-      <% end %>
+        <% else %>
+          <p>　作成したアーティストはありません</p>
+        <% end %>
+      </div>
     </div>
 
     <!-- タブ2 -->
     <div id="section2" class="tab-pane fade my-3">
-    <% if @favorite.present? %>
-      <% @favorite.each do |artist| %>
-        <div class="my-2">
-          <%= link_to artist_path(artist.id), class: "text-decoration-none text-dark" do %>
-            <%= image_tag artist.get_image(50, 50), class: "rounded-circle img-fluid" %>
-            <span class="ml-2"><%= truncate(artist.name, length: 50) %></span>
+      <div class="mypage-tab-scroll">
+        <% if @favorite_artists.present? %>
+          <% @favorite_artists.each do |artist| %>
+            <div class="my-2">
+              <%= link_to artist_path(artist.id), class: "text-decoration-none text-dark" do %>
+                <%= image_tag artist.get_image(50, 50), class: "rounded-circle img-fluid" %>
+                <span class="ml-2"><%= truncate(artist.name, length: 50) %></span>
+              <% end %>
+            </div>
           <% end %>
-        </div>
-      <% end %>
-      <%= paginate @favorite_artists %>
-      <% else %>
-        <p>　<i class="fas fa-heart"></i>したアーティストはいません</p>
-      <% end %>
+        <% else %>
+          <p>　<i class="fas fa-heart"></i>したアーティストはいません</p>
+        <% end %>
+      </div>
     </div>
 
     <!-- タブ3 -->
     <div id="section3" class="tab-pane fade my-3">
-    <% if @groups.present? %>
-      <% @groups.each do |group| %>
-        <div class="my-2">
-          <%= link_to group_path(group.id), class: "text-decoration-none text-dark" do %>
-            <%= image_tag group.get_image(50, 50), class: "img-fluid" %>
-              <span class="ml-2"><%= truncate(group.name, length: 50) %></span>
+      <div class="mypage-tab-scroll">
+        <% if @groups.present? %>
+          <% @groups.each do |group| %>
+            <div class="my-2">
+              <%= link_to group_path(group.id), class: "text-decoration-none text-dark" do %>
+                <%= image_tag group.get_image(50, 50), class: "img-fluid" %>
+                  <span class="ml-2"><%= truncate(group.name, length: 50) %></span>
+              <% end %>
+            </div>
           <% end %>
-        </div>
-      <% end %>
-      <%= paginate @groups %>
-      <% else %>
-        <p>　作成したサークルはありません</p>
-      <% end %>
+        <% else %>
+          <p>　作成したサークルはありません</p>
+        <% end %>
+      </div>
     </div>
 
     <!-- タブ4 -->
     <div id="section4" class="tab-pane fade my-3">
-      <% if @joined_groups.any? %>
-        <% @joined_groups.each do |group| %>
-          <div class="my-2">
-            <%= link_to group_path(group.id), class: "text-decoration-none text-dark" do %>
-              <%= image_tag group.get_image(50, 50), class: "img-fluid" %>
-              <span class="ml-2"><%= truncate(group.name, length: 50) %></span>
-            <% end %>
-          </div>
+      <div class="mypage-tab-scroll">
+        <% if @joined_groups.any? %>
+          <% @joined_groups.each do |group| %>
+            <div class="my-2">
+              <%= link_to group_path(group.id), class: "text-decoration-none text-dark" do %>
+                <%= image_tag group.get_image(50, 50), class: "img-fluid" %>
+                <span class="ml-2"><%= truncate(group.name, length: 50) %></span>
+              <% end %>
+            </div>
+          <% end %>
+        <% else %>
+          <p>　参加中のサークルはありません。</p>
         <% end %>
-        <%= paginate @joined_groups, param_name: :joined_page %>
-      <% else %>
-        <p>　参加中のサークルはありません。</p>
-      <% end %>
+      </div>
     </div>
     
     <!-- タブ5 -->
     <div id="section5" class="tab-pane fade my-3">
-      <% if @following_users.present? %>
-      <% @following_users.each do |user| %>
-        <div class="my-2">
-          <%= link_to user_path(user.id), class: "text-decoration-none text-dark" do %>
-            <%= image_tag user.get_image(50, 50), class: "rounded-circle me-1" %>
-            <span class="ml-2"><%= truncate(user.name, length: 50) %></span>
+      <div class="mypage-tab-scroll">
+        <% if @following_users.present? %>
+          <% @following_users.each do |user| %>
+            <div class="my-2">
+              <%= link_to user_path(user.id), class: "text-decoration-none text-dark" do %>
+                <%= image_tag user.get_image(50, 50), class: "rounded-circle me-1" %>
+                <span class="ml-2"><%= truncate(user.name, length: 50) %></span>
+              <% end %>
+            </div>
           <% end %>
-        </div>
-      <% end %>
-        <%= paginate @following_users, param_name: :following_page %>
-      <% else %>
-        <p>　フォローしているユーザーはいません</p>
-      <% end %>
+        <% else %>
+          <p>　フォローしているユーザーはいません</p>
+        <% end %>
+      </div>
     </div>
-    
+
     <!-- タブ6 -->
     <div id="section6" class="tab-pane fade my-3">
-      <% if @follower_users.present? %>
-      <% @follower_users.each do |user| %>
-        <div class="my-2">
-          <%= link_to user_path(user.id), class: "text-decoration-none text-dark" do %>
-            <%= image_tag user.get_image(50, 50), class: "rounded-circle me-1" %>
-            <span class="ml-2"><%= truncate(user.name, length: 50) %></span>
+      <div class="mypage-tab-scroll">
+        <% if @follower_users.present? %>
+          <% @follower_users.each do |user| %>
+            <div class="my-2">
+              <%= link_to user_path(user.id), class: "text-decoration-none text-dark" do %>
+                <%= image_tag user.get_image(50, 50), class: "rounded-circle me-1" %>
+                <span class="ml-2"><%= truncate(user.name, length: 50) %></span>
+              <% end %>
+            </div>
           <% end %>
-        </div>
-      <% end %>
-        <%= paginate @follower_users, param_name: :follower_page %>
-      <% else %>
-        <p>　フォロワーはいません</p>
-      <% end %>
+        <% else %>
+          <p>　フォロワーはいません</p>
+        <% end %>
+      </div>
     </div>
     
   </div>
