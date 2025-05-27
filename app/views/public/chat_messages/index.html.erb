@@ -1,8 +1,9 @@
-<div class="container">
+<div class="container-fluid">
   <div class= "row">
     <div class= "col-3">
-      <p>メンバー数：<%= @group.members.count %>人</p>
-      <p>参加メンバー一覧</p>
+      <h5>参加メンバー一覧</h5>
+      <p>(メンバー数：<%= @group.members.count %>人)</p>
+
         <% if admin_signed_in?%>
           <% @group.members.each do |member| %>
             <p><%= link_to member.name, admin_user_path(member) %></p>

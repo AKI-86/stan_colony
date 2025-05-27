@@ -25,6 +25,10 @@
           <%= f.select :age, ["10代以下", "20代", "30代", "40代", "50代", "60代以上"], { prompt: "選択してください" }, class: "form-control" %>
         </div>
         <div class="mb-3">
+          <%= f.label :my_taste, "好み(アーティストやジャンルなど)" %>
+          <%= f.text_area :my_taste, class: "form-control" %>
+        </div>
+        <div class="mb-3">
           <%= f.label :image, "画像", class: "form-label" %>
           <div class="custom-file">
             <%= f.file_field :image, class: "custom-file-input", id: "user_image", accept: "image/*" %>

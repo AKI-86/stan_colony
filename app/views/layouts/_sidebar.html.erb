@@ -44,34 +44,39 @@
           <%= link_to  destroy_user_session_path, method: :delete, class: "d-flex align-items-center" do %>
             <i class="fas fa-sign-out-alt mr-2"></i> ログアウト
           <% end %>
+          <% if current_user.guest? %>
+            <div class="mt-2" style="font-size: 0.8rem;">
+              ゲストログイン中<br>新規登録する場合は<br>ログアウトが必要です
+            </div>
+          <% end %>
         </li>
       </ul>
     <!-- 非会員メニュー -->
     <% else %>
       <ul class="sidebar-public">
         <li class="mb-4">
-          <%= link_to artists_path, class: "d-flex align-items-center fa-solid" do %>
+          <%= link_to artists_path, class: "d-flex align-items-center" do %>
             <i class="fa-solid fa-music mr-2"></i> アーティスト
           <% end %>
         </li>
         <li class="mb-4">
-          <%= link_to groups_path, class: "d-flex align-items-center fa-solid" do %>
+          <%= link_to groups_path, class: "d-flex align-items-center" do %>
             <i class="fa-solid fa-users mr-2"></i> サークル
           <% end %>
         </li>
         <li class="mb-4">
-          <%= link_to homes_about_path, class: "d-flex align-items-center fa-solid" do %>
+          <%= link_to homes_about_path, class: "d-flex align-items-center" do %>
             <i class="fas fa-info-circle mr-2"></i> アバウト
           <% end %>
         </li>
         <li class="mb-4">
-          <%= link_to new_user_registration_path, class: "d-flex align-items-center fa-solid" do %>
+          <%= link_to new_user_registration_path, class: "d-flex align-items-center" do %>
             <i class="fa-solid fa-user-plus mr-2"></i> 新規登録
           <% end %>
         </li>
 
         <li class="mb-4">
-          <%= link_to new_user_session_path, class: "d-flex align-items-center fa-solid" do %>
+          <%= link_to new_user_session_path, class: "d-flex align-items-center" do %>
             <i class="fa-solid fa-right-to-bracket mr-2"></i> ログイン
           <% end %>
         </li>

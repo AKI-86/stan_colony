@@ -5,8 +5,8 @@ class ApplicationController < ActionController::Base
 
   # deviseで保存できる情報の追加
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :gender, :age])
-    devise_parameter_sanitizer.permit(:account_update, keys: [:name, :gender, :age])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :gender, :age, :image, :my_taste])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:name, :gender, :age, :image, :my_taste])
   end
 
   def after_sign_in_path_for(resource)
@@ -31,8 +31,16 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  # Deviseのauthenticate_user!をカスタマイズ
-  def authenticate_user!
+  # # Deviseのauthenticate_user!をカスタマイズ
+  # def authenticate_user!
+  #   unless user_signed_in?
+  #     flash[:alert] = "ログインが必要です。"
+  #     redirect_to new_user_session_path
+  #   end
+  # end
+
+
+  def custom_authenticate_user
     unless user_signed_in?
       flash[:alert] = "ログインが必要です。"
       redirect_to new_user_session_path

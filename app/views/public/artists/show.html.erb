@@ -3,7 +3,7 @@
   <div class="card mb-4 shadow-sm">
     <div class="row p-3">
       <div class="col-md-3 d-flex align-items-start justify-content-center my-3 ml-2">
-        <%= image_tag @artist.get_image(200, 200), class: "rounded-circle" %>
+        <%= image_tag @artist.get_image(200, 200), class: "rounded-circle", style: "max-width: 100%; height: auto;" %>
       </div>
       <div class="col-md-8">
         <h2 class="my-3"><%= @artist.name %></h2>
@@ -19,10 +19,11 @@
         </p>
         <div class="d-flex align-items-center mb-2">
           <span>作成者：</span>
-          <%= link_to user_path(@artist.user), class: "d-flex align-items-center text-dark" do %>
+          <%= link_to user_path(@artist.user), class: "d-flex align-items-center text-dark mr-2" do %>
             <%= image_tag @artist.user.get_image(25, 25), class: "rounded-circle mr-1" %>
             <%= @artist.user.name %>
           <% end %>
+          <%= @artist.user.badges %>
         </div>
 
         <!-- いいねボタン -->

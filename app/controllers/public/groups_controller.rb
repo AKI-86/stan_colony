@@ -11,7 +11,10 @@ class Public::GroupsController < ApplicationController
   end
 
   def show
-    @group = Group.active.find(params[:id])
+    @group = Group.find(params[:id])
+    if !@group.is_active && !admin_signed_in?
+      redirect_to root_path, alert: "このサークルは非公開です。"
+    end
     @group_comment = GroupComment.new
     @group_comments = @group.group_comments.includes(:user).order(created_at: :desc).page(params[:page]).per(10)
     @members = @group.members

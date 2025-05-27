@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid py-4">
     <div class="d-flex align-items-center mb-5">
     <div class="me-3 heading">サークル一覧</div>
     <%= link_to "新規作成", new_group_path, class: "btn btn-custom-blue ml-5" %>
@@ -20,7 +20,11 @@
         <div>
           <i class="fa-regular fa-comment"></i>
           <%= group.group_comments.count %>
-          <small class="text-muted ml-3">作成者: <%= group.owner.name %></small>
+          <small class="text-muted ml-3">
+            作成者: 
+            <span class="mr-2"><%= group.owner.name %></span>
+            <%= group.owner.badges %>
+          </small>
         </div>
       <% end %>
     <% end %>

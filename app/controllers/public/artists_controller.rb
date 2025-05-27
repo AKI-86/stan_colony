@@ -1,5 +1,5 @@
 class Public::ArtistsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :edit, :update]
+  before_action :custom_authenticate_user, only: [:new, :create, :edit, :update]
   before_action :reject_guest_user, only: [:new, :create, :edit, :update]
 
   def new
@@ -11,8 +11,8 @@ class Public::ArtistsController < ApplicationController
   end
 
   def show
-    @artist = Artist.active.find_by(id: params[:id])
-    unless @artist
+    @artist = Artist.find_by(id: params[:id])
+    unless @artist && (@artist.is_active || admin_signed_in?)
       redirect_to root_path, alert: "そのページは表示できません"
       return
     end

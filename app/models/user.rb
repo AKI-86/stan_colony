@@ -13,6 +13,7 @@ class User < ApplicationRecord
   has_many :topics
   has_many :comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
+  has_many :group_comments
 
   # いいねをしたユーザー一覧で非アクティブなアーティストを拾ってしまう
   has_many :favorite_artists, -> { merge(Artist.active) }, through: :favorites, source: :artist
@@ -104,5 +105,14 @@ class User < ApplicationRecord
   
     # 自分のいいねを除外し、アクティブなアーティストからランダムに9件取得
     Artist.active.where(id: artist_ids_liked_by_followed_users - my_favorite_artist_ids).sample(6)
+  end
+
+  def badges
+    badges = []
+    badges << '<i class="fa-solid fa-headphones mr-1" title="アーティスト王 🎶" style="color: teal;"></i>' if artists.count >= 1
+    badges << '<i class="fa-solid fa-star mr-1" title="サークルキング 👥" style="color: teal;"></i>' if owned_groups.count >= 1
+    total_comments = comments.count + group_comments.count
+    badges << '<i class="fa-solid fa-comment-dots mr-1" title="コメントマスター 💬" style="color: teal;"></i>' if total_comments >= 1
+    badges.join(" ").html_safe
   end
 end

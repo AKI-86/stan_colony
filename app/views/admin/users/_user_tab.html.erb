@@ -16,7 +16,10 @@
     <% users.each do |user| %>
       <tr>
         <td><%= user.id %></td>
-        <td><%= truncate(user.name, length: 12) %></td>
+        <td>
+          <%= truncate(user.name, length: 12) %>
+          <span class="ml-2"><%= user.badges %></span>
+        </td>
         <td><%= user.artists.count %></td>
         <td><%= user.topics.count %></td>
         <td><%= user.owned_groups.count %></td>

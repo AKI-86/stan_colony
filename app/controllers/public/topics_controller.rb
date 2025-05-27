@@ -10,6 +10,10 @@ class Public::TopicsController < ApplicationController
 
   def show
     @topic = @artist.topics.find(params[:id])
+    unless @topic && (@topic.is_active || admin_signed_in?)
+      redirect_to root_path, alert: "そのページは表示できません"
+      return
+    end
     @comment = Comment.new
     @comments = @topic.comments.order(created_at: :desc).page(params[:page]).per(10)
   end

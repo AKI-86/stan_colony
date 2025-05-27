@@ -20,10 +20,11 @@
         <p>メンバー数：<%= @group.members.count %>人</p>
         <div class="d-flex align-items-center">
           <span>作成者：</span>
-          <%= link_to user_path(@group.owner), class: "d-flex align-items-center text-dark" do %>
+          <%= link_to user_path(@group.owner), class: "d-flex align-items-center text-dark mr-2" do %>
             <%= image_tag @group.owner.get_image(25, 25), class: "rounded-circle mr-1" %>
             <%= @group.owner.name %>
           <% end %>
+          <%= @group.owner.badges %>
         </div>
         <p>作成日：<%= @group.created_at.strftime("%Y年%m月%d日(%a) %H時%M分") %></p>
         <p>
@@ -74,6 +75,7 @@
                     <%= image_tag comment.user.get_image(20, 20), class: "rounded-circle mr-1" %>
                     <%= comment.user.name %>
                   <% end %>
+                  <%= comment.user.badges %>
                 <% end %>
 
               <span class="text-muted ml-2" style="font-size: 0.85em;"><%= comment.created_at.strftime("%Y年%m月%d日(%a) %H時%M分") %></span>
@@ -95,23 +97,23 @@
       <%= paginate @group_comments %>
     </div>
     <% else %>
-      <p class="text-muted">ゲストユーザーはサークルのコメントを閲覧することはできません。</p>
+      <p class="text-muted">未ログイン、ゲストユーザーはサークルのコメントを閲覧することはできません。</p>
     <% end %>
 
-  <% if current_user && current_user.joined_groups.include?(@group) %>
   <!-- コメントフォーム -->
-  <div class="card p-3 mt-4">
-    <h5 class="mb-3">コメントする</h5>
-    <%= form_with(model: [@group, @group_comment], local: true) do |f| %>
-      <div class="form-group mb-3">
-        <%= f.text_area :body, class: "form-control", rows: 3 %>
-      </div>
-      <%= f.submit "投稿", class: "btn btn-primary" %>
-    <% end %>
-  </div>
-  <% elsif admin_signed_in? %>
-  <p class="text-muted">管理者はコメントできません。</p>
-  <% else %>
-  <p class="text-muted">サークルのメンバーのみコメントが可能です。参加申請をしてください。</p>
-<% end %>
+  <% if current_user && current_user.joined_groups.include?(@group) %>
+    <div class="card p-3 mt-4">
+      <h5 class="mb-3">コメントする</h5>
+      <%= form_with(model: [@group, @group_comment], local: true) do |f| %>
+        <div class="form-group mb-3">
+          <%= f.text_area :body, class: "form-control", rows: 3 %>
+        </div>
+        <%= f.submit "投稿", class: "btn btn-primary" %>
+      <% end %>
+    </div>
+    <% elsif admin_signed_in? %>
+      <p class="text-muted">管理者はコメントできません。</p>
+    <% else %>
+      <p class="text-muted">サークルのメンバーのみコメントが可能です。参加申請をしてください。</p>
+  <% end %>
 </div>

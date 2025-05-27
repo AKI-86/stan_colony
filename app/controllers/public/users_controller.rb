@@ -27,8 +27,8 @@ class Public::UsersController < ApplicationController
 
   def show
     @user =User.find(params[:id])
-    unless @user.is_active
-      redirect_back fallback_location: root_path, alert: "退会済みのユーザーです。"
+    unless @user && (@user.is_active || admin_signed_in?)
+      redirect_to root_path, alert: "そのページは表示できません"
       return
     end
     @artists = @user.artists.active.page(params[:page]).per(10)
@@ -40,7 +40,7 @@ class Public::UsersController < ApplicationController
     end
     @following_users = @user.followings.active.page(params[:following_page]).per(10)
     @follower_users = @user.followers.active.page(params[:follower_page]).per(10)
-    @joined_groups = @user.joined_groups.active.order(created_at: :desc).page(params[:page]).per(10)
+    @joined_groups = @user.joined_groups.active.order(created_at: :desc).page(params[:joined_page]).per(10)
   end
 
   def update

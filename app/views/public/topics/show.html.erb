@@ -12,10 +12,11 @@
         <p class="mb-5"><%= @topic.body %></p>
         <div class="d-flex align-items-center">
           <span>作成者：</span>
-          <%= link_to user_path(@topic.user), class: "d-flex align-items-center text-dark" do %>
+          <%= link_to user_path(@topic.user), class: "d-flex align-items-center text-dark mr-2" do %>
             <%= image_tag @topic.user.get_image(25, 25), class: "rounded-circle mr-1" %>
             <%= @topic.user.name %>
           <% end %>
+          <%= @topic.user.badges %>
         </div>
         <span>作成日：<%= @artist.created_at.strftime("%Y年%m月%d日(%a) %H時%M分") %></span>
         <% if current_user && !current_user.guest? %>
@@ -44,11 +45,13 @@
                 <%= image_tag comment.user.get_image(20, 20), class: "rounded-circle mr-1" %>
                 <%= comment.user.name %>
               <% end %>
+              <%= comment.user.badges %>
             <% else %>
               <%= link_to user_path(comment.user), class: "d-flex align-items-center text-dark mr-2" do %>
                 <%= image_tag comment.user.get_image(20, 20), class: "rounded-circle mr-1" %>
                 <%= comment.user.name %>
               <% end %>
+              <%= comment.user.badges %>
             <% end %>
           <span class="text-muted ml-2" style="font-size: 0.85em;"><%= comment.created_at.strftime("%Y年%m月%d日(%a) %H時%M分") %></span>
         </div>
@@ -69,7 +72,7 @@
     <%= paginate @comments %>
   </div>
 
-
+  <% if current_user && !admin_signed_in? %>
   <!-- コメントフォーム -->
   <div class="card p-3 mt-4">
     <h5 class="mb-3">コメントする</h5>
@@ -80,6 +83,11 @@
       <%= f.submit "投稿", class: "btn btn-primary" %>
     <% end %>
   </div>
+  <% elsif admin_signed_in? %>
+    <p class="text-muted">管理者はコメントできません。</p>
+  <% else %>
+   <p class="text-muted">コメントするには会員登録、またはゲストログインを行ってください。</p>
+<% end %>
 </div>
 
 

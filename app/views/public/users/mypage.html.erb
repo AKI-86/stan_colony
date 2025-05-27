@@ -7,8 +7,8 @@
   <div class= "row">
     <div class= "col-7 mypage-info mr-3">
       <div class="text-center mb-2">
-        <%= image_tag @user.get_image(120, 120), class: "rounded-circle mb-3 shadow" %>
-        <h4 class="font-weight-bold"><%= @user.name %></h4>
+        <%= image_tag @user.get_image(120, 120), class: "rounded-circle mb-3 shadow", style: "max-width: 100%; height: auto;" %>
+        <h4 class="font-weight-bold"><%= @user.name %> <%= @user.badges %></h4>
         <div><%= link_to "他者から見た自分のページを見る", user_path(current_user, skip_redirect: true), class: "text-dark" %></div>
       </div>
       <table class= "table table-bordered table-sm mt-2 mb-3">
@@ -33,7 +33,7 @@
       </table>
       <div class="text-center">
         <%= link_to "ユーザー情報編集", edit_user_path(@user), class: "btn btn-success mr-3" %>
-        <%= link_to "ログイン情報変更", edit_user_path(@user), class: "btn btn-success mr-3" %>
+        <%= link_to "ログイン情報変更", edit_user_registration_path(@user), class: "btn btn-success mr-3" %>
         <%= link_to "退会する", users_unsubscribe_path, class: "btn btn-danger" %>
       </div>
     </div>
@@ -43,7 +43,7 @@
       <% if @recommended_artists.any? %>
         <% @recommended_artists.each do |artist| %>
           <div class="my-2">
-            <%= link_to artist_path(artist.id), class: "text-decoration-none" do %>
+            <%= link_to artist_path(artist.id), class: "text-decoration-none text-dark" do %>
               <%= image_tag artist.get_image(50, 50), class: "rounded-circle" %>
               <span class="ml-2"><%= artist.name %></span>
             <% end %>
