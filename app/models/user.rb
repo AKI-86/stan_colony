@@ -109,19 +109,12 @@ class User < ApplicationRecord
     Artist.active.where(id: artist_ids_liked_by_followed_users - my_favorite_artist_ids).sample(6)
   end
 
-  
   def badges
-    artist_count = artists.size
-    group_count = owned_groups.size
-    comment_count = comments.size + group_comments.size
-  
-    def badges
-      badges = []
-      badges << '<i class="fa-solid fa-headphones mr-1" title="アーティスト王 🎶" style="color: teal;"></i>' if artists.count >= 5
-      badges << '<i class="fa-solid fa-star mr-1" title="サークルキング 👥" style="color: teal;"></i>' if owned_groups.count >= 5
-      total_comments = comments.count + group_comments.count
-      badges << '<i class="fa-solid fa-comment-dots mr-1" title="コメントマスター 💬" style="color: teal;"></i>' if total_comments >= 10
-      badges.join(" ").html_safe
-    end
+    badges = []
+    badges << '<i class="fa-solid fa-headphones mr-1" title="アーティスト王 🎶" style="color: teal;"></i>' if artists.count >= 5
+    badges << '<i class="fa-solid fa-star mr-1" title="サークルキング 👥" style="color: teal;"></i>' if owned_groups.count >= 5
+    total_comments = comments.count + group_comments.count
+    badges << '<i class="fa-solid fa-comment-dots mr-1" title="コメントマスター 💬" style="color: teal;"></i>' if total_comments >= 10
+    badges.join(" ").html_safe
   end
 end

@@ -2,7 +2,7 @@
   <div class="header-inner d-flex align-items-center justify-content-between px-1">
     <div class="logo">
       <a class="navbar-brand" href="<%= admin_signed_in? ? admin_top_path : root_path %>">
-        <img src="assets/logo-5.png" alt="StanColony" height="50">
+        <%= image_tag 'logo-5.png', alt: 'StanColony', height: 50 %>
       </a>
     </div>
     
