@@ -55,7 +55,7 @@ end
     get 'artist_tags/:name', to: 'artist_tags#show', as: 'artist_tag'
     get 'group_tags/:name', to: 'group_tags#show', as: 'group_tag'
 
-    resources :users, only: [:index, :show, :edit, :create, :update] do
+    resources :users, only: [:show, :edit, :create, :update] do
       resources :relationships, only: [:create, :destroy]
     end
 

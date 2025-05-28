@@ -7,7 +7,7 @@ class Public::ArtistsController < ApplicationController
   end
 
   def index
-    @artists = Artist.active.page(params[:page])
+    @artists = Artist.active.order(created_at: :desc).page(params[:page])
   end
 
   def show

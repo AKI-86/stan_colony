@@ -6,7 +6,7 @@ class Public::GroupTagsController < ApplicationController
       redirect_to groups_path, alert: "タグ「#{params[:name]}」は存在しません。"
     else
       # タグに紐づくアーティスト一覧を取得
-      @groups = @group_tag.groups.page(params[:page]).per(10)  # kaminariなどページネーション使ってる場合
+      @groups = @group_tag.groups.active.page(params[:page]).per(10)  # kaminariなどページネーション使ってる場合
     end
   end
 end

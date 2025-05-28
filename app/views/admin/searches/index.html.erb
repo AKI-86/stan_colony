@@ -1,5 +1,10 @@
 <div class="container admin-black-bg p-5">
   <h1>管理者用検索結果</h1>
+    <% if @keyword.present? %>
+      <p>キーワード：「<strong><%= @keyword %></strong>」で検索した結果</p>
+    <% else %> 
+      <p>全てを表示</p>
+    <% end %>
   <h2 class="mt-5">アーティスト検索結果</h2>
   <hr class="white-hr">
   <% if @artists.any? %>
@@ -34,7 +39,7 @@
       <% end %>
     </div>
   <% else %>
-    <p>未ログイン、ゲストログインユーザーはユーザーの検索はできません</p>
+    <p>該当するユーザーはいません</p>
   <% end %>
 
   <h2 class="mt-5">グループ検索結果</h2>

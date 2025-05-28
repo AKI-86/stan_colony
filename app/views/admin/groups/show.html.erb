@@ -17,7 +17,7 @@
         <dd class="col-sm-9">
           <% if @group.group_tags.any? %>
             <% @group.group_tags.each do |tag| %>
-              <%= link_to tag.name, group_tag_path(tag.name), class: "badge badge-pill badge-success me-1" %>
+              <span class="badge badge-pill badge-success me-1"><%= tag.name %></span>
             <% end %>
           <% else %>
             タグはまだありません

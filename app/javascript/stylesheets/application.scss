@@ -239,6 +239,49 @@ footer {
 }
 
 
+
+
+/* マイページのタブをスクロールに変更 */
+.tabs {
+  overflow-x: auto; /* スクロールを表示 */
+  white-space: nowrap; /* 子要素のtabを1行に指定 */
+  max-width: 100%; /* 最大幅を親要素の幅に制限 */
+  border-bottom: 1px solid #dee2e6; /* 下線のデザイン */
+}
+.nav-tabs {
+  flex-wrap: nowrap; /* タブを折り返さずに一列に並べる */
+  min-width: max-content; /* 中にあるコンテンツのサイズに合わせて最低限必要な幅を確保 */
+}
+.nav-item {
+  white-space: nowrap; /* 1行に指定 */
+}
+
+.mypage-tab-scroll {
+  max-height: 700px;    /* 好きな高さに調整 */
+  overflow-y: auto;     /* 縦スクロール */
+  padding-right: 10px;  /* スクロールバーが被らないように余白 */
+}
+
+/* 管理者側 */
+/* 編集機能など中心部の背景を白に変更 */
+.admin-white-bg {
+  background-color: white;
+  border-radius: 12px;
+  padding: 2rem;
+  color: #000000;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  min-height: calc(100vh - 80px);
+}
+
+.admin-black-bg {
+  background-color: rgb(0, 0, 0);
+  border-radius: 12px;
+  padding: 2rem;
+  color: #ffffff;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  min-height: calc(100vh - 80px);
+}
+
 /* 管理者テーブルレイアウト */
 
 .admin-table {

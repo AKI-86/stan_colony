@@ -362,7 +362,7 @@ Comment.find_or_create_by!(body: "元々ジャズ畑出身らしいよ。だか�
 Comment.find_or_create_by!(body: "Kazeのプレベ（※プレシジョンベース）に憧れて、同じ型買ったけど全然音出せねえ「楽器は同じでも魂が違う」って本当だった。", topic: topic8, user: user5)
 Comment.find_or_create_by!(body: "昔のバンド「Gravel Pulse」時代のKazeも良いぞ。今より荒々しいけど、根っこのセンスは変わってない。", topic: topic8, user: user2)
 Comment.find_or_create_by!(body: "Kazeのこと話すと、結局「なんか神っぽい」ってなるの草。それが本質なんだろうな。人間味ある神。", topic: topic8, user: user13)
-Comment.find_or_create_by!(body: "Kazeの影響で最近ベースソロ聴けるようになってきた自分がいる。昔は「ベースのソロって地味…」とか思ってたけど、Kazeの音は語りかけてくるんだよな。人生語ってる感じ。", topic: topic8, user: user144)
+Comment.find_or_create_by!(body: "Kazeの影響で最近ベースソロ聴けるようになってきた自分がいる。昔は「ベースのソロって地味…」とか思ってたけど、Kazeの音は語りかけてくるんだよな。人生語ってる感じ。", topic: topic8, user: user14)
 Comment.find_or_create_by!(body: "あの人、SNSもやってないし情報少なすぎるんだけど、たまにセッション動画だけアップされるのズルい。何も言わなくても神の降臨ってバレる。", topic: topic8, user: user3)
 Comment.find_or_create_by!(body: "神格化されすぎて逆に聴きづらいわ。どの動画にも「音が空間を支配してる」とかコメントあるけど、ただのベースラインやん…って冷めるときある。", topic: topic8, user: user17)
 Comment.find_or_create_by!(body: "たしかに", topic: topic8, user: user17)
