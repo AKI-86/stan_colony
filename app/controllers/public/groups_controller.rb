@@ -7,7 +7,7 @@ class Public::GroupsController < ApplicationController
   end
 
   def index
-    @groups = Group.active.order(created_at: :desc).limit(8)
+    @groups = Group.active.order(created_at: :desc).page(params[:page]).per(10)
     # @groups = Group.active.left_joins(:group_comments).group('groups.id').order(Arel.sql('MAX(group_comments.created_at) DESC NULLS LAST')).page(params[:page]).per(8)
   end
 
