@@ -1,43 +1,43 @@
 <div class="container admin-white-bg p-5">
   <%= link_to "サークル一覧に戻る", admin_groups_path, class: "btn return-btn mb-2" %>
   <h4 class="admin-title mb-3">サークル名：「 <%= @group.name %> 」の詳細情報</h4>
-  <div class="row">
-    <div class="col-3">
-      <%= image_tag @group.get_image(230, 230) %>
-    </div>
-    <div class="col-md-9">
-      <dl class="row">
-        <dt class="col-sm-3">サークル名</dt>
-        <dd class="col-sm-9"><%= @group.name %></dd>
+    <div class="row">
+      <div class="col-3">
+        <%= image_tag @group.get_image(230, 230) %>
+      </div>
+      <div class="col-md-9">
+        <dl class="row">
+          <dt class="col-sm-3">サークル名</dt>
+          <dd class="col-sm-9"><%= @group.name %></dd>
 
-        <dt class="col-sm-3">紹介文</dt>
-        <dd class="col-sm-9"><%= @group.introduction %></dd>
+          <dt class="col-sm-3">紹介文</dt>
+          <dd class="col-sm-9"><%= @group.introduction %></dd>
 
-        <dt class="col-sm-3">タグ</dt>
-        <dd class="col-sm-9">
-          <% if @group.group_tags.any? %>
-            <% @group.group_tags.each do |tag| %>
-              <span class="badge badge-pill badge-success me-1"><%= tag.name %></span>
+          <dt class="col-sm-3">タグ</dt>
+          <dd class="col-sm-9">
+            <% if @group.group_tags.any? %>
+              <% @group.group_tags.each do |tag| %>
+                <span class="badge badge-pill badge-success me-1"><%= tag.name %></span>
+              <% end %>
+            <% else %>
+              タグはまだありません
             <% end %>
-          <% else %>
-            タグはまだありません
-          <% end %>
-        </dd>
+          </dd>
 
-        <dt class="col-sm-3">作成者</dt>
-        <dd class="col-sm-9"><%= link_to @group.owner.name, admin_user_path(@group.owner), class: "text-decoration-none mr-3" %></dd>
+          <dt class="col-sm-3">作成者</dt>
+          <dd class="col-sm-9"><%= link_to @group.owner.name, admin_user_path(@group.owner), class: "text-decoration-none mr-3" %></dd>
 
-        <dt class="col-sm-3">登録日</dt>
-        <dd class="col-sm-9"><%= @group.created_at.strftime("%Y-%m-%d") %></dd>
+          <dt class="col-sm-3">登録日</dt>
+          <dd class="col-sm-9"><%= @group.created_at.strftime("%Y-%m-%d") %></dd>
 
-        <dt class="col-sm-3">状態</dt>
-        <dd class="col-sm-9"><%= status_label(@group) %></dd>
-      </dl>
+          <dt class="col-sm-3">状態</dt>
+          <dd class="col-sm-9"><%= status_label(@group) %></dd>
+        </dl>
       </div>
       <%= link_to "サークル情報を編集", edit_admin_group_path(@group.id), class: "btn btn-primary my-4 mx-3" %>
       <%= link_to 'サークル詳細ページ', group_path(@group), class: "btn btn-info my-4 mx-3" %>
       <%= link_to "チャットルームへ", group_chat_messages_path(@group), class: "btn btn-info my-4" %>
-  </div>
+    </div>
 
   <hr>
   
@@ -59,48 +59,46 @@
 
   <hr>
   
+  <div class="d-flex justify-content-center my-4">
+    <%= paginate @group_comments %>
+  </div>
 
-      <div class="d-flex justify-content-center my-4">
-      <%= paginate @group_comments %>
-      </div>
-
-      <h4 class="mb-3">コメント</h4>
-      <% if @group_comments.any? %>
-        <% @group_comments.each_with_index do |comment, index| %>
-          <% number = @group_comments.total_count - ((@group_comments.current_page - 1) * @group_comments.limit_value + index) %>
-          <div class="card mb-3">
-            <div class="card-body">
-              <div class="d-flex align-items-center mb-2">
-                <span class="mr-1"><%= number %>.</span>
-                  <% if admin_signed_in? %>
-                    <%= link_to admin_user_path(comment.user) do %>
-                      <%= image_tag comment.user.get_image(20, 20), class: "rounded-circle me-1" %>
-                      <strong><%= comment.user.name %></strong>
-                    <% end %>
-                  <% else %>
-                    <%= link_to user_path(comment.user) do %>
-                      <%= image_tag comment.user.get_image(20, 20), class: "rounded-circle me-1" %>
-                      <strong><%= comment.user.name %></strong>
-                    <% end %>
-                  <% end %>
-                <br>
-                <span class="ms-auto text-muted ml-2" style="font-size: 0.85em;"><%= comment.created_at.strftime("%Y年%m月%d日(%a) %H時%M分") %></span>
-              </div>
-              <% if comment.deleted? %>
-                <p class="mb-2 text-muted">このコメントは削除されました。</p>
+  <h4 class="mb-3">コメント</h4>
+  <% if @group_comments.any? %>
+    <% @group_comments.each_with_index do |comment, index| %>
+      <% number = @group_comments.total_count - ((@group_comments.current_page - 1) * @group_comments.limit_value + index) %>
+      <div class="card mb-3">
+        <div class="card-body">
+          <div class="d-flex align-items-center mb-2">
+            <span class="mr-1"><%= number %>.</span>
+              <% if admin_signed_in? %>
+                <%= link_to admin_user_path(comment.user) do %>
+                  <%= image_tag comment.user.get_image(20, 20), class: "rounded-circle me-1" %>
+                  <strong><%= comment.user.name %></strong>
+                <% end %>
               <% else %>
-                <p class="mb-2"><%= comment.body %></p>
-                <%= link_to "削除", group_group_comment_path(@group, comment), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger" %>
+                <%= link_to user_path(comment.user) do %>
+                  <%= image_tag comment.user.get_image(20, 20), class: "rounded-circle me-1" %>
+                  <strong><%= comment.user.name %></strong>
+                <% end %>
               <% end %>
-            </div>
+            <br>
+            <span class="ms-auto text-muted ml-2" style="font-size: 0.85em;"><%= comment.created_at.strftime("%Y年%m月%d日(%a) %H時%M分") %></span>
           </div>
-        <% end %>
-      <% else %>
-        <p class="text-muted">まだコメントはありません。</p>
-      <% end %>
-
-      <div class="d-flex justify-content-center my-4">
-        <%= paginate @group_comments %>
+          <% if comment.deleted? %>
+            <p class="mb-2 text-muted">このコメントは削除されました。</p>
+          <% else %>
+            <p class="mb-2"><%= comment.body %></p>
+            <%= link_to "削除", group_group_comment_path(@group, comment), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger" %>
+          <% end %>
+        </div>
       </div>
+    <% end %>
+  <% else %>
+    <p class="text-muted">まだコメントはありません。</p>
+  <% end %>
 
+  <div class="d-flex justify-content-center my-4">
+    <%= paginate @group_comments %>
+  </div>
 </div>

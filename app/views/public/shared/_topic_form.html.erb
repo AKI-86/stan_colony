@@ -4,15 +4,15 @@
     <%= render 'layouts/error_messages', model: f.object %>
 
     <div class="mb-3">
-      <%= f.label :title, "トピック名", class: "form-label" %>
+      <%= f.label :title, "トピック名", class: "form-label" %><span class="badge badge-danger ml-3">必須</span>
       <%= f.text_field :title, class: "form-control", rows: 7 %>
     </div>
     <div class="mb-3">
-      <%= f.label :body, "説明文", class: "form-label" %>
+      <%= f.label :body, "説明文", class: "form-label" %><span class="badge badge-danger ml-3">必須</span>
       <%= f.text_area :body, class: "form-control", rows: 7 %>
     </div>
     <div class="mb-3">
-      <%= f.label :topic_genre_id, "ジャンル", class: "form-label" %>
+      <%= f.label :topic_genre_id, "ジャンル", class: "form-label" %><span class="badge badge-danger ml-3">必須</span>
       <%= f.collection_select :topic_genre_id, TopicGenre.all, :id, :name, { prompt: "ジャンルを選択" }, class: "form-control" %>
     </div>
     <div class="text-center mt-4">

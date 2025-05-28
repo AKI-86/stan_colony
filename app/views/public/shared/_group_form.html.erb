@@ -3,17 +3,16 @@
   <%= form_with model: @group do |f| %>
     <%= render 'layouts/error_messages', model: f.object %>
     <div class="mb-3">
-      <%= f.label :name, "サークル名", class: "form-label" %>
+      <%= f.label :name, ('サークル名  <span class="text-muted small">(同名アーティストは登録できません)</span>').html_safe, class: "form-label" %><span class="badge badge-danger ml-3">必須</span>
       <%= f.text_field :name, class: "form-control" %>
     </div>
     <div class="mb-3">
-      <%= f.label :introduction, "説明文", class: "form-label" %>
+      <%= f.label :introduction, "説明文", class: "form-label" %><span class="badge badge-danger ml-3">必須</span>
       <%= f.text_area :introduction, class: "form-control", rows: 5 %>
     </div>
     <div class="mb-3">
-      <%= f.label :tag_names, "タグ（カンマ(,)区切りで最大10個登録可能、タグ名は20字以内）" %><br>
-      <%= text_field_tag :tag_names, @group.group_tags.pluck(:name).join(", "), placeholder: "例: 楽器, フェス, 関西", id: "tag_input", class: "form-control" %>
-      <small id="tag_limit_warning" style="color: red; display: none;">タグは最大10個までです。</small>
+      <%= f.label :tag_names, ('タグ <span class="text-muted small">（カンマ , 区切りで最大10個登録可能、タグ名は20字以内）</span>').html_safe, class: "form-label" %>
+      <%= text_field_tag :tag_names, @group.group_tags.pluck(:name).join(", "), placeholder: "例: 楽器, フェスなど", class: "form-control" %>
     </div>
     <div class="mb-3">
       <%= f.label :image, "画像", class: "form-label" %>

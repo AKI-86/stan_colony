@@ -3,7 +3,7 @@
   <%= form_with model: @artist do |f| %>
     <%= render 'layouts/error_messages', model: f.object %>
     <div class="mb-3">
-      <%= f.label :name, "アーティスト名", class: "form-label" %>
+      <%= f.label :name, ('アーティスト名  <span class="text-muted small">(同名アーティストは登録できません)</span>').html_safe, class: "form-label" %><span class="badge badge-danger ml-3">必須</span>
       <%= f.text_field :name, class: "form-control" %>
     </div>
     <div class="mb-3">
@@ -11,9 +11,8 @@
       <%= f.text_area :introduction, class: "form-control", rows: 10 %>
     </div>
     <div class="mb-3">
-      <%= f.label :tag_names, "タグ（カンマ(,)区切りで最大10個登録可能、タグ名は20字以内）" %><br>
-      <%= text_field_tag :tag_names, @artist.artist_tags.pluck(:name).join(", "), placeholder: "例: ロック, ポップ, インディーズ", id: "tag_input", class: "form-control" %>
-      <small id="tag_limit_warning" style="color: red; display: none;">タグは最大10個までです。</small>
+      <%= f.label :tag_names, ('タグ <span class="text-muted small">（カンマ , 区切りで最大10個登録可能、タグ名は20字以内）</span>').html_safe, class: "form-label" %>
+      <%= text_field_tag :tag_names, @artist.artist_tags.pluck(:name).join(", "), placeholder: "例: ロック, ポップ, インディーズ", class: "form-control" %>
     </div>
     <div class="mb-3">
       <%= f.label :image, "画像", class: "form-label" %>
@@ -31,20 +30,3 @@
 <div class="accordion mt-5" id="aboutAccordion">
   <%= render 'public/homes/about_artist_rule' %>
 </div>
-
-
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const tagInput = document.getElementById("tag_input");
-    const warning = document.getElementById("tag_limit_warning");
-
-    tagInput.addEventListener("input", function() {
-      const tags = tagInput.value.split(",").map(tag => tag.trim()).filter(tag => tag.length > 0);
-      if (tags.length > 10) {
-        warning.style.display = "inline";
-      } else {
-        warning.style.display = "none";
-      }
-    });
-  });
-</script>

@@ -1,7 +1,5 @@
 <div class="container admin-white-bg p-5">
   <h4 class="admin-title">トピックジャンル一覧・追加</h4>
-
-
   <div class="py-5">
     <%= form_with model: @topic_genre, url: admin_genres_path, local: true do |f| %>
       <%= render 'layouts/error_messages', model: f.object %>
@@ -14,23 +12,23 @@
   </div>
 
   <table class="table admin-table table-borderless">
-  <thead>
-    <tr>
-      <th>ジャンル</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @topic_genres.each do |topic_genre| %>
+    <thead>
       <tr>
-        <td><%= topic_genre.name %></td>
-        <td><%= link_to '編集', edit_admin_genre_path(topic_genre), class: "btn btn-success", style: "border-radius: 8px;" %></td>
-        </tr>
-    <% end %>
-  </tbody>
-</table>
+        <th>ジャンル</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @topic_genres.each do |topic_genre| %>
+        <tr>
+          <td><%= topic_genre.name %></td>
+          <td><%= link_to '編集', edit_admin_genre_path(topic_genre), class: "btn btn-success", style: "border-radius: 8px;" %></td>
+          </tr>
+      <% end %>
+    </tbody>
+  </table>
 
-<div class="d-flex justify-content-center">
-<%= paginate @topic_genres %>
-</div>
+  <div class="d-flex justify-content-center">
+    <%= paginate @topic_genres %>
+  </div>
 </div>

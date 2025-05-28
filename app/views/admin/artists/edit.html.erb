@@ -1,47 +1,48 @@
 <div class="container-fluid d-flex justify-content-center my-4">
   <div class="w-100" style="max-width: 600px;">
-  <div class="card shadow-sm p-4">
-  <h2 class="text-center mb-4">アーティスト編集</h2>
-  <%= form_with(model: [:admin, @artist], local: true) do |f| %>
-    <%= render 'layouts/error_messages', model: f.object %>
-    <div class="mb-3">
-      <%= f.label :name, "アーティスト名", class: "form-label" %>
-      <%= f.text_field :name, class: "form-control" %>
-    </div>
-    <div class="mb-3">
-      <%= f.label :introduction, "説明文", class: "form-label" %>
-      <%= f.text_area :introduction, class: "form-control", rows: 10 %>
-    </div>
-    <div class="mb-3">
-      <%= f.label :tag_names, "タグ（カンマ区切りで最大10個）" %><br>
-      <%= text_field_tag :tag_names, @artist.artist_tags.pluck(:name).join(", "), placeholder: "例: ロック, ポップ, インディーズ", id: "tag_input", class: "form-control" %>
-      <small id="tag_limit_warning" style="color: red; display: none;">タグは最大10個までです。</small>
-    </div>
-    <div class="mb-3">
-      <%= f.label :image, "画像", class: "form-label" %>
-      <div class="custom-file">
-        <%= f.file_field :image, class: "custom-file-input", id: "artist_image", accept: "image/*" %>
-        <%= f.label :image, "画像を選択", class: "custom-file-label", for: "artist_image" %>
-      </div>
+    <div class="card shadow-sm p-4">
+      <h2 class="text-center mb-4">アーティスト編集</h2>
+      <%= form_with(model: [:admin, @artist], local: true) do |f| %>
+        <%= render 'layouts/error_messages', model: f.object %>
+        <div class="mb-3">
+          <%= f.label :name, ('アーティスト名  <span class="text-muted small">(同名アーティストは登録できません)</span>').html_safe, class: "form-label" %><span class="badge badge-danger ml-3">必須</span>
+          <%= f.text_field :name, class: "form-control" %>
+        </div>
+        <div class="mb-3">
+          <%= f.label :introduction, "説明文", class: "form-label" %>
+          <%= f.text_area :introduction, class: "form-control", rows: 10 %>
+        </div>
+        <div class="mb-3">
+          <%= f.label :tag_names, ('タグ <span class="text-muted small">（カンマ , 区切りで最大10個登録可能、タグ名は20字以内）</span>').html_safe, class: "form-label" %>
+          <%= text_field_tag :tag_names, @artist.artist_tags.pluck(:name).join(", "), placeholder: "例: ロック, ポップ, インディーズ", class: "form-control" %>
+        </div>
+        <div class="mb-3">
+          <%= f.label :image, "画像", class: "form-label" %>
+          <div class="custom-file">
+            <%= f.file_field :image, class: "custom-file-input", id: "artist_image", accept: "image/*" %>
+            <%= f.label :image, "画像を選択", class: "custom-file-label", for: "artist_image" %>
+          </div>
+        </div>
+
+        <div class="text-center mt-4">
+          <span class="mr-3"><%= f.radio_button :is_active, true %> <%= f.label :is_active, "表示中" %></span>
+          <span class="ml-3"><%= f.radio_button :is_active, false %> <%= f.label :is_active, "非表示中" %></span>
+        </div>
+
+        <div class="text-center mt-4">
+          <%= f.submit "保存", class: "btn btn-primary btn-block" %>
+        </div>
+      <% end %>
     </div>
 
-    <div class="text-center mt-4">
-      <span class="mr-3"><%= f.radio_button :is_active, true %> <%= f.label :is_active, "表示中" %></span>
-      <span class="ml-3"><%= f.radio_button :is_active, false %> <%= f.label :is_active, "非表示中" %></span>
+    <div class="accordion mt-5" id="aboutAccordion">
+      <%= render 'public/homes/about_artist_rule' %>
     </div>
-
-    <div class="text-center mt-4">
-      <%= f.submit "保存", class: "btn btn-primary btn-block" %>
-    </div>
-  <% end %>
+  </div>
 </div>
 
-<div class="accordion mt-5" id="aboutAccordion">
-  <%= render 'public/homes/about_artist_rule' %>
-</div>
-</div>
-</div>
 
+<!-- タグが10個を超えた時に警告が出る -->
 <script>
   document.addEventListener("DOMContentLoaded", function() {
     const tagInput = document.getElementById("tag_input");
