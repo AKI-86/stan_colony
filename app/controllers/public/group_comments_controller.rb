@@ -12,7 +12,7 @@ class Public::GroupCommentsController < ApplicationController
     redirect_to group_path(@group)
     else
       @group_comments = @group.group_comments.page(params[:page]).per(10)
-      flash.now[:alert] = "空欄のコメントは投稿できません"
+      flash.now[:alert] = "空欄または1000字以上のコメントは投稿できません"
       render 'public/groups/show'  # グループ詳細ページのビューに戻る想定
     end
   end

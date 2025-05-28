@@ -25,7 +25,9 @@ class User < ApplicationRecord
   has_many :reports, dependent: :destroy
   has_many :reports_received, as: :reportable, class_name: "Report", dependent: :destroy # 通報されたもの
 
-  validates :name, presence: true
+  validates :name, presence: true, length: { minimum: 1, maximum: 100 }
+  validates :introduction,length: { maximum: 1000 }
+  validates :my_taste,length: { maximum: 100 }
   validates :email, uniqueness: { case_sensitive: false }
   validates :gender, inclusion: { in: ["男性", "女性", "その他", "未回答"] }, allow_blank: true
   validates :age, inclusion: { in: ["10代以下", "20代", "30代", "40代", "50代", "60代以上"] }, allow_blank: true

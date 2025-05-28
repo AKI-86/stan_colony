@@ -16,7 +16,7 @@ class Public::CommentsController < ApplicationController
       @artist = @topic.artist
       @comments = @topic.comments.page(params[:page]).per(10) # ページネーションも同じように
   
-      flash.now[:alert] = "空欄のコメントは投稿できません"
+      flash.now[:alert] = "空欄または1000字以上のコメントは投稿できません"
       render 'public/topics/show'  # 例: トピック詳細画面のviewを再表示
     end
   end

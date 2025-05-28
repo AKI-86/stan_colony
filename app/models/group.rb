@@ -12,7 +12,7 @@ class Group < ApplicationRecord
   
   has_many :reports, as: :reportable, dependent: :destroy
   
-  validates :name, presence: true, uniqueness: { case_sensitive: false }
+  validates :name, presence: true, uniqueness: { case_sensitive: false }, length: { minimum: 1, maximum: 100 }
   validates :introduction, presence: true
 
   scope :active, -> { where(is_active: true) }

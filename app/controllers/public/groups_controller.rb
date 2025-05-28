@@ -12,9 +12,12 @@ class Public::GroupsController < ApplicationController
 
   def show
     @group = Group.find(params[:id])
-    if !@group.is_active && !admin_signed_in?
-      redirect_to root_path, alert: "このサークルは非公開です。"
+
+    unless @group && (@group.is_active || admin_signed_in?)
+      redirect_to root_path, alert: "そのページは表示できません"
+      return
     end
+
     @group_comment = GroupComment.new
     @group_comments = @group.group_comments.includes(:user).order(created_at: :desc).page(params[:page]).per(10)
     @members = @group.members
@@ -24,9 +27,16 @@ class Public::GroupsController < ApplicationController
     @group = Group.new(group_params)
     @group = current_user.owned_groups.build(group_params)
     
-    tag_names = params[:tag_names].to_s.split(',').map(&:strip).reject(&:blank?)
+    tag_names = params[:tag_names].to_s.split(',').map(&:strip).reject(&:blank?).uniq
+
     if tag_names.size > 10
       flash.now[:alert] = "タグは最大10個までです。"
+      render :new and return
+    end
+
+    invalid_tags = tag_names.select { |name| name.length > 20 }
+    if invalid_tags.any?
+      flash.now[:alert] = "タグは1文字以上20文字以内で入力してください。"
       render :new and return
     end
 
@@ -58,6 +68,13 @@ class Public::GroupsController < ApplicationController
       flash.now[:alert] = "タグは最大10個までです。"
       render :edit and return
     end
+
+    invalid_tags = tag_names.select { |name| name.length > 20 }
+    if invalid_tags.any?
+      flash.now[:alert] = "タグは1文字以上20文字以内で入力してください。"
+      render :new and return
+    end
+
     if @group.update(group_params)
       # 古いタグの関連付けを削除
       @group.g_tags.destroy_all

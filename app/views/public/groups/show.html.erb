@@ -103,7 +103,10 @@
   <!-- コメントフォーム -->
   <% if current_user && current_user.joined_groups.include?(@group) %>
     <div class="card p-3 mt-4">
-      <h5 class="mb-3">コメントする</h5>
+      <div class="d-flex align-items-center gap-2 mb-2">
+        <h5 class="mb-2 mr-2">コメントする</h5>
+        <small>(空欄不可・1000字以内)</small>
+      </div>
       <%= form_with(model: [@group, @group_comment], local: true) do |f| %>
         <div class="form-group mb-3">
           <%= f.text_area :body, class: "form-control", rows: 3 %>

@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
+  rescue_from ActiveRecord::RecordNotFound, with: :render_404
 
   protected
 
@@ -39,6 +40,9 @@ class ApplicationController < ActionController::Base
   #   end
   # end
 
+  def render_404
+    render 'layouts/not_found', status: :not_found
+  end
 
   def custom_authenticate_user
     unless user_signed_in?
@@ -46,4 +50,5 @@ class ApplicationController < ActionController::Base
       redirect_to new_user_session_path
     end
   end
+  
 end

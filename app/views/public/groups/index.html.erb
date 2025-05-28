@@ -1,8 +1,17 @@
 <div class="container-fluid py-4">
-    <div class="d-flex align-items-center mb-5">
+  <div class="d-flex align-items-center mb-4">
     <div class="me-3 heading">サークル一覧</div>
-    <%= link_to "新規作成", new_group_path, class: "btn btn-custom-blue ml-5" %>
+      <div>
+        <% if (current_user && !current_user.guest?) || admin_signed_in? %>
+          <%= link_to "新規作成", new_group_path, class: "btn btn-custom-blue ml-5" %>
+        <% else %>
+        <%= link_to "新規作成", "#", class: "btn btn-custom-blue ml-5 mt-4 disabled text-dar", aria_disabled: "true", tabindex: "-1" %><br>
+        <small class="text-muted ml-5">※新規作成には会員登録が必要です</small>
+        <% end %>
+      </div>
+    </div>
   </div>
+
 
   <div class="list-group">
     <% @groups.each do |group| %>

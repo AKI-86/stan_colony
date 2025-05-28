@@ -9,8 +9,8 @@ class Topic < ApplicationRecord
   belongs_to :artist
   belongs_to :user
 
-  validates :title, presence: true
-  validates :body, presence: true
+  validates :title, presence: true, length: { minimum: 1, maximum: 100 }
+  validates :body, presence: true, length: { minimum: 1, maximum: 1000 }
 
   scope :active, -> { where(is_active: true) }
 

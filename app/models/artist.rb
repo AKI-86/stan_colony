@@ -9,7 +9,7 @@ class Artist < ApplicationRecord
   has_many :topics, dependent: :destroy
   has_many :reports, as: :reportable, dependent: :destroy
   
-  validates :name, presence: true, uniqueness: true
+  validates :name, presence: true, uniqueness: true, length: { minimum: 1, maximum: 250 }
 
 
   scope :active, -> { where(is_active: true) }

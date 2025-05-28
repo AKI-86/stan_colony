@@ -35,6 +35,7 @@ ja:
         name: "名前"
         gender: "性別"
         age: "年代"
+        my_taste: "好み"
       group:
         name: サークル名
         introduction: 説明文

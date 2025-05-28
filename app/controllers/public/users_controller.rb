@@ -30,6 +30,12 @@ class Public::UsersController < ApplicationController
       redirect_to root_path, alert: "そのページは表示できません"
       return
     end
+    
+    if @user.guest? && !admin_signed_in?
+      redirect_to root_path, alert: "そのページは表示できません"
+      return
+    end
+
     @artists = @user.artists.active.page(params[:page]).per(10)
     @favorite = @user.favorites.map(&:artist).select(&:is_active)
     @favorite_artists = Artist.active.joins(:favorites).where(favorites: { user_id: @user.id }).page(params[:page]).per(10)

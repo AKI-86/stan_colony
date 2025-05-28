@@ -17,17 +17,23 @@ class Public::ArtistsController < ApplicationController
       return
     end
 
-    @topics = @artist.topics.order(created_at: :desc).page(params[:page]).per(10)
+    @topics = @artist.topics.left_joins(:comments).select('topics.*, MAX(comments.created_at) AS last_commented_at').group('topics.id').order(Arel.sql('COALESCE(MAX(comments.created_at), topics.created_at) DESC')).page(params[:page]).per(10)
   end
 
   def create
     @artist = Artist.new(artist_params)
     @artist.user_id = current_user.id
 
-    tag_names = params[:tag_names].to_s.split(',').map(&:strip).reject(&:blank?)
+    tag_names = params[:tag_names].to_s.split(',').map(&:strip).reject(&:blank?).uniq
 
     if tag_names.size > 10
       flash.now[:alert] = "タグは最大10個までです。"
+      render :new and return
+    end
+
+    invalid_tags = tag_names.select { |name| name.length > 20 }
+    if invalid_tags.any?
+      flash.now[:alert] = "タグは1文字以上20文字以内で入力してください。"
       render :new and return
     end
 
@@ -44,9 +50,9 @@ class Public::ArtistsController < ApplicationController
   end
 
   def edit
-    @artist = Artist.find(params[:id])
+    @artist = Artist.active.find(params[:id])
     unless admin_signed_in? || @artist.user_id == current_user.id
-      redirect_to admin_artists_path, alert: "編集権限がありません"
+      redirect_to artists_path, alert: "編集権限がありません"
     end
   end
 
@@ -57,6 +63,12 @@ class Public::ArtistsController < ApplicationController
     if tag_names.size > 10
       flash.now[:alert] = "タグは最大10個までです。"
       render :edit and return
+    end
+
+    invalid_tags = tag_names.select { |name| name.length > 20 }
+    if invalid_tags.any?
+      flash.now[:alert] = "タグは1文字以上20文字以内で入力してください。"
+      render :new and return
     end
 
     if @artist.update(artist_params)

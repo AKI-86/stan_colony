@@ -2,7 +2,7 @@
   <div class="w-100" style="max-width: 600px;">
     <div class="card shadow-sm p-4">
       <div class="text-center mb-4 heading-black">ユーザー情報編集</div>
-      <%= form_with model: @user do |f| %>
+      <%= form_with model: @user, url: user_path(@user), method: :patch, local: true, html: { multipart: true } do |f| %>
         <%= render 'layouts/error_messages', model: f.object %>
         <div class="mb-3">
           <%= f.label :name, "ユーザー名", class: "form-label" %><span class="badge badge-danger ml-3">必須</span>

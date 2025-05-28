@@ -43,7 +43,14 @@
     <div class="col">
       <div class="d-flex align-items-center mb-3">
         <h4 class="mb-0">トピック一覧</h4>
-        <%= link_to "新しいトピックを作成", new_artist_topic_path(@artist), class: "btn btn-primary ml-auto" %>
+        <div class="ml-auto text-right">
+          <% if (current_user && !current_user.guest?) || admin_signed_in? %>
+            <%= link_to "新しいトピックを作成", new_artist_topic_path(@artist), class: "btn btn-primary" %>
+          <% else %>
+            <%= link_to "新しいトピックを作成", "#", class: "btn btn-primary disabled text-dar", aria_disabled: "true", tabindex: "-1" %><br>
+            <small class="text-muted">※トピック作成には会員登録が必要です</small>
+          <% end %>
+        </div>
       </div>
 
       <div class="d-flex justify-content-center mb-2">
@@ -53,7 +60,8 @@
         <table class="table table-hover bg-white table-borderless ">
           <thead class="thead-dark">
             <tr>
-              <th style="width: 75%;">トピック名</th>
+              <th style="width: 60%;">トピック名</th>
+              <th>ジャンル</th>
               <th></th>
               <th>最終コメント日</th>
             </tr>
@@ -63,6 +71,9 @@
               <tr>
                 <td class="text-truncate align-middle" style="max-width: 200px;">
                   <%= link_to topic.title, artist_topic_path(@artist, topic), class: "d-inline-block text-truncate text-dark", style: "max-width: 100%;" %>
+                </td>
+                <td class="align-middle">
+                  <%= topic.topic_genre.name %>
                 </td>
                 <td class="align-middle">
                   <i class="fa-regular fa-comment"></i>

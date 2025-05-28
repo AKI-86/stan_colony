@@ -1,26 +1,30 @@
 <div class="container admin-black-bg p-5">
   <div class="heading">検索結果</div>
-  <div class="mt-5 heading-mini">アーティスト検索結果</div>
-  <hr class="white-hr">
-  <% if @artists.any? %>
-    <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 search-scroll-box-artist">
-      <% @artists.each do |artist| %>
-        <div class="col text-center">
-          <%= link_to artist_path(artist) do %>
-            <%= image_tag artist.get_image(60, 60), class: "img-fluid rounded-circle mb-2" %><br>
-            <small class="d-block text-muted text-break mb-3">
-              <%= truncate(artist.name, length: 30) %>
-            </small>
-          <% end %>
-        </div>
-      <% end %>
+    <div class="mt-5 heading-mini">
+      アーティスト検索結果
     </div>
-  <% else %>
-    <p>該当するアーティストはありません</p>
-  <% end %>
+      <hr class="white-hr">
+    <% if @artists.any? %>
+      <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 search-scroll-box-artist">
+        <% @artists.each do |artist| %>
+          <div class="col text-center">
+            <%= link_to artist_path(artist) do %>
+              <%= image_tag artist.get_image(60, 60), class: "img-fluid rounded-circle mb-2" %><br>
+              <small class="d-block text-muted text-break mb-3">
+                <%= truncate(artist.name, length: 30) %>
+              </small>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <p>該当するアーティストはありません</p>
+    <% end %>
 
-  <div class="mt-5 heading-mini">ユーザー検索結果</div>
-  <hr class="white-hr">
+    <div class="mt-5 heading-mini">
+      ユーザー検索結果
+    </div>
+    <hr class="white-hr">
     <% if (current_user && !current_user.guest?) || admin_signed_in? %>
       <% if @users.any? %>
         <div class="search-scroll-box">
@@ -35,15 +39,18 @@
       <p>未ログイン、ゲストログインユーザーはユーザーの検索はできません</p>
     <% end %>
 
-  <div class="mt-5 heading-mini">サークル検索結果</div>
-  <hr class="white-hr">
-  <% if @groups.any? %>
-    <div class="search-scroll-box">
-      <% @groups.each do |group| %>
-        <p><%= link_to truncate(group.name, length: 60), group_path(group) %></p>
-      <% end %>
+    <div class="mt-5 heading-mini">
+      サークル検索結果
     </div>
-  <% else %>
-    <p>該当するサークルはありません</p>
-  <% end %>
+    <hr class="white-hr">
+    <% if @groups.any? %>
+      <div class="search-scroll-box">
+        <% @groups.each do |group| %>
+          <p><%= link_to truncate(group.name, length: 60), group_path(group) %></p>
+        <% end %>
+      </div>
+    <% else %>
+      <p>該当するサークルはありません</p>
+    <% end %>
+  </div>
 </div>
