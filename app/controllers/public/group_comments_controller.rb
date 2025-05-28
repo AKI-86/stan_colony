@@ -20,7 +20,6 @@ class Public::GroupCommentsController < ApplicationController
   def destroy
     @group_comment = GroupComment.find(params[:id])
     @group_comment.soft_delete
-
     if admin_signed_in?
       redirect_to admin_group_path(@group_comment.group), notice: "コメントを削除しました。"
     else
@@ -38,6 +37,7 @@ class Public::GroupCommentsController < ApplicationController
     params.require(:group_comment).permit(:body)
   end
 
+  # コメントはサークルメンバーのみ(Viewでも制御)
   def reject_non_member_user
     unless user_signed_in? && @group.members.include?(current_user)
       redirect_to group_path(@group), alert: "サークルメンバーのみコメントできます。"

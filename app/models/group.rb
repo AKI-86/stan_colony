@@ -18,7 +18,7 @@ class Group < ApplicationRecord
   scope :active, -> { where(is_active: true) }
 
 
-  # resize_to_limitから変更した
+  # resize_to_limitからfillに変更した
   def get_image(width, height)
     unless image.attached?
       file_path = Rails.root.join('app/assets/images/no_image.jpg')

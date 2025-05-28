@@ -3,7 +3,6 @@ class Public::TopicsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update]
   before_action :reject_guest_user, only: [:new, :create, :edit, :update]
 
-
   def new
     @topic = @artist.topics.new
   end

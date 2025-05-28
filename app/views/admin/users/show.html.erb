@@ -44,14 +44,14 @@
   <div class="scroll-box">
     <% if @artists.any? %>
       <% @artists.each do |artist| %>
-           <div class="m-2">
+        <div class="m-2">
           <%= link_to admin_artist_path(artist.id), class: "text-decoration-none mr-3" do %>
-          <%= image_tag artist.get_image(25, 25), class: "rounded-circle img-fluid" %>
-          <span class="ml-1"><%= artist.name %></span>
+            <%= image_tag artist.get_image(25, 25), class: "rounded-circle img-fluid" %>
+            <span class="ml-1"><%= artist.name %></span>
           <% end %>
           <%= link_to "編集", edit_admin_artist_path(artist), class: "btn btn-sm btn-outline-primary ms-2" %>
-          </div>
-  <% end %>
+        </div>
+      <% end %>
     <% else %>
       <p>作成したアーティストはありません。</p>
     <% end %>
@@ -61,7 +61,7 @@
   <div class="scroll-box">
     <% if @topics.any? %>
       <% @topics.each do |topic| %>
-          <div class="m-2">
+        <div class="m-2">
           <%= link_to topic.title, admin_artist_topic_path(topic.artist, topic) %>
           （<%= link_to topic.artist.name, admin_artist_path(topic.artist) %>）
           <%= link_to "編集", edit_admin_artist_topic_path(topic.artist, topic), class: "btn btn-sm btn-outline-primary ms-2" %>
@@ -75,16 +75,16 @@
   <h5 class="my-3">投稿したコメント</h5>
   <span>コメント内容（アーティスト名：トピック名）</span>
   <div class="scroll-box">
-  <% if @comments.any? %>
+    <% if @comments.any? %>
       <% @comments.each do |comment| %>
-          <div class="m-2">
+        <div class="m-2">
           <%= truncate(comment.body, length: 50) %>
           （<%= comment.topic.artist.name %>：
           <%= link_to comment.topic.title, admin_artist_topic_path(comment.topic.artist, comment.topic) %>）
         </div>
       <% end %>
     <% else %>
-    <p>投稿したコメントはありません。</p>
+      <p>投稿したコメントはありません。</p>
     <% end %>
   </div>
 

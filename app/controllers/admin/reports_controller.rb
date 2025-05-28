@@ -5,7 +5,6 @@ class Admin::ReportsController < ApplicationController
     @reports = Report.includes(:user, :reportable).order(created_at: :desc).page(params[:page]).per(15)
   end
 
-
   def show
     @report = Report.find(params[:id])
   end

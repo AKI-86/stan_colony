@@ -115,6 +115,5 @@ class Public::ArtistsController < ApplicationController
     artist.artist_tag_ids = tag_ids
   end
 
-
 end
 

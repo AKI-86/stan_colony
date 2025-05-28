@@ -5,10 +5,8 @@
     <% else %> 
       <p>全てを表示</p>
     <% end %>
-    <div class="mt-5 heading-mini">
-      アーティスト検索結果
-    </div>
-      <hr class="white-hr">
+    <div class="mt-5 heading-mini">アーティスト検索結果</div>
+    <hr class="white-hr">
     <% if @artists.any? %>
       <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 search-scroll-box-artist">
         <% @artists.each do |artist| %>
@@ -26,9 +24,7 @@
       <p>該当するアーティストはありません</p>
     <% end %>
 
-    <div class="mt-5 heading-mini">
-      ユーザー検索結果
-    </div>
+    <div class="mt-5 heading-mini">ユーザー検索結果</div>
     <hr class="white-hr">
     <% if (current_user && !current_user.guest?) || admin_signed_in? %>
       <% if @users.any? %>
@@ -44,9 +40,7 @@
       <p>未ログイン、ゲストログインユーザーはユーザーの検索はできません</p>
     <% end %>
 
-    <div class="mt-5 heading-mini">
-      サークル検索結果
-    </div>
+    <div class="mt-5 heading-mini">サークル検索結果</div>
     <hr class="white-hr">
     <% if @groups.any? %>
       <div class="search-scroll-box">

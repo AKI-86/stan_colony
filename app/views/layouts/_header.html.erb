@@ -4,9 +4,8 @@
       <a class="navbar-brand" href="<%= admin_signed_in? ? admin_top_path : root_path %>">
         <img src="/assets/logo-5.png" alt="StanColony" height="50">
       </a>
-
     </div>
-
+    
     <div class="search-form ml-auto d-flex align-items-center">
       <!-- 検索窓 -->
       <% if admin_signed_in? %>
@@ -26,7 +25,6 @@
           </button>
         <% end %>
       <% end %>
-
     </div>
   </div>
 </header>

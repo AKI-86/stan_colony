@@ -1,7 +1,7 @@
 <div class="sidebar d-flex flex-column">
-    <!-- 管理者メニュー -->
-    <% if admin_signed_in? %>
-      <div class="heading-black">管理者</div>
+  <!-- 管理者メニュー -->
+  <% if admin_signed_in? %>
+    <div class="heading-black">管理者</div>
       <h5 class="mt-3">INDEX</h5>
       <ul class="pl-3 mt-2 mb-4">
         <li><%= link_to '通報', admin_reports_path %></li>

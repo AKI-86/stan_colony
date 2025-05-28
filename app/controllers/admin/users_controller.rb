@@ -5,10 +5,10 @@ class Admin::UsersController < ApplicationController
     @users = User.without_guests.includes(:artists, :topics, :owned_groups, :comments).order(created_at: :desc).page(params[:normal_page]).per(10)
     @guest_users = User.where(guest: true).includes(:artists, :topics, :owned_groups, :comments).order(created_at: :desc).page(params[:guest_page]).per(10)
 
-  respond_to do |format|
-    format.html
-    format.js   # index.js.erbを返す
-  end
+    respond_to do |format|
+      format.html
+      format.js   # index.js.erbを返す
+    end
   end
 
   def show
