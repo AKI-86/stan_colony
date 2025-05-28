@@ -7,8 +7,7 @@ class Public::GroupsController < ApplicationController
   end
 
   def index
-    @groups = Group.active.left_joins(:group_comments).select('groups.*, MAX(group_comments.created_at) as last_commented_at').group('groups.id').order(Arel.sql('last_commented_at DESC NULLS LAST')).page(params[:page]).per(8)
-  end
+    @groups = Group.active.left_joins(:group_comments).group('groups.id').order(Arel.sql('MAX(group_comments.created_at) DESC NULLS LAST')).page(params[:page]).per(8)  end
 
   def show
     @group = Group.find(params[:id])

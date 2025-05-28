@@ -385,8 +385,8 @@ group2.owner = user2
 group2.image.attach(io: File.open("#{Rails.root}/db/fixtures/sample-group2.jpg"), filename: "sample-group2.jpg")
 group2.save!
 
-group3 = Group.find_or_initialize_by(name: "楽器破壊部")
-group3.introduction = "楽器を破壊する"
+group3 = Group.find_or_initialize_by(name: "ライブで楽器破壊部")
+group3.introduction = "ライブ中に楽器を破壊するパフォーマンスについて話し合いたい"
 group3.owner = user4
 group3.image.attach(io: File.open("#{Rails.root}/db/fixtures/sample-group3.jpg"), filename: "sample-group3.jpg")
 group3.save!
