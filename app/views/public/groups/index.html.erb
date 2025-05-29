@@ -27,13 +27,13 @@
           </div>
         </div>
         <div>
-          <i class="fa-regular fa-comment"></i>
-          <%= group.group_comments.count %>
           <small class="text-muted ml-3">
             作成者: 
             <span class="mr-2"><%= group.owner.name %></span>
             <%= group.owner.badges %>
           </small>
+          <i class="fa-regular fa-comment"></i>
+          <%= group.group_comments.count %>
         </div>
       <% end %>
     <% end %>

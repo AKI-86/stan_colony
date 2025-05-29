@@ -17,7 +17,7 @@ class Public::ArtistsController < ApplicationController
       return
     end
 
-    @topics = @artist.topics.left_joins(:comments).select('topics.*, MAX(comments.created_at) AS last_commented_at').group('topics.id').order(Arel.sql('COALESCE(MAX(comments.created_at), topics.created_at) DESC')).page(params[:page]).per(10)
+    @topics = @artist.topics.active.left_joins(:comments).select('topics.*, MAX(comments.created_at) AS last_commented_at').group('topics.id').order(Arel.sql('COALESCE(MAX(comments.created_at), topics.created_at) DESC')).page(params[:page]).per(10)
   end
 
   def create
