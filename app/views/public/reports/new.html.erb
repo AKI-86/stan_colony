@@ -3,7 +3,7 @@
     <div class="heading-black mb-3">通報フォーム</div>
     <%= form_with model: @report, url: reports_path(reportable_type: @reportable.class.name, reportable_id: @reportable.id), local: true do |f| %>
       <div class="form-group mb-3">
-        <%= f.label :reason_category, "通報の種類（必須）", style: "text-decoration: underline;" %><br>
+        <%= f.label :reason_category, "通報の種類", style: "text-decoration: underline;" %><span class="badge badge-danger ml-3">必須</span><br>
         <div class="form-check">
           <%= f.radio_button :reason_category, :inappropriate, class: "form-check-input" %>
           <%= f.label :reason_category_abusive, "誹謗中傷・不適切な表現", class: "form-check-label" %>
@@ -23,7 +23,7 @@
         <% end %>
       </div>
       <div class="form-group">
-        <%= f.label :reason, "通報理由の詳細（任意）", style: "text-decoration: underline;" %><br>
+        <%= f.label :reason, "通報理由の詳細", style: "text-decoration: underline;" %><br>
         <%= f.text_area :reason, class: "form-control", rows: 5, placeholder: "通報したい理由を具体的にご記入ください" %>
         <% if @report.errors[:reason].any? %>
           <div class="text-danger mt-1">
