@@ -1,0 +1,6 @@
+<% if @group_comment.errors.any? %>
+  alert("コメントの投稿に失敗しました: <%= j @group_comment.errors.full_messages.join(', ') %>");
+<% else %>
+  $("#group_comment_index").html("<%= j render('public/groups/index', group_comments: @group_comments, group: @group) %>");
+  $("textarea").val("");
+<% end %>

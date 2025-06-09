@@ -20,8 +20,10 @@ class Public::GroupsController < ApplicationController
     end
 
     @group_comment = GroupComment.new
-    @group_comments = @group.group_comments.includes(:user).order(created_at: :desc).page(params[:page]).per(10)
-    @members = @group.members
+    @group_comments = @group.group_comments.includes(user: [image_attachment: :blob]).order(created_at: :desc).page(params[:page]).per(10)
+    @members = @group.members.includes(image_attachment: :blob)
+    # @group_comments = @group.group_comments.includes(:user).order(created_at: :desc).page(params[:page]).per(10)
+    # @members = @group.members
   end
 
   def create

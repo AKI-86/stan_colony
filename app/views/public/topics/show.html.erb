@@ -32,41 +32,10 @@
   <div class="d-flex justify-content-center mb-3">
     <%= paginate @comments %>
   </div>
-  <% @comments.each_with_index do |comment, index| %>
-    <% number = @comments.total_count - ((@comments.current_page - 1) * @comments.limit_value + index) %>
-    <div class="card mb-3">
-      <div class="card-body">
-        <div class="d-flex align-items-center mb-2">
-          <span class="mr-1"><%= number %>.</span>
-            <% if comment.user.guest? %>
-             <%= comment.user.name %>
-            <% elsif admin_signed_in? %>
-              <%= link_to admin_user_path(comment.user), class: "d-flex align-items-center text-dark mr-2" do %>
-                <%= image_tag comment.user.get_image(20, 20), class: "rounded-circle mr-1" %>
-                <%= comment.user.name %>
-              <% end %>
-              <%= comment.user.badges %>
-            <% else %>
-              <%= link_to user_path(comment.user), class: "d-flex align-items-center text-dark mr-2" do %>
-                <%= image_tag comment.user.get_image(20, 20), class: "rounded-circle mr-1" %>
-                <%= comment.user.name %>
-              <% end %>
-              <%= comment.user.badges %>
-            <% end %>
-          <span class="text-muted ml-2" style="font-size: 0.85em;"><%= comment.created_at.strftime("%Y年%m月%d日(%a) %H時%M分") %></span>
-        </div>
-        <% if comment.deleted? %>
-          <p class="mb-2 text-muted">このコメントは削除されました。</p>
-        <% else %>
-          <p class="mb-2"><%= comment.body %></p>
 
-          <% if (current_user.present? || admin_signed_in?) %>
-            <%= render 'public/shared/dropdown_menu', type: :topic_comment, dropdown_id: "topic_comment#{comment.id}", comment: comment %>
-          <% end %>
-        <% end %>
-      </div>
-    </div>
-  <% end %>
+  <div id="comment_index">
+    <%= render 'public/topics/index', comments: @comments %>
+  </div>
 
   <div class="d-flex justify-content-center my-4">
     <%= paginate @comments %>
@@ -79,18 +48,13 @@
       <h5 class="mb-2 mr-2">コメントする</h5>
       <small>(空欄不可・1000字以内)</small>
     </div>
-    <%= form_with(model: [@artist, @topic, @comment], local: true) do |f| %>
-      <div class="form-group">
-        <%= f.text_area :body, class: "form-control", rows: 3 %>
-      </div>
-      <%= f.submit "投稿", class: "btn btn-primary" %>
-    <% end %>
+    <%= render 'public/topics/form' %>
   </div>
   <% elsif admin_signed_in? %>
     <p class="text-muted">管理者はコメントできません。</p>
   <% else %>
    <p class="text-muted">コメントするには会員登録、またはゲストログインを行ってください。</p>
-<% end %>
+  <% end %>
 </div>
 
 
