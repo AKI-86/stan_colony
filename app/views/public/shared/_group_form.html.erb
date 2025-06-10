@@ -3,7 +3,7 @@
   <%= form_with model: @group do |f| %>
     <%= render 'layouts/error_messages', model: f.object %>
     <div class="mb-3">
-      <%= f.label :name, ('サークル名  <span class="text-muted small">(同名アーティストは登録できません)</span>').html_safe, class: "form-label" %><span class="badge badge-danger ml-3">必須</span>
+      <%= f.label :name, ('サークル名  <span class="text-muted small">(同名サークルは作成できません)</span>').html_safe, class: "form-label" %><span class="badge badge-danger ml-3">必須</span>
       <%= f.text_field :name, class: "form-control" %>
     </div>
     <div class="mb-3">
