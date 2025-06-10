@@ -1,0 +1,6 @@
+<% if @comment.errors.any? %>
+  alert("コメントの投稿に失敗しました: <%= j @comment.errors.full_messages.join(', ') %>");
+<% else %>
+  $("#comment_index").html("<%= j render('public/topics/index', comments: @comments) %>");
+  $("textarea").val(""); // コメント欄をクリア
+<% end %>

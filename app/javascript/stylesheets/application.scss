@@ -24,17 +24,30 @@ body {
   flex: 1;  /* メインが余った領域を埋める */
   margin-top: 0; /* fixedヘッダー用のマージン不要 */
   display: flex;
+  flex-wrap: wrap; /* スマホでは折り返す */
 }
 
 .sidebar {
   position: static;
   height: auto;
-  width: 180px;
+  width: 100%;
+  max-width: 180px; /* 通常は180pxを上限とする */
   background-color: #0097b2;
   padding: 10px 15px;
   border-right: 15px solid #014758;
   overflow-y: auto;
 }
+
+
+/* スマホ画面では全幅に切り替え */
+@media (max-width: 768px) {
+  .sidebar {
+    max-width: 100%;
+    border-right: none;
+    border-bottom: 10px solid #014758;
+  }
+}
+
 
 .main-content {
   flex: 1;
@@ -64,7 +77,11 @@ footer {
 
 .search-form {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
+  justify-content: flex-end;
+  width: 100%; /* 追加 */
+  gap: 0.5rem; /* 間隔も調整すると見やすく */
 }
 
 /* タブ部分のスタイル */
@@ -79,7 +96,8 @@ footer {
 }
 
 .search-input input {
-  width: 350px;
+  width: 100%;
+  max-width: 350px; /* これで大画面では最大350pxまで */
   color: #000000;
 }
 

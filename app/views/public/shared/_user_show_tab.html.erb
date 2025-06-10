@@ -1,22 +1,22 @@
 <div class="tabs">
   <ul class="nav nav-tabs" >
     <li class="nav-item">
-      <a class="nav-link active text-dark font-weight-bold" data-toggle="tab" href="#section1">作成アーティスト：<%= @user.artists.count %>件</a>
+      <a class="nav-link active text-dark font-weight-bold" data-toggle="tab" href="#section1">作成アーティスト：<%= @artists.size %>件</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link text-dark font-weight-bold" data-toggle="tab" href="#section2"><i class="fas fa-heart"></i>したアーティスト：<%= @user.favorite_artists.count %>件</a>
+      <a class="nav-link text-dark font-weight-bold" data-toggle="tab" href="#section2"><i class="fas fa-heart"></i>したアーティスト：<%= @favorite_artists.size %>件</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link text-dark font-weight-bold" data-toggle="tab" href="#section3">作成サークル：<%= @user.owned_groups.count %>件</a>
+      <a class="nav-link text-dark font-weight-bold" data-toggle="tab" href="#section3">作成サークル：<%= @groups.size %>件</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link text-dark font-weight-bold" data-toggle="tab" href="#section4">参加中サークル：<%= @user.joined_groups.count %>件</a>
+      <a class="nav-link text-dark font-weight-bold" data-toggle="tab" href="#section4">参加中サークル：<%= @joined_groups.size %>件</a>
     </li>
     <li class="nav-item ">
-      <a class="nav-link text-dark font-weight-bold" data-toggle="tab" href="#section5">フォロー：<%= @user.followings.count %>人</a>
+      <a class="nav-link text-dark font-weight-bold" data-toggle="tab" href="#section5">フォロー：<%= @following_users.size %>人</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link text-dark font-weight-bold" data-toggle="tab" href="#section6">フォロワー：<%= @user.followers.count %>人</a>
+      <a class="nav-link text-dark font-weight-bold" data-toggle="tab" href="#section6">フォロワー：<%= @follower_users.size %>人</a>
     </li>
   </ul>
 

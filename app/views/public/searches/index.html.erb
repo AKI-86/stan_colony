@@ -12,13 +12,16 @@
         <% @artists.each do |artist| %>
           <div class="col text-center">
             <%= link_to artist_path(artist) do %>
-              <%= image_tag artist.get_image(60, 60), class: "img-fluid rounded-circle mb-2" %><br>
+              <%= image_tag artist.get_image(60, 60), class: "img-fluid rounded-circle text-white mb-2" %><br>
               <small class="d-block text-muted text-break mb-3">
                 <%= truncate(artist.name, length: 30) %>
               </small>
             <% end %>
           </div>
         <% end %>
+      </div>
+      <div class="d-flex justify-content-center mt-3">
+        <%= paginate @artists, param_name: :artist_page %>
       </div>
     <% else %>
       <p>該当するアーティストはありません</p>
@@ -28,11 +31,19 @@
     <hr class="white-hr">
     <% if (current_user && !current_user.guest?) || admin_signed_in? %>
       <% if @users.any? %>
-        <div class="search-scroll-box">
+        <div class="search-box">
           <% @users.each do |user| %>
-            <p><%= link_to truncate(user.name, length: 60), user_path(user) %></p>
+            <div class="my-2">
+            <%= link_to user_path(user.id), class: "text-decoration-none text-white my-2" do %>
+              <%= image_tag user.get_image(50, 50), class: "rounded-circle me-1" %>
+              <span class="ml-2"><%= truncate(user.name, length: 50) %></span>
+            <% end %>
+          </div>
           <% end %>
         </div>
+      <div class="d-flex justify-content-center mt-3">
+        <%= paginate @users, param_name: :user_page %>
+      </div>
       <% else %>
         <p>該当するユーザーはいません</p>
       <% end %>
@@ -43,11 +54,14 @@
     <div class="mt-5 heading-mini">サークル検索結果</div>
     <hr class="white-hr">
     <% if @groups.any? %>
-      <div class="search-scroll-box">
+      <div class="search-box">
         <% @groups.each do |group| %>
-          <p><%= link_to truncate(group.name, length: 60), group_path(group) %></p>
+          <p><%= link_to truncate(group.name, length: 60), group_path(group), class: "text-decoration-none text-white my-2" %></p>
         <% end %>
       </div>
+    <div class="d-flex justify-content-center mt-3">
+      <%= paginate @groups, param_name: :group_page %>
+    </div>
     <% else %>
       <p>該当するサークルはありません</p>
     <% end %>

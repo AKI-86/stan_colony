@@ -28,7 +28,9 @@
 
         <!-- いいねボタン -->
         <% if current_user && !current_user.guest? %>
-          <p><%= render "public/favorites/btn", artist: @artist %></p>
+          <p id="favorite_btn_<%= @artist.id %>">
+            <%= render "public/favorites/btn", artist: @artist %>
+          </p>
           <p><%= link_to "このアーティストをいいねしているユーザー一覧", favorited_users_artist_path(@artist), class: "btn btn-primary btn-sm" %></p>
         <% end %>
         <!-- 通報ボタン -->
@@ -99,3 +101,5 @@
     </div>
   </div>
 </div>
+
+

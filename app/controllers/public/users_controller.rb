@@ -4,12 +4,12 @@ class Public::UsersController < ApplicationController
 
   def mypage
     @user = current_user
-    @favorite_artists = Artist.joins(:favorites).where(favorites: { user_id: @user.id }).merge(Artist.active)
-    @artists = @user.artists.active
-    @groups = @user.owned_groups.active
-    @following_users = @user.followings.active
-    @follower_users = @user.followers.active
-    @joined_groups = @user.joined_groups.active.order(created_at: :desc)
+    @favorite_artists = Artist.joins(:favorites).where(favorites: { user_id: @user.id }).merge(Artist.active).with_attached_image
+    @artists = @user.artists.active.with_attached_image
+    @groups = @user.owned_groups.active.with_attached_image
+    @following_users = @user.followings.active.with_attached_image
+    @follower_users = @user.followers.active.with_attached_image
+    @joined_groups = @user.joined_groups.active.order(created_at: :desc).with_attached_image
     @recommended_artists = @user.followed_users_favorite_artists_except_mine
   end
 

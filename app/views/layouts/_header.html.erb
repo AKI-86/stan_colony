@@ -2,11 +2,11 @@
   <div class="header-inner d-flex align-items-center justify-content-between px-1">
     <div class="logo">
       <a class="navbar-brand" href="<%= admin_signed_in? ? admin_top_path : root_path %>">
-        <%= image_tag 'logo-5.png', alt: 'StanColony', height: 50 %>
+        <%= image_tag 'logo-5.png', alt: 'StanColony', height: 50, style: "max-width: 100%; height: auto;" %>
       </a>
     </div>
     
-    <div class="search-form ml-auto d-flex align-items-center">
+    <div class="search-form ml-auto d-flex align-items-center flex-grow-1">
       <!-- 検索窓 -->
       <% if admin_signed_in? %>
         <%= form_with url: admin_search_path, method: :get, local: true, class: "d-flex" do |f| %>
