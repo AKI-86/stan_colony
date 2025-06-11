@@ -9,7 +9,7 @@ class Admin::GenresController < ApplicationController
     if @topic_genre.save
       redirect_to admin_genres_path, notice: 'ジャンルを追加しました。'
     else
-      @topic_genres = TopicGenre.all
+      @topic_genres = TopicGenre.page(params[:page]).per(10)
       render :index
     end
   end

@@ -41,7 +41,7 @@
 
   <hr>
   
-  <h5>参加中のユーザー</h5>
+  <h4>参加中のユーザー</h4>
   <div class="scroll-box mb-3">
     <% if @members.any? %>
       <% @members.each do |member| %>
@@ -86,7 +86,8 @@
             <span class="ms-auto text-muted ml-2" style="font-size: 0.85em;"><%= comment.created_at.strftime("%Y年%m月%d日(%a) %H時%M分") %></span>
           </div>
           <% if comment.deleted? %>
-            <p class="mb-2 text-muted">このコメントは削除されました。</p>
+            <div class="text-danger">[削除済み]</div>
+            <p class="mb-2"><%= comment.body %></p>
           <% else %>
             <p class="mb-2"><%= comment.body %></p>
             <%= link_to "削除", group_group_comment_path(@group, comment), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger" %>

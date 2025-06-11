@@ -12,4 +12,8 @@ class GroupComment < ApplicationRecord
   def soft_delete
     update(deleted: true)
   end
+
+  def deleted?
+    deleted == true
+  end
 end

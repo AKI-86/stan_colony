@@ -23,7 +23,6 @@ class Public::ReportsController < ApplicationController
   private
 
   def find_reportable
-    # パラメータで渡されたparams[:reportable_type], params[:reportable_id] で通報対象を取得
     params[:reportable_type].constantize.find(params[:reportable_id])
   end
 

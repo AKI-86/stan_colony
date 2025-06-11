@@ -19,26 +19,11 @@ class Public::CommentsController < ApplicationController
     end
   end
 
-
-  #   if @comment.save
-  #     redirect_to artist_topic_path(@artist, topic)
-  #   else
-  #     # エラー時はindexなどのビューに@commentと@commentsを渡してrender
-  #     @topic = topic
-  #     @artist = @topic.artist
-  #     @comments = @topic.comments.page(params[:page]).per(10) # ページネーションも同じように
-  
-  #     flash.now[:alert] = "空欄または1000字以上のコメントは投稿できません"
-  #     render 'public/topics/show'  # 例: トピック詳細画面のviewを再表示
-  #   end
-  # end
-
   def destroy
     @comment = Comment.find(params[:id])
     @topic = @comment.topic  # コメントに関連するトピックを取得
     @artist = @topic.artist  # トピックに関連するアーティストを取得
     @comment.soft_delete
-
     if admin_signed_in?
       redirect_to admin_artist_topic_path(@artist, @topic), notice: "コメントを削除しました。"
     else
@@ -48,14 +33,15 @@ class Public::CommentsController < ApplicationController
 
   private
 
+  def comment_params
+    params.require(:comment).permit(:body)
+  end
+
   def set_artist
-    @artist = Artist.active.find(params[:artist_id])  # artist_idを使って、@artistを設定
+    @artist = Artist.active.find_by(id: params[:artist_id])
     unless @artist
       redirect_to root_path, alert: "そのページは表示できません"
     end
   end
 
-  def comment_params
-    params.require(:comment).permit(:body)
- end
 end

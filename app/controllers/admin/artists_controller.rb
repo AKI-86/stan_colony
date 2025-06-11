@@ -7,7 +7,6 @@ class Admin::ArtistsController < ApplicationController
 
   def show
     @artist = Artist.find(params[:id])
-    # @topics は @artist の関連として取得し、includes(:user, :comments) でN+1問題を防ぐ
     @topics = @artist.topics.includes(:user, :comments).order(created_at: :desc).page(params[:page]).per(10)
   end
 
@@ -23,6 +22,11 @@ class Admin::ArtistsController < ApplicationController
     if tag_names.size > 10
       flash.now[:alert] = "タグは最大10個までです。"
       render :edit and return
+    end
+    invalid_tags = tag_names.select { |name| name.length > 20 }
+    if invalid_tags.any?
+      flash.now[:alert] = "タグは1文字以上20文字以内で入力してください。"
+      render :new and return
     end
 
     if @artist.update(artist_params)

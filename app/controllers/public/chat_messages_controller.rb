@@ -1,9 +1,9 @@
 class Public::ChatMessagesController < ApplicationController
-  # before_action :authenticate_user!
   before_action :set_group
   before_action :authorize_group_member!
 
   def index
+    # 現在はスクロールにして表示しているがページネーションも検討
     @chat_messages = @group.chat_messages.includes(:user).order(:created_at)
     @chat_message = ChatMessage.new
   end

@@ -6,7 +6,7 @@ class Public::ArtistTagsController < ApplicationController
       redirect_to artists_path, alert: "タグ「#{params[:name]}」は存在しません。"
     else
       # タグに紐づくアーティスト一覧を取得
-      @artists = @artist_tag.artists.active.page(params[:page]).per(10)  # kaminariなどページネーション使ってる場合
+      @artists = @artist_tag.artists.active.page(params[:page]).per(10)
     end
   end
 end
