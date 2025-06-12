@@ -12,14 +12,14 @@ class Artist < ApplicationRecord
   validates :name, presence: true, uniqueness: true, length: { minimum: 1, maximum: 250 }
   
   scope :active, -> { where(is_active: true) }
-  
-  paginates_per 12
 
+  # 指定したユーザーがそのアーティストをいいねしているかを判別
   def favorited_by?(user)
     return false if user.nil?
     favorites.exists?(user_id: user.id)
   end
 
+  # 画像がない場合no_imageを表示、切り取って指定のサイズにリサイズする
   def get_image(width, height)
     unless image.attached?
       file_path = Rails.root.join('app/assets/images/no_image.jpg')
@@ -28,10 +28,12 @@ class Artist < ApplicationRecord
     image.variant(resize_to_fill: [width, height]).processed
   end
 
+  # is_activeを日本語で表示
   def active_status
     is_active ? "表示中" : "非表示中"
   end
 
+  # ransackで検索できる対象を指定
   def self.ransackable_attributes(auth_object = nil)
     ["name"]
   end

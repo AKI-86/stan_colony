@@ -14,6 +14,7 @@ class Topic < ApplicationRecord
 
   scope :active, -> { where(is_active: true) }
 
+  # 画像がない場合no_imageを表示、切り取って指定のサイズにリサイズする
   def get_image
     unless image.attached?
       file_path = Rails.root.join('app/assets/images/no_image.jpg')
@@ -22,10 +23,12 @@ class Topic < ApplicationRecord
     image
   end
 
+  # is_activeを日本語で表示
   def active_status
     is_active ? "表示中" : "非表示中"
   end
 
+  # ransackで検索できる対象を指定
   def self.ransackable_attributes(auth_object = nil)
     ["title"]
   end
