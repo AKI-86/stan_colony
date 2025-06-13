@@ -1,27 +1,28 @@
-<div class="container-fluid my-5">
+<div class="container my-5">
   <div class="me-3 heading my-5">タグ: <%= @group_tag.name %> のサークル一覧</div>
-  <% if @groups.any? %>
-    <div class="list-group">
-      <% @groups.each do |group| %>
-        <%= link_to group_path(group), class: "list-group-item list-group-item-action d-flex align-items-center" do %>
-          <%= image_tag group.get_image(80, 80), class: "img-thumbnail mr-3" %>
-          <div class="flex-grow-1">
-            <h5><%= truncate(group.name, length: 100) %></h5>
-            <p class="my-1" style="max-width: 1200px;"><%= truncate(group.introduction, length: 120) %></p>
-            <div>
-              <% group.group_tags.each do |tag| %>
-                <span class="badge badge-pill badge-success mr-1"><%= tag.name %></span>
-              <% end %>
+    <% if @groups.any? %>
+      <div class="list-group">
+        <% @groups.each do |group| %>
+          <%= link_to group_path(group), class: "list-group-item list-group-item-action d-flex align-items-center" do %>
+            <%= image_tag group.get_image(80, 80), class: "img-thumbnail mr-3" %>
+            <div class="flex-grow-1">
+              <h5><%= truncate(group.name, length: 100) %></h5>
+              <p class="my-1"><%= truncate(group.introduction, length: 120) %></p>
+              <div>
+                <% group.group_tags.each do |tag| %>
+                  <span class="badge badge-pill badge-success mr-1"><%= tag.name %></span>
+                <% end %>
+              </div>
             </div>
-          </div>
-          <small class="text-muted ml-3">作成者: <%= group.owner.name %></small>
+            <small class="text-muted ml-3">作成者: <%= group.owner.name %></small>
+          <% end %>
         <% end %>
-      <% end %>
-    </div>
-    <div class="d-flex justify-content-center my-4">
-      <%= paginate @groups %>
-    </div>
-  <% else %>
-    <p>このタグに紐づくサークルはいません。</p>
-  <% end %>
+      </div>
+      <div class="d-flex justify-content-center my-4">
+        <%= paginate @groups %>
+      </div>
+    <% else %>
+      <p>このタグに紐づくサークルはいません。</p>
+    <% end %>
+  </div>
 </div>

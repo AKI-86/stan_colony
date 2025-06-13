@@ -39,7 +39,8 @@
     </div>
 
     <div class= "col mypage-info">
-      <h5 class="mb-3">あなたにおすすめのアーティスト</h5>
+      <h5>あなたにおすすめのアーティスト</h5>
+      <span class="small text-muted">フォローしている人がいいねしたアーティストを表示中<br>(自分がいいねをしたアーティストを除く)</span>
       <% if @recommended_artists.any? %>
         <% @recommended_artists.each do |artist| %>
           <div class="my-2">

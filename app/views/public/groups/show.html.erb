@@ -1,24 +1,26 @@
 <div class="container p-5">
   <%= link_to "サークル一覧に戻る", groups_path, class: "btn return-btn-a mb-2" %>
+
+  <!-- サークル詳細部分 -->
   <div class="card mb-4 shadow-sm">
     <div class="row p-3">
       <div class="col-md-3 d-flex align-items-start justify-content-center m-3 ml-2">
         <%= image_tag @group.get_image(250, 250), class: "img-thumbnail"%>
       </div>
       <div class="col-md-8">
-        <h2 class="my-3"><%= truncate(@group.name, length: 150) %></h2>
-        <p><%= truncate(@group.introduction, length: 1000) %></p>
+        <h2 class="my-3"><%= truncate(@group.name, length: 100) %></h2>
         <p>タグ：
           <% if @group.group_tags.any? %>
             <% @group.group_tags.each do |tag| %>
-              <%= link_to tag.name, group_tag_path(tag.name), class: "badge badge-pill badge-success me-1" %>
+              <%= link_to tag.name, group_tag_path(tag.name), class: "badge badge-pill badge-success mr-1" %>
             <% end %>
           <% else %>
             タグはまだありません
           <% end %>
         </p>
+        <p><%= truncate(@group.introduction, length: 1000) %></p>
         <p>メンバー数：<%= @group.members.count %>人</p>
-        <div class="d-flex align-items-center">
+        <div class="d-flex align-items-center mb-2">
           <span>作成者：</span>
           <%= link_to user_path(@group.owner), class: "d-flex align-items-center text-dark mr-2" do %>
             <%= image_tag @group.owner.get_image(25, 25), class: "rounded-circle mr-1" %>
@@ -26,32 +28,33 @@
           <% end %>
           <%= @group.owner.badges %>
         </div>
+        
         <p>作成日：<%= @group.created_at.strftime("%Y年%m月%d日(%a) %H時%M分") %></p>
         <p>
-        <% if (current_user && !current_user.guest?) || admin_signed_in? %>
-          <% if current_user && current_user.joined_groups.include?(@group) || admin_signed_in? %>
-            <%= link_to "チャットルームへ", group_chat_messages_path(@group), class: "btn btn-primary" %>
-            <% if current_user && current_user.joined_groups.include?(@group) %>
-              <%= button_to "脱退する", group_group_membership_path(@group), method: :delete, class: "btn btn-danger" %>
+          <% if (current_user && !current_user.guest?) || admin_signed_in? %>
+            <% if current_user && current_user.joined_groups.include?(@group) || admin_signed_in? %>
+              <%= link_to "チャットルームへ", group_chat_messages_path(@group), class: "btn btn-primary" %>
+              <% if current_user && current_user.joined_groups.include?(@group) %>
+                <%= button_to "脱退する", group_group_membership_path(@group), method: :delete, class: "btn btn-danger" %>
+              <% end %>
+            <% else %>
+              <% if current_user %>
+                <%= button_to "参加する", group_group_membership_path(@group), method: :post, class: "btn btn-primary" %>
+              <% end %>
             <% end %>
           <% else %>
-            <% if current_user %>
-              <%= button_to "参加する", group_group_membership_path(@group), method: :post, class: "btn btn-primary" %>
-            <% end %>
+            <p class="text-danger">未ログイン・ゲストユーザーはサークルに参加できません。</p>
           <% end %>
-        <% else %>
-          <p class="text-danger">未ログイン・ゲストユーザーはサークルに参加できません。</p>
+        </p>
+        <% if current_user && !current_user.guest? %>
+          <%= render 'public/shared/dropdown_menu', type: :group, dropdown_id: "group", group: @group %>
         <% end %>
-      </p>
-
-      <% if current_user && !current_user.guest? %>
-        <%= render 'public/shared/dropdown_menu', type: :group, dropdown_id: "group", group: @group %>
-      <% end %>
       </div>
     </div>
   </div>
 
   <hr class="white-hr">
+
   <!-- コメント部分 -->
   <% if (current_user && !current_user.guest?) || admin_signed_in? %>
     <h3 class="mt-5 text-white">コメント</h3>
@@ -62,18 +65,18 @@
     <div id="group_comment_index">
       <%= render 'public/groups/index', group_comments: @group_comments %>
     </div>
-
+    
     <div class="d-flex justify-content-center my-4">
       <%= paginate @group_comments %>
     </div>
-    <% else %>
-      <p class="text-muted">未ログイン、ゲストユーザーはサークルのコメントを閲覧することはできません。</p>
-    <% end %>
+  <% else %>
+    <p class="text-muted">未ログイン、ゲストユーザーはサークルのコメントを閲覧することはできません。</p>
+  <% end %>
 
   <!-- コメントフォーム -->
   <% if current_user && current_user.joined_groups.include?(@group) %>
     <div class="card p-3 mt-4">
-      <div class="d-flex align-items-center gap-2 mb-2">
+      <div class="d-flex align-items-center mb-2">
         <h5 class="mb-2 mr-2">コメントする</h5>
         <small>(空欄不可・1000字以内)</small>
       </div>
@@ -84,9 +87,9 @@
         <%= f.submit "投稿", class: "btn btn-primary" %>
       <% end %>
     </div>
-    <% elsif admin_signed_in? %>
-      <p class="text-muted">管理者はコメントできません。</p>
-    <% else %>
-      <p class="text-muted">サークルのメンバーのみコメントが可能です。参加申請をしてください。</p>
+  <% elsif admin_signed_in? %>
+    <p class="text-muted">管理者はコメントできません。</p>
+  <% else %>
+    <p class="text-muted">サークルのメンバーのみコメントが可能です。参加申請をしてください。</p>
   <% end %>
 </div>
