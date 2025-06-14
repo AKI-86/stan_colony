@@ -2,7 +2,7 @@
   <div class="w-100" style="max-width: 750px;">
     <div class="card shadow-sm p-4">
       <div class="text-center heading-black mb-4">ログイン</div>
-        <%= form_with model: @user, url: user_session_path do |f| %>
+      <%= form_with model: @user, url: user_session_path do |f| %>
         <%# フラッシュメッセージだけ出てくるように <%= render 'layouts/flash_messages' %>
         <div class="mb-3">
           <%= f.label :email, "メールアドレス", class: "form-label" %>

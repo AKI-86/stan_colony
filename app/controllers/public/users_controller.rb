@@ -4,12 +4,12 @@ class Public::UsersController < ApplicationController
 
   def mypage
     @user = current_user
-    @favorite_artists = Artist.joins(:favorites).where(favorites: { user_id: @user.id }).merge(Artist.active).with_attached_image
-    @artists = @user.artists.active.with_attached_image
-    @groups = @user.owned_groups.active.with_attached_image
-    @following_users = @user.followings.active.with_attached_image
-    @follower_users = @user.followers.active.with_attached_image
-    @joined_groups = @user.joined_groups.active.order(created_at: :desc).with_attached_image
+    @favorite_artists = Artist.joins(:favorites).where(favorites: { user_id: @user.id }).merge(Artist.active).with_attached_image.page(params[:favorite_artists_page]).per(10)
+    @artists = @user.artists.active.with_attached_image.page(params[:artists_page]).per(10)
+    @groups = @user.owned_groups.active.with_attached_image.page(params[:groups_page]).per(10)
+    @following_users = @user.followings.active.with_attached_image.page(params[:following_page]).per(10)
+    @follower_users = @user.followers.active.with_attached_image.page(params[:follower_page]).per(10)
+    @joined_groups = @user.joined_groups.active.order(created_at: :desc).with_attached_image.page(params[:joined_page]).per(10)
     @recommended_artists = @user.followed_users_favorite_artists_except_mine
   end
 
@@ -36,15 +36,15 @@ class Public::UsersController < ApplicationController
       return
     end
 
-    @artists = @user.artists.active.page(params[:page]).per(10)
+    @artists = @user.artists.active.with_attached_image.page(params[:artists_page]).per(10)
     @favorite = @user.favorites.map(&:artist).select(&:is_active)
-    @favorite_artists = Artist.active.joins(:favorites).where(favorites: { user_id: @user.id }).page(params[:page]).per(10)
-    @groups = @user.owned_groups.active.page(params[:page]).per(10)
+    @favorite_artists = Artist.active.joins(:favorites).where(favorites: { user_id: @user.id }).with_attached_image.page(params[:favorite_artists_page]).per(10)
+    @groups = @user.owned_groups.active.with_attached_image.page(params[:groups_page]).per(10)
     if @user == current_user && params[:skip_redirect].blank?
       redirect_to users_mypage_path and return
     end
-    @following_users = @user.followings.active.page(params[:following_page]).per(10)
-    @follower_users = @user.followers.active.page(params[:follower_page]).per(10)
+    @following_users = @user.followings.active.with_attached_image.page(params[:following_page]).per(10)
+    @follower_users = @user.followers.active.with_attached_image.page(params[:follower_page]).per(10)
     @joined_groups = @user.joined_groups.active.order(created_at: :desc).page(params[:joined_page]).per(10)
   end
 

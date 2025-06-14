@@ -33,3 +33,11 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
+document.addEventListener("turbolinks:load", function () {
+  const urlParams = new URLSearchParams(window.location.search);
+  const activeTab = urlParams.get("tab");
+
+  if (activeTab) {
+    $('a[href="#' + activeTab + '"]').tab('show');
+  }
+});
