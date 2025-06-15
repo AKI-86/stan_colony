@@ -58,12 +58,11 @@
   </div>
 
   <hr>
-  
+
+  <h4 class="mb-3">コメント</h4>
   <div class="d-flex justify-content-center my-4">
     <%= paginate @group_comments %>
   </div>
-
-  <h4 class="mb-3">コメント</h4>
   <% if @group_comments.any? %>
     <% @group_comments.each_with_index do |comment, index| %>
       <% number = @group_comments.total_count - ((@group_comments.current_page - 1) * @group_comments.limit_value + index) %>

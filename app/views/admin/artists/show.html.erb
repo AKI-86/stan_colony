@@ -42,12 +42,12 @@
       <thead>
         <tr>
           <th>トピック名</th>
-          <th>作成者</th>
-          <th>作成日</th>
-          <th>コメント数</th>
-          <th>最終コメント</th>
-          <th>状態</th>
-          <th>操作</th>
+          <th style="width: 10%">作成者</th>
+          <th style="width: 7%">作成日</th>
+          <th style="width: 10%">コメント数</th>
+          <th style="width: 15%">最終コメント</th>
+          <th style="width: 9%">状態</th>
+          <th style="width: 7%">操作</th>
         </tr>
       </thead>
 
@@ -58,14 +58,14 @@
               <%= link_to topic.title, admin_artist_topic_path(@artist, topic), class: "d-inline-block text-truncate", style: "max-width: 100%;" %>
             </td>
             <td><%= truncate(topic.user.name, length: 12) %></td>
-            <td><%= topic.created_at.strftime("%Y-%m-%d") %></td>
+            <td><%= topic.created_at.strftime("%Y/%m/%d") %></td>
             <td>
               <i class="fa-regular fa-comment"></i>
               <%= topic.comments.count %>
             </td>
             <td>
               <% if topic.comments.any? %>
-                <small><%= topic.comments.maximum(:created_at).strftime("%Y年%m月%d日 %H時%M分") %></small>
+                <small><%= topic.comments.maximum(:created_at).strftime("%Y年%m月%d日") %></small>
               <% else %>
                 <small>コメントなし</small>
               <% end %>

@@ -1,10 +1,10 @@
 <div class="container admin-black-bg p-5">
   <div class="heading">検索結果</div>
-  <% if @keyword.present? %>
-    <p>キーワード：「<strong><%= @keyword %></strong>」で検索した結果</p>
-  <% else %> 
-    <p>全てを表示</p>
-  <% end %>
+    <% if @keyword.present? %>
+      <p>キーワード：「<strong><%= @keyword %></strong>」で検索した結果</p>
+    <% else %> 
+      <p>全てを表示</p>
+    <% end %>
   <div class="mt-5 heading-mini">アーティスト検索結果</div>
   <hr class="white-hr">
   <% if @artists.any? %>

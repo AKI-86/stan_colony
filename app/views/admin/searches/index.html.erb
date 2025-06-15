@@ -21,6 +21,9 @@
         </div>
       <% end %>
     </div>
+    <div class="d-flex justify-content-center mt-3">
+      <%= paginate @artists, param_name: :artist_page %>
+    </div>
   <% else %>
     <p>該当するアーティストはありません</p>
   <% end %>
@@ -28,7 +31,7 @@
   <h2 class="mt-5">ユーザー検索結果</h2>
   <hr class="white-hr">
   <% if @users.any? %>
-    <div class="search-scroll-box">
+    <div class="search-box">
       <% @users.each do |user| %>
         <p>
           <%= link_to admin_user_path(user) do %>
@@ -38,6 +41,9 @@
         </p>
       <% end %>
     </div>
+    <div class="d-flex justify-content-center mt-3">
+      <%= paginate @users, param_name: :user_page %>
+    </div>
   <% else %>
     <p>該当するユーザーはいません</p>
   <% end %>
@@ -45,7 +51,7 @@
   <h2 class="mt-5">グループ検索結果</h2>
   <hr class="white-hr">
   <% if @groups.any? %>
-    <div class="search-scroll-box">
+    <div class="search-box">
       <% @groups.each do |group| %>
         <p>
           <%= link_to admin_group_path(group) do %>
@@ -54,6 +60,9 @@
           <% end %>
         </p>
       <% end %>
+    </div>
+    <div class="d-flex justify-content-center mt-3">
+      <%= paginate @groups, param_name: :group_page %>
     </div>
   <% else %>
     <p>該当するサークルはありません</p>

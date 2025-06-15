@@ -9,6 +9,7 @@ class Admin::ReportsController < ApplicationController
     @report = Report.find(params[:id])
   end
 
+  # ステータスは現在は未設定
   # def edit
   #   @report = Report.find(params[:id])
   # end
@@ -21,7 +22,6 @@ class Admin::ReportsController < ApplicationController
   #     render :edit
   #   end
   # end
-  
 
   def update_status
   report = Report.find(params[:id])

@@ -2,7 +2,8 @@
   <h4 class="admin-title">ユーザー一覧</h4>
 
   <%= render partial: "admin/shared/icon_guide", locals: { context: :user } %>
-
+  <div class="mt-2 lead">ユーザー数：<%= @user_count %>人</div>
+  <div class="lead">ゲストユーザー数：<%= @guest_user_count %>人</div>
   <ul class="nav nav-tabs mt-3">
     <li class="nav-item">
       <a class="nav-link active" data-toggle="tab" href="#normal-users">通常ユーザー</a>
@@ -17,7 +18,6 @@
     <div id="normal-users" class="tab-pane fade show active">
       <%= render partial: "admin/users/user_tab", locals: { users: @users, param_name: :normal_page } %>
     </div>
-
     <!-- ゲストユーザーの一覧 -->
     <div id="guest-users" class="tab-pane fade">
       <%= render partial: "admin/users/user_tab", locals: { users: @guest_users, param_name: :guest_page } %>

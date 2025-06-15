@@ -1,4 +1,4 @@
-<div class="container-fluid d-flex justify-content-center my-4">
+<div class="container d-flex justify-content-center my-4">
   <div class="w-100" style="max-width: 600px;">
     <div class="card shadow-sm p-4">
       <h2 class="text-center mb-4">アーティスト編集</h2>
@@ -23,12 +23,10 @@
             <%= f.label :image, "画像を選択", class: "custom-file-label", for: "artist_image" %>
           </div>
         </div>
-
         <div class="text-center mt-4">
           <span class="mr-3"><%= f.radio_button :is_active, true %> <%= f.label :is_active, "表示中" %></span>
           <span class="ml-3"><%= f.radio_button :is_active, false %> <%= f.label :is_active, "非表示中" %></span>
         </div>
-
         <div class="text-center mt-4">
           <%= f.submit "保存", class: "btn btn-primary btn-block" %>
         </div>
@@ -40,22 +38,3 @@
     </div>
   </div>
 </div>
-
-
-<!-- タグが10個を超えた時に警告が出る -->
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const tagInput = document.getElementById("tag_input");
-    const warning = document.getElementById("tag_limit_warning");
-
-    tagInput.addEventListener("input", function() {
-      const tags = tagInput.value.split(",").map(tag => tag.trim()).filter(tag => tag.length > 0);
-      if (tags.length > 10) {
-        warning.style.display = "inline";
-      } else {
-        warning.style.display = "none";
-      }
-    });
-  });
-</script>
-
