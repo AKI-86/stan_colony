@@ -28,11 +28,5 @@ Xやmixiなど情報を共有できるサイトはありますが、カテゴリ
 - IDE：Cloud9
 ​
 ## 使用素材
-### フォント素材（フリー）
-* [Font Free]　http://fontfree.me/
-### 写真素材（フリー）
-* [ぱくたそ]https://www.pakutaso.com/
-* [O-DAN]http://o-dan.net/ja/
-* [morguefile]https://morguefile.com/
-### ドメイン取得
-* [お名前.com]https://www.onamae.com/
+### フォント素材
+* [Google Font]　https://fonts.google.com/
