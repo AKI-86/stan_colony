@@ -7,8 +7,8 @@ class Admin::GroupsController < ApplicationController
 
   def show
     @group = Group.find(params[:id])
-    @group_comment = GroupComment.new
-    @group_comments = @group.group_comments.includes(:user).order(created_at: :desc).page(params[:page]).per(10)
+    # @group_comment = GroupComment.new
+    @group_comments = @group.group_comments.unscope(where: :deleted).includes(:user).order(created_at: :desc).page(params[:page]).per(10)
     @members = @group.members
   end
 

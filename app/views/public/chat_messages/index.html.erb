@@ -1,5 +1,9 @@
 <div class="container-fluid">
-  <%= link_to "サークルページへ戻る", group_path(@group), class: "btn return-btn-a mb-2" %>
+  <% if admin_signed_in? %>
+    <%= link_to "サークルページへ戻る", admin_group_path(@group), class: "btn return-btn-a mb-2" %>
+  <% else %>
+    <%= link_to "サークルページへ戻る", group_path(@group), class: "btn return-btn-a mb-2" %>
+  <% end %>
   <div class= "row">
     <div class= "col-3 mypage-info">
       <h5>参加メンバー一覧</h5>
@@ -13,27 +17,23 @@
             </tr>
           </thead>
           <tbody>
-          <% @group.members.each do |member| %>
-            <% if admin_signed_in?%>
+            <% @group.members.each do |member| %>
               <tr>
                 <td class="border-0 align-middle">
+                  <% if admin_signed_in?%>
                     <%= link_to admin_user_path(member), class: "d-flex align-items-center text-decoration-none text-dark"  do %>
                       <%= image_tag member.get_image(40, 40), class: "rounded-circle img-fluid" %>
                       <span class="ml-2"><%= truncate(member.name, length: 15) %></span>
                     <% end %>
-                  </td>
-                </tr>
-            <% else %>
-              <tr>
-                <td class="border-0 align-middle">
-                  <%= link_to user_path(member), class: "d-flex align-items-center text-decoration-none text-dark"  do %>
-                    <%= image_tag member.get_image(40, 40), class: "rounded-circle img-fluid" %>
-                    <span class="ml-2"><%= truncate(member.name, length: 15) %></span>
+                  <% else %>
+                    <%= link_to user_path(member), class: "d-flex align-items-center text-decoration-none text-dark"  do %>
+                      <%= image_tag member.get_image(40, 40), class: "rounded-circle img-fluid" %>
+                      <span class="ml-2"><%= truncate(member.name, length: 15) %></span>
+                    <% end %>
                   <% end %>
                 </td>
               </tr>
             <% end %>
-          <% end %>
           </tbody>
         </table>
       </div>
@@ -58,9 +58,13 @@
       </div>
 
       <div class="input-area">
-        <%= form_with(model: [@group, @chat_message], local: true) do |f| %>
-          <%= f.text_field :body, placeholder: "メッセージを入力...", autocomplete: "off" %>
-          <%= f.submit "送信" %>
+        <% if admin_signed_in? %>
+          <div class="mb-2 text-muted">管理者はコメントできません</div>
+        <% else %>
+          <%= form_with(model: [@group, @chat_message], local: true) do |f| %>
+            <%= f.text_field :body, placeholder: "メッセージを入力...", autocomplete: "off" %>
+            <%= f.submit "送信" %>
+          <% end %>
         <% end %>
       </div>
     </div>

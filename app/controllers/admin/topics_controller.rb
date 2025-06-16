@@ -4,12 +4,12 @@ class Admin::TopicsController < ApplicationController
 
   def show
     @topic = @artist.topics.find(params[:id])
-    @comment = Comment.new
-    @comments = @topic.comments.order(created_at: :desc).page(params[:page]).per(10)
+    # @comment = Comment.new
+    @comments = @topic.comments.unscope(where: :deleted).includes(:user).order(created_at: :desc).page(params[:page]).per(10)
   end
 
   def edit
-    @artist = Artist.find(params[:artist_id])
+    # @artist = Artist.find(params[:artist_id])
     @topic =Topic.find(params[:id])
   end
 

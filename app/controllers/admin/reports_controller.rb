@@ -9,19 +9,19 @@ class Admin::ReportsController < ApplicationController
     @report = Report.find(params[:id])
   end
 
-  def edit
-    @report = Report.find(params[:id])
-  end
+  # ステータスは現在は未設定
+  # def edit
+  #   @report = Report.find(params[:id])
+  # end
 
-  def update
-    @report = Report.find(params[:id])
-    if @report.update(report_params)
-      redirect_to admin_report_path(@report), notice: "通報内容を更新しました。"
-    else
-      render :edit
-    end
-  end
-  
+  # def update
+  #   @report = Report.find(params[:id])
+  #   if @report.update(report_params)
+  #     redirect_to admin_report_path(@report), notice: "通報内容を更新しました。"
+  #   else
+  #     render :edit
+  #   end
+  # end
 
   def update_status
   report = Report.find(params[:id])

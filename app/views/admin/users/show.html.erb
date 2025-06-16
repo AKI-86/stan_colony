@@ -13,7 +13,6 @@
           <%= @user.name %>
           <span class="ml-2"><%= @user.badges %></span>
         </dd>
-
         <dt class="col-sm-3">紹介文</dt>
         <dd class="col-sm-9"><%= @user.introduction %></dd>
 
@@ -40,7 +39,7 @@
   
   <hr>
 
-  <h5 class="my-3">作成したアーティスト</h5>
+  <h5 class="my-3">作成したアーティスト<span class="text-muted small ml-2">全<%= @artists_count %> 件</span></h5>
   <div class="scroll-box">
     <% if @artists.any? %>
       <% @artists.each do |artist| %>
@@ -57,7 +56,8 @@
     <% end %>
   </div>
 
-  <h5 class="my-3">作成したトピック</h5>
+  <h5 class="mt-3">作成したトピック<span class="text-muted small ml-2">全<%= @topics_count %> 件</span></h5>
+  <span>トピック名（アーティスト名）</span>
   <div class="scroll-box">
     <% if @topics.any? %>
       <% @topics.each do |topic| %>
@@ -72,7 +72,7 @@
     <% end %>
   </div>
 
-  <h5 class="my-3">投稿したコメント</h5>
+  <h5 class="mt-3">投稿したコメント<span class="text-muted small ml-2">全<%= @comments_count %> 件</span></h5>
   <span>コメント内容（アーティスト名：トピック名）</span>
   <div class="scroll-box">
     <% if @comments.any? %>
@@ -88,14 +88,13 @@
     <% end %>
   </div>
 
-  <h5 class="my-3">作成したサークル</h5>
+  <h5 class="my-3">作成したサークル<span class="text-muted small ml-2">全<%= @groups_count %> 件</span></h5>
   <div class="scroll-box">
     <% if @groups.any? %>
         <% @groups.each do |group| %>
           <div class="m-2">
             <%= link_to admin_group_path(group.id), class: "text-decoration-none" do %>
-              <%= image_tag group.get_image(25, 25), class: "img-fluid" %>
-              <span class="ml-2"><%= group.name %></span>
+              <span class="ml-2"><%= truncate(group.name, length: 60) %></span>
             <% end %>
           </div>
         <% end %>
@@ -104,15 +103,13 @@
     <% end %>
   </div>
 
-
-  <h5 class="my-3">参加しているサークル</h5>
+  <h5 class="my-3">参加しているサークル<span class="text-muted small ml-2">全<%= @joined_groups_count %> 件</span></h5>
   <div class="scroll-box">
     <% if @joined_groups.any? %>
         <% @joined_groups.each do |group| %>
           <div class="m-2">
             <%= link_to admin_group_path(group.id), class: "text-decoration-none" do %>
-              <%= image_tag group.get_image(25, 25), class: "img-fluid" %>
-              <span class="ml-2"><%= group.name %></span>
+              <span class="ml-2"><%= truncate(group.name, length: 60) %></span>
             <% end %>
           </div>
         <% end %>

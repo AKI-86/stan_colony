@@ -1,6 +1,6 @@
-<div class="container mt-5">
+<div class="container mt-3">
   <div class="row">
-    <div class="col-6">
+    <div class="col-12 col-md-6">
       <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
           <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></li>
@@ -33,25 +33,31 @@
       <p>STAN COLONYとは、音楽が好きな人たちが気軽につながれる場所です。<br>
       好きなアーティストについて語り合ったり、同じ趣味の仲間を見つけたり、
       音楽を通じたゆるやかな交流を楽しめるコミュニティサイトです。<br>
-      コメントには会員登録、またはゲストログインが必要です。<br>
-      ゲストログインはログインページより行えます。<br>
-      </p>
+      コメントするには会員登録かゲストログインが必要です。</p>
       <hr class="white-hr">
-      <div class="heading-mini mb-3">サイトを初めてご利用の方は</div>
-      <% if (current_user && !current_user.guest?) || admin_signed_in? %>
-        <%= link_to "新規会員登録", "#", class: "btn btn-custom-blue disabled mr-4 text-dar", aria_disabled: "true", tabindex: "-1" %>
-        <%= link_to "アバウト", homes_about_path, class: "btn btn-custom-blue" %>
+
+      <% if admin_signed_in? %>
+        <div class="heading-mini">管理者としてログイン中</div>
+      <% elsif current_user && !current_user.guest? %>
+        <%= link_to "マイページ", users_mypage_path, class: "btn btn-custom-blue" %>
       <% elsif current_user && current_user.guest? %>
+        <div class="heading-mini mb-3">サイトを初めてご利用の方は</div>
         <%= link_to "新規会員登録", "#", class: "btn btn-custom-blue disabled mr-4", aria_disabled: "true", tabindex: "-1" %>
         <%= link_to "アバウト", homes_about_path, class: "btn btn-custom-blue" %>
-        <p class="small mt-2">現在ゲストログイン中です。新規登録する場合はログアウトが必要です。</p>
+        <div class="heading-mini mt-4 mb-3">会員登録を行いたいゲストユーザーの方は</div>
+        <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "btn btn-custom-blue mr-4" %>
+        <p class="small mt-1">現在ゲストログイン中です。新規登録する場合はログアウトが必要です。</p>
       <% else %>
+        <div class="heading-mini mb-3">サイトを初めてご利用の方は</div>
         <%= link_to "新規会員登録", new_user_registration_path, class: "btn btn-custom-blue mr-4" %>
         <%= link_to "アバウト", homes_about_path, class: "btn btn-custom-blue" %>
+        <div class="heading-mini mt-4">ゲストログインを希望の方は</div>
+        <p class="small">コメントをするには会員登録、またはゲストログインが必要です<br>
+        下記リンクよりゲストユーザーとしてログインを選択してください</p>
+        <%= link_to "ログイン", new_user_session_path, class: "btn btn-custom-blue mr-4" %>
       <% end %>
     </div>
   </div>
-
 
   <div class="mt-5 heading">新着アーティスト</div>
   <hr class="white-hr">

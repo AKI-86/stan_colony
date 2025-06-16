@@ -2,26 +2,26 @@ class Admin::CommentsController < ApplicationController
     before_action :set_artist
     before_action :authenticate_admin!
     
-    def create
-      topic = @artist.topics.find(params[:topic_id])
-      @comment = Comment.new(comment_params)
-      if current_admin
-        @comment.admin_id = current_admin.id # 管理者IDを関連付けるカラムがあれば
-      else
-        @comment.user_id = current_user.id
-      end
-      @comment.topic = topic
+    # def create
+    #   topic = @artist.topics.find(params[:topic_id])
+    #   @comment = Comment.new(comment_params)
+    #   if current_admin
+    #     @comment.admin_id = current_admin.id # 管理者IDを関連付けるカラムがあれば
+    #   else
+    #     @comment.user_id = current_user.id
+    #   end
+    #   @comment.topic = topic
     
-      if @comment.save
-        redirect_to artist_topic_path(@artist, topic)
-      else
-        @topic = topic
-        @artist = @topic.artist
-        @comments = @topic.comments.page(params[:page]).per(10)
-        flash.now[:alert] = "空欄のコメントは投稿できません"
-        render 'public/topics/show'
-      end
-    end
+    #   if @comment.save
+    #     redirect_to artist_topic_path(@artist, topic)
+    #   else
+    #     @topic = topic
+    #     @artist = @topic.artist
+    #     @comments = @topic.comments.page(params[:page]).per(10)
+    #     flash.now[:alert] = "空欄のコメントは投稿できません"
+    #     render 'public/topics/show'
+    #   end
+    # end
   
     def destroy
       @comment = Comment.find(params[:id])

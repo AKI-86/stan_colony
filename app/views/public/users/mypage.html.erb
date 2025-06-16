@@ -32,14 +32,15 @@
         </tbody>
       </table>
       <div class="text-center">
-        <%= link_to "ユーザー情報編集", edit_user_path(@user), class: "btn btn-success mr-3" %>
-        <%= link_to "ログイン情報変更", edit_user_registration_path(@user), class: "btn btn-success mr-3" %>
-        <%= link_to "退会する", users_unsubscribe_path, class: "btn btn-danger" %>
+        <%= link_to "ユーザー情報編集", edit_user_path(@user), class: "btn btn-success mr-3 my-1" %>
+        <%= link_to "ログイン情報変更", edit_user_registration_path(@user), class: "btn btn-success mr-3 my-1" %>
+        <%= link_to "退会する", users_unsubscribe_path, class: "btn btn-danger mr-3 my-1" %>
       </div>
     </div>
 
     <div class= "col mypage-info">
-      <h5 class="mb-3">あなたにおすすめのアーティスト</h5>
+      <h5>あなたにおすすめのアーティスト</h5>
+      <span class="small text-muted">フォローしている人がいいねしたアーティストを表示中<br>(自分がいいねをしたアーティストを除く)</span>
       <% if @recommended_artists.any? %>
         <% @recommended_artists.each do |artist| %>
           <div class="my-2">

@@ -1,8 +1,7 @@
-<div class="container-fluid d-flex justify-content-center my-4">
+<div class="container d-flex justify-content-center my-4">
   <div class="w-100" style="max-width: 600px;">
     <div class="card shadow-sm p-4">
       <div class="text-center mb-4 heading-black">ユーザー情報編集</div>
-
       <%= form_with model: @user, url: user_registration_path do |f| %>
         <%= render 'layouts/error_messages', model: f.object %>
         <div class="mb-3">
@@ -14,23 +13,21 @@
           <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
         <% end %>
         <div class="mb-3">
-          <%= f.label "新しいパスワード", class: "form-label" %> <span><%= @minimum_password_length %>文字以上 (変更しない場合は空欄のままにしてください)</span>
+          <%= f.label "新しいパスワード", class: "form-label" %> <span class="text-muted small"><%= @minimum_password_length %>文字以上 (変更しない場合は空欄のままにしてください)</span>
           <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
         </div>
         <div class="field">
           <%= f.label "新しいパスワード(確認用)", class: "form-label" %>
           <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
         </div>
-
         <div class="field">
-          <%= f.label :current_password, class: "form-label mt-3" %> <span>(変更を確認するために現在のパスワードが必要です)</span>
+          <%= f.label :current_password, class: "form-label mt-3" %> <span class="text-muted small">(変更を確認するために現在のパスワードが必要です)</span>
           <%= f.password_field :current_password, autocomplete: "current-password", class: "form-control" %>
         </div>
         <div class="text-center mt-4">
           <%= f.submit "ユーザー情報を変更する", class: "btn btn-primary btn-block" %>
         </div>
       <% end %>
-
     </div>
     <div class="text-center mt-4">
       <%= link_to "保存せずマイページに戻る", users_mypage_path, class: "btn btn-primary" %>

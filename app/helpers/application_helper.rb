@@ -52,7 +52,6 @@ module ApplicationHelper
       comments = topic.comments.order(created_at: :desc).pluck(:id)
       index = comments.index(comment.id)
       comments.size - index if index
-
     when "GroupComment"
       group_comment = report.reportable
       group = group_comment.group
@@ -67,7 +66,7 @@ module ApplicationHelper
   # ステータスによって色を変更
   def status_label(record)
     status_text = record.active_status  # モデルのメソッドで文字列を取得
-    css_class = record.is_active ? 'text-muted' : 'text-danger'  # 色のクラスを選ぶ
+    css_class = record.is_active ? 'badge badge-light' : 'badge badge-danger'  # 色のクラスを選ぶ
     content_tag(:span, status_text, class: css_class)
   end
 end

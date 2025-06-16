@@ -13,12 +13,10 @@ class Public::GroupsController < ApplicationController
 
   def show
     @group = Group.find(params[:id])
-
     unless @group && (@group.is_active || admin_signed_in?)
       redirect_to root_path, alert: "そのページは表示できません"
       return
     end
-
     @group_comment = GroupComment.new
     @group_comments = @group.group_comments.includes(user: [image_attachment: :blob]).order(created_at: :desc).page(params[:page]).per(10)
     @members = @group.members.includes(image_attachment: :blob)
@@ -29,14 +27,14 @@ class Public::GroupsController < ApplicationController
   def create
     @group = Group.new(group_params)
     @group = current_user.owned_groups.build(group_params)
-    
-    tag_names = params[:tag_names].to_s.split(',').map(&:strip).reject(&:blank?).uniq
 
+    # タグ機能、受けた値を,で配列に、stripで空白を除去、blankで空欄を除外
+    tag_names = params[:tag_names].to_s.split(',').map(&:strip).reject(&:blank?).uniq
+    # タグのバリデーション
     if tag_names.size > 10
       flash.now[:alert] = "タグは最大10個までです。"
       render :new and return
     end
-
     invalid_tags = tag_names.select { |name| name.length > 20 }
     if invalid_tags.any?
       flash.now[:alert] = "タグは1文字以上20文字以内で入力してください。"
@@ -65,13 +63,14 @@ class Public::GroupsController < ApplicationController
 
   def update
     @group = Group.active.find(params[:id])
+    
+    # タグ機能、受けた値を,で配列に、stripで空白を除去、blankで空欄を除外
     tag_names = params[:tag_names].to_s.split(',').map(&:strip).reject(&:blank?).uniq
-
+    # タグのバリデーション
     if tag_names.size > 10
       flash.now[:alert] = "タグは最大10個までです。"
       render :edit and return
     end
-
     invalid_tags = tag_names.select { |name| name.length > 20 }
     if invalid_tags.any?
       flash.now[:alert] = "タグは1文字以上20文字以内で入力してください。"

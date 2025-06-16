@@ -8,34 +8,43 @@ html, body {
 
 body {
   display: flex;
-  flex-direction: column;
+  flex-direction: column; /* ヘッダー、メインエリア、フッターを縦に積み重ねる */
   min-height: 100vh; /* 高さ合わせる */
 }
 
 .header {
-  height: 60px;
-  position: static;
+  height: 50px;
+  // position: static;
+  position: fixed; /* 常に画面の一番上に固定 */
+  top: 0;
+  left: 0;
   background-color: #000;
   width: 100%;
-  z-index: auto;
+  // z-index: auto;
+  z-index: 100; /* 他の要素より前面に表示 */
 }
 
 .main-area {
   flex: 1;  /* メインが余った領域を埋める */
-  margin-top: 0; /* fixedヘッダー用のマージン不要 */
+  margin-top: 50px; /* fixedヘッダー用のマージン不要 */
   display: flex;
   flex-wrap: wrap; /* スマホでは折り返す */
+  width: 100%;
+  min-height: 100%;
+  position: absolute;
 }
 
 .sidebar {
-  position: static;
-  height: auto;
+  // position: static;
+  position: sticky;
+  max-height: calc(100vh - 50px); /* ヘッダー分を引いた最大高さ */
+  overflow-y: auto;       /* 中身が多い時にスクロール可能に */
+  top: 50px;
   width: 100%;
   max-width: 180px; /* 通常は180pxを上限とする */
   background-color: #0097b2;
   padding: 10px 15px;
   border-right: 15px solid #014758;
-  overflow-y: auto;
 }
 
 
@@ -43,19 +52,35 @@ body {
 @media (max-width: 768px) {
   .sidebar {
     max-width: 100%;
+    // position: sticky;
     border-right: none;
     border-bottom: 10px solid #014758;
+    z-index: 10;
+  }
+  .sidebar ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 0;
+    margin: 0;
+  }
+  .sidebar li {
+    padding: 0;
+    margin: 0 !important;
+  }
+  .sidebar li a {
+    font-size: 0.7rem;
   }
 }
-
 
 .main-content {
   flex: 1;
   overflow-y: auto;
-  max-height: none;
+  // max-height: none;
   padding: 20px;
   background-color: #000;
   color: #fff;
+  min-height: 100vh; // 前はheight: 100% 最小の部分に合わせて設定している
 }
 
 footer {
@@ -66,42 +91,31 @@ footer {
   flex-shrink: 0;
   width: 100%;
   position: static;
+  z-index: 10;
 }
 
 /* ヘッダー、サイドバー関係 */
 /* ヘッダー内の検索フォームを横並びに */
-.header .navbar-nav .ml-auto {
-  display: flex;
-  align-items: center;
-}
+// .header .navbar-nav .ml-auto {
+//   display: flex;
+//   align-items: center;
+// }
 
 .search-form {
-  display: flex;
+  margin-top: auto;
   flex-wrap: wrap;
-  align-items: center;
   justify-content: flex-end;
   width: 100%; /* 追加 */
   gap: 0.5rem; /* 間隔も調整すると見やすく */
 }
 
-/* タブ部分のスタイル */
-.search-category,
-.search-input,
-.search-button {
-  margin-right: 10px;
-}
-
-.search-category select {
-  width: 150px;
-}
-
 .search-input input {
   width: 100%;
-  max-width: 350px; /* これで大画面では最大350pxまで */
+  // max-width: 500px; /* これで大画面では最大500pxまで */
   color: #000000;
 }
 
-.search-button button {
+.search-btn {
   width: auto;
 }
 
@@ -128,6 +142,7 @@ footer {
 
 .sidebar a:hover {
   color: #333333;
+    text-decoration: none;
 }
 
 
@@ -256,30 +271,6 @@ footer {
   cursor: pointer;
 }
 
-
-
-
-/* マイページのタブをスクロールに変更 */
-.tabs {
-  overflow-x: auto; /* スクロールを表示 */
-  white-space: nowrap; /* 子要素のtabを1行に指定 */
-  max-width: 100%; /* 最大幅を親要素の幅に制限 */
-  border-bottom: 1px solid #dee2e6; /* 下線のデザイン */
-}
-.nav-tabs {
-  flex-wrap: nowrap; /* タブを折り返さずに一列に並べる */
-  min-width: max-content; /* 中にあるコンテンツのサイズに合わせて最低限必要な幅を確保 */
-}
-.nav-item {
-  white-space: nowrap; /* 1行に指定 */
-}
-
-.mypage-tab-scroll {
-  max-height: 700px;    /* 好きな高さに調整 */
-  overflow-y: auto;     /* 縦スクロール */
-  padding-right: 10px;  /* スクロールバーが被らないように余白 */
-}
-
 /* 管理者側 */
 /* 編集機能など中心部の背景を白に変更 */
 .admin-white-bg {
@@ -353,7 +344,6 @@ footer {
   }
 }
 
-
 /* 通報の色分け */
 .status-no_action_needed {
   background-color: #6c757d !important;
@@ -399,8 +389,6 @@ footer {
 .admin-top-link_color:hover {
   color: #919191;
 }
-
-
 
 /* 共通 */
 .white-hr {

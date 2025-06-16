@@ -12,4 +12,9 @@ class GroupComment < ApplicationRecord
   def soft_delete
     update(deleted: true)
   end
+
+  # 管理者側で使用、そのコメントが論理削除されているかどうかを確認する
+  def deleted?
+    deleted == true
+  end
 end

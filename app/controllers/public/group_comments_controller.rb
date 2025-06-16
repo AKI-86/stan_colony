@@ -10,26 +10,15 @@ class Public::GroupCommentsController < ApplicationController
 
     respond_to do |format|
       if @group_comment.save
-        # @group_comments = @group.group_comments.order(created_at: :desc).page(params[:page]).per(10)
         @group_comments = @group.group_comments.includes(user: [image_attachment: :blob]).order(created_at: :desc).page(params[:page]).per(10)
         format.js # create.js.erb を返す
       else
-        # @group_comments = @group.group_comments.order(created_at: :desc).page(params[:page]).per(10)
         @group_comments = @group.group_comments.includes(user: [image_attachment: :blob]).order(created_at: :desc).page(params[:page]).per(10)
         flash.now[:alert] = "空欄または1000字以上のコメントは投稿できません"
         format.js # create.js.erb でエラー処理
       end
     end
   end
-
-  #   if @group_comment.save
-  #   redirect_to group_path(@group)
-  #   else
-  #     @group_comments = @group.group_comments.page(params[:page]).per(10)
-  #     flash.now[:alert] = "空欄または1000字以上のコメントは投稿できません"
-  #     render 'public/groups/show'  # グループ詳細ページのビューに戻る想定
-  #   end
-  # end
 
   def destroy
     @group_comment = GroupComment.find(params[:id])

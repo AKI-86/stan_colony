@@ -14,25 +14,14 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
   has_many :group_comments
-
   # いいねをしたユーザー一覧で非アクティブなアーティストを拾ってしまう
   has_many :favorite_artists, -> { merge(Artist.active) }, through: :favorites, source: :artist
   has_many :owned_groups, class_name: "Group", foreign_key: "owner_id", dependent: :destroy
   has_many :group_memberships, dependent: :destroy
   has_many :joined_groups, through: :group_memberships, source: :group
   has_many :chat_messages, dependent: :destroy
-
   has_many :reports, dependent: :destroy
   has_many :reports_received, as: :reportable, class_name: "Report", dependent: :destroy # 通報されたもの
-
-  validates :name, presence: true, length: { minimum: 1, maximum: 100 }
-  validates :introduction,length: { maximum: 1000 }
-  validates :my_taste,length: { maximum: 100 }
-  validates :email, uniqueness: { case_sensitive: false }
-  validates :gender, inclusion: { in: ["男性", "女性", "その他", "未回答"] }, allow_blank: true
-  validates :age, inclusion: { in: ["10代以下", "20代", "30代", "40代", "50代", "60代以上"] }, allow_blank: true
-
-
   # 自分がフォローされる（被フォロー）側の関係性
   has_many :reverse_of_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
   # 被フォロー関係を通じて参照→自分をフォローしている人
@@ -42,6 +31,13 @@ class User < ApplicationRecord
   # 与フォロー関係を通じて参照→自分がフォローしている人
   has_many :followings, through: :relationships, source: :followed
   
+  validates :name, presence: true, length: { minimum: 1, maximum: 100 }
+  validates :introduction,length: { maximum: 1000 }
+  validates :my_taste,length: { maximum: 100 }
+  validates :email, uniqueness: { case_sensitive: false }
+  validates :gender, inclusion: { in: ["男性", "女性", "その他", "未回答"] }, allow_blank: true
+  validates :age, inclusion: { in: ["10代以下", "20代", "30代", "40代", "50代", "60代以上"] }, allow_blank: true
+
   # 指定したユーザーをフォロー
   def follow(user)
     relationships.create(followed_id: user.id)
@@ -55,6 +51,7 @@ class User < ApplicationRecord
     followings.include?(user)
   end
 
+  # 画像がない場合no_imageを表示、切り取って指定のサイズにリサイズする
   def get_image(width, height)
     unless image.attached?
       file_path = Rails.root.join('app/assets/images/no_image.jpg')
@@ -63,7 +60,7 @@ class User < ApplicationRecord
     image.variant(resize_to_fill: [width, height]).processed
   end
 
-  # 退会処理、is_deletedがfalseならtrueを返すようにしている
+  # is_active が false（退会済）ならログイン不可
   def active_for_authentication?
     super && is_active
   end
@@ -87,34 +84,34 @@ class User < ApplicationRecord
     guest == true
   end
 
+  # is_activeを日本語で表示
   def active_status
     is_active ? "有効" : "退会済み"
   end
 
+  # ransackで検索できる対象を指定
   def self.ransackable_attributes(auth_object = nil)
     ["name"]
   end
 
+  # マイページに置いたおすすめアーティストの定義
   def followed_users_favorite_artists_except_mine
     # フォロー中のユーザーのIDを取得
     followed_user_ids = self.followings.pluck(:id)
-  
     # フォロー中ユーザーがいいねしたアーティストのID
     artist_ids_liked_by_followed_users = Favorite.where(user_id: followed_user_ids).pluck(:artist_id)
-  
     # 自分がいいねしたアーティストのID
     my_favorite_artist_ids = self.favorite_artists.pluck(:id)
-  
     # 自分のいいねを除外し、アクティブなアーティストからランダムに9件取得
     Artist.active.where(id: artist_ids_liked_by_followed_users - my_favorite_artist_ids).sample(6)
   end
 
   def badges
     badges = []
-    badges << '<i class="fa-solid fa-headphones mr-1" title="アーティスト王 🎶" style="color: teal;"></i>' if artists.count >= 5
-    badges << '<i class="fa-solid fa-star mr-1" title="サークルキング 👥" style="color: teal;"></i>' if owned_groups.count >= 5
+    badges << '<i class="fa-solid fa-headphones mr-1" title="アーティスト王 🎶" style="color: teal;"></i>' if artists.count >= 10
+    badges << '<i class="fa-solid fa-star mr-1" title="サークルキング 👥" style="color: teal;"></i>' if owned_groups.count >= 10
     total_comments = comments.count + group_comments.count
-    badges << '<i class="fa-solid fa-comment-dots mr-1" title="コメントマスター 💬" style="color: teal;"></i>' if total_comments >= 10
+    badges << '<i class="fa-solid fa-comment-dots mr-1" title="コメントマスター 💬" style="color: teal;"></i>' if total_comments >= 30
     badges.join(" ").html_safe
   end
 end

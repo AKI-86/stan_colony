@@ -43,13 +43,18 @@
 
   <% if current_user && !admin_signed_in? %>
   <!-- コメントフォーム -->
-  <div class="card p-3 mt-4">
-    <div class="d-flex align-items-center gap-2 mb-2">
-      <h5 class="mb-2 mr-2">コメントする</h5>
-      <small>(空欄不可・1000字以内)</small>
+    <div class="card p-3 mt-4">
+      <div class="d-flex align-items-center gap-2 mb-2">
+        <h5 class="mb-2 mr-2">コメントする</h5>
+        <small>(空欄不可・1000字以内)</small>
+      </div>
+      <%= form_with(model: [@artist, @topic, @comment], local: false) do |f| %>
+        <div class="form-group">
+          <%= f.text_area :body, class: "form-control", rows: 3 %>
+        </div>
+        <%= f.submit "投稿", class: "btn btn-primary" %>
+      <% end %>
     </div>
-    <%= render 'public/topics/form' %>
-  </div>
   <% elsif admin_signed_in? %>
     <p class="text-muted">管理者はコメントできません。</p>
   <% else %>
