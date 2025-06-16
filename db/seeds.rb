@@ -61,7 +61,7 @@ end
 user6 = User.find_or_create_by!(email: "nicole@example.com") do |user|
   user.name = "Nicole"
   user.password = "password"
-  user.introduction = "食べることが好きです"
+  user.introduction = "WODが好きです"
   user.gender = "女性"
   user.age = "20代"
   user.my_taste = "Midnight kaze"
@@ -178,6 +178,16 @@ user17 = User.find_or_create_by!(email: "ore@example.com") do |user|
   user.image = ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/sample-user17.jpg"), filename:"sample-user17.jpg")
 end
 
+user18 = User.find_or_create_by!(email: "test@test") do |user|
+  user.name = "TestUser"
+  user.password = "password"
+  user.introduction = "テストユーザーです"
+  user.gender = "男性"
+  user.age = "20代"
+  user.my_taste = "HR/HM"
+  user.image = ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/sample-user18.jpg"), filename:"sample-user18.jpg")
+end
+
 #  アーティスト
 artist1 = user1.artists.find_or_create_by!(name: "The Farmer Brothers") do |artist|
   artist.image = ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/sample-artist1.jpg"), filename:"sample-artist1.jpg")
@@ -231,7 +241,7 @@ artist10 = user12.artists.find_or_create_by!(name: "Analog Mind") do |artist|
   artist.introduction = "ビンテージシンセとリール録音機で作る温もりのあるエレクトロ。音の粒が聴く人を包み込む。"
 end
 
-artist11 = user13.artists.find_or_create_by!(name: "グレート辰吉") do |artist|
+artist11 = user13.artists.find_or_create_by!(name: "辰吉") do |artist|
   artist.image = ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/sample-artist11.jpg"), filename:"sample-artist11.jpg")
   artist.introduction = "空に咲く花のように、透き通る歌声が特徴のシンガーソングライター。自然をテーマにした楽曲多数。"
 end
@@ -241,7 +251,7 @@ artist12 = user1.artists.find_or_create_by!(name: "Iron Wrath") do |artist|
   artist.introduction = "鋭いリフと激しいドラムが特徴のメタルバンド..."
 end
 
-artist13 = user1.artists.find_or_create_by!(name: "風鈴街") do |artist|
+artist13 = user1.artists.find_or_create_by!(name: "Peg") do |artist|
   artist.image = ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/sample-artist13.jpg"), filename:"sample-artist13.jpg")
   artist.introduction = "煌めくシンセと幻想的なメロディで描く、未来都市のサウンドスケープ。エレクトロとドリームポップの融合。"
 end
@@ -261,9 +271,9 @@ artist16 = user1.artists.find_or_create_by!(name: "大友雄平") do |artist|
   artist.introduction = "ブルースロックを基盤にした野性的なボーカルと、泥臭くも情熱的なギタープレイが光る。"
 end
 
-artist17 = user1.artists.find_or_create_by!(name: "紙飛行機スロウ") do |artist|
+artist17 = user18.artists.find_or_create_by!(name: "TestArtist") do |artist|
   artist.image = ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/sample-artist17.jpg"), filename:"sample-artist17.jpg")
-  artist.introduction = "日常の一コマを丁寧に紡ぐ歌詞と、ピアノ主体の優しいメロディで心にそっと寄り添うポップユニット。"
+  artist.introduction = "テストアーティストの紹介文です。"
 end
 
 #  トピックジャンル
@@ -281,7 +291,7 @@ topic1 = user1.topics.find_or_create_by!(title: "1stアルバムについて") d
   topic.body = "すごく出来がいいと思う。"
 end
 
-topic2 = user1.topics.find_or_create_by!(title: "2stアルバムについて") do |topic|
+topic2 = user1.topics.find_or_create_by!(title: "2ndアルバムについて") do |topic|
   topic.topic_genre = topic_genre1
   topic.artist = artist1
   topic.body = "今回は不作です。"
@@ -293,31 +303,28 @@ topic3 = user1.topics.find_or_create_by!(title: "2025年8月のフェスにつ�
   topic.body = "楽しみにしています。"
 end
 
-
 topic4 = user14.topics.find_or_create_by!(title: "His bass technique is tremendous.") do |topic|
-  topic.topic_genre = topic_genre3
-  topic.artist = artist4
+  topic.topic_genre = topic_genre5
+  topic.artist = artist17
   topic.body = "All the other bassists should be on their knees."
 end
 
-
 topic5 = user5.topics.find_or_create_by!(title: "The Bass Unleashed") do |topic|
-  topic.topic_genre = topic_genre4
-  topic.artist = artist4
+  topic.topic_genre = topic_genre5
+  topic.artist = artist17
   topic.body = "Legendary bassist MidnightKaze will perform an unprecedented solo live show with his amazing technique and soulful groove cultivated in his 50-year career!"
 end
 
-
 topic6 = user1.topics.find_or_create_by!(title: "2025年8月のフェスについて") do |topic|
   topic.topic_genre = topic_genre4
-  topic.artist = artist4
+  topic.artist = artist17
   topic.body = "楽しみにしています。"
 end
 
-topic7 = user1.topics.find_or_create_by!(title: "2025年8月のフェスについて") do |topic|
-  topic.topic_genre = topic_genre4
-  topic.artist = artist4
-  topic.body = "楽しみにしています。"
+topic7 = user18.topics.find_or_create_by!(title: "2025年10月のフェスについて") do |topic|
+  topic.topic_genre = topic_genre3
+  topic.artist = artist17
+  topic.body = "語りたいです"
 end
 
 topic8 = user11.topics.find_or_create_by!(title: "【神降臨】MidnightKazeについて語ろう【渋さとテクの融合】") do |topic|
@@ -328,47 +335,81 @@ end
 
 topic9 = user1.topics.find_or_create_by!(title: "2025年8月のフェスについて") do |topic|
   topic.topic_genre = topic_genre4
-  topic.artist = artist4
+  topic.artist = artist16
   topic.body = "楽しみにしています。"
 end
 
-topic10 = user1.topics.find_or_create_by!(title: "2025年8月のフェスについて") do |topic|
-  topic.topic_genre = topic_genre4
-  topic.artist = artist4
-  topic.body = "楽しみにしています。"
+topic10 = user18.topics.find_or_create_by!(title: "イベントについて") do |topic|
+  topic.topic_genre = topic_genre5
+  topic.artist = artist17
+  topic.body = "語りたいです"
 end
 
-topic11 = user1.topics.find_or_create_by!(title: "2025年8月のフェスについて") do |topic|
-  topic.topic_genre = topic_genre4
-  topic.artist = artist4
-  topic.body = "楽しみにしています。"
+topic11 = user18.topics.find_or_create_by!(title: "1stアルバムについて") do |topic|
+  topic.topic_genre = topic_genre1
+  topic.artist = artist17
+  topic.body = "語りたいです"
 end
 
-topic12 = user1.topics.find_or_create_by!(title: "2025年8月のフェスについて") do |topic|
-  topic.topic_genre = topic_genre4
-  topic.artist = artist4
-  topic.body = "楽しみにしています。"
+topic12 = user18.topics.find_or_create_by!(title: "2ndアルバムについて") do |topic|
+  topic.topic_genre = topic_genre1
+  topic.artist = artist17
+  topic.body = "語りたいです"
 end
+
+topic13 = user18.topics.find_or_create_by!(title: "3rdアルバムについて") do |topic|
+  topic.topic_genre = topic_genre1
+  topic.artist = artist17
+  topic.body = "語りたいです"
+end
+
+topic13 = user18.topics.find_or_create_by!(title: "全てのアルバムについて") do |topic|
+  topic.topic_genre = topic_genre1
+  topic.artist = artist17
+  topic.body = "語りたいです"
+end
+
+topic13 = user18.topics.find_or_create_by!(title: "コピーにおすすめの曲") do |topic|
+  topic.topic_genre = topic_genre6
+  topic.artist = artist17
+  topic.body = "語りたいです"
+end
+
+topic13 = user18.topics.find_or_create_by!(title: "最近の活動について") do |topic|
+  topic.topic_genre = topic_genre6
+  topic.artist = artist17
+  topic.body = "語りたいです"
+end
+
+topic14 = user18.topics.find_or_create_by!(title: "最近のライブについて") do |topic|
+  topic.topic_genre = topic_genre6
+  topic.artist = artist17
+  topic.body = "最近のライブについて語りたいです"
+end
+
+
 
 #  トピックのコメント
 Comment.find_or_create_by!(body: "同じく", topic: topic1, user: user2)
-Comment.find_or_create_by!(body: "そうは思わない", topic: topic1, user: user4)
+Comment.find_or_create_by!(body: "そうは思わない", topic: topic1, user: user17)
 Comment.find_or_create_by!(body: "Me too.", topic: topic2, user: user6)
 Comment.find_or_create_by!(body: "わかる。渋い音で派手じゃないのに、聴けば聴くほど凄さが分かってくるタイプ。もうベース界の仙人って感じ。", topic: topic8, user: user4)
-Comment.find_or_create_by!(body: "あの「Smoke Rain Sessions」ってライブ映像見た？4:32くらいからのスラップ、まじで意味わからんくらい綺麗。あれ、生で弾いてんの信じられん。", topic: topic8, user: user6)
-Comment.find_or_create_by!(body: "感情を削ぎ落とした演奏に見えて、実は超エモい。矛盾を成立させてるのがKaze。.", topic: topic8, user: user7)
-Comment.find_or_create_by!(body: "いや、「音が重力持ってる」ってのKazeにしか当てはまらん。低音が沈んでく感じ、他のベーシストには真似できない。", topic: topic8, user: user9)
-Comment.find_or_create_by!(body: "元々ジャズ畑出身らしいよ。だから音選びが変態的にうまい。しかも曲の構成理解してて、必要なところしか弾かない。", topic: topic8, user: user12)
-Comment.find_or_create_by!(body: "Kazeのプレベ（※プレシジョンベース）に憧れて、同じ型買ったけど全然音出せねえ「楽器は同じでも魂が違う」って本当だった。", topic: topic8, user: user5)
-Comment.find_or_create_by!(body: "昔のバンド「Gravel Pulse」時代のKazeも良いぞ。今より荒々しいけど、根っこのセンスは変わってない。", topic: topic8, user: user2)
-Comment.find_or_create_by!(body: "Kazeのこと話すと、結局「なんか神っぽい」ってなるの草。それが本質なんだろうな。人間味ある神。", topic: topic8, user: user13)
-Comment.find_or_create_by!(body: "Kazeの影響で最近ベースソロ聴けるようになってきた自分がいる。昔は「ベースのソロって地味…」とか思ってたけど、Kazeの音は語りかけてくるんだよな。人生語ってる感じ。", topic: topic8, user: user14)
-Comment.find_or_create_by!(body: "あの人、SNSもやってないし情報少なすぎるんだけど、たまにセッション動画だけアップされるのズルい。何も言わなくても神の降臨ってバレる。", topic: topic8, user: user3)
-Comment.find_or_create_by!(body: "神格化されすぎて逆に聴きづらいわ。どの動画にも「音が空間を支配してる」とかコメントあるけど、ただのベースラインやん…って冷めるときある。", topic: topic8, user: user17)
 Comment.find_or_create_by!(body: "たしかに", topic: topic8, user: user17)
-Comment.find_or_create_by!(body: "ライブで音外しても「それも味だな…」って思わせるの、Kazeくらいじゃない？普通ならミスなのに、Kazeがやると即興のアートになる。不公平。", topic: topic8, user: user16)
-Comment.find_or_create_by!(body: "いいですね", topic: topic3, user: user7)
-
+Comment.find_or_create_by!(body: "最近はいいライブが多いです", topic: topic14, user: user17)
+Comment.find_or_create_by!(body: "おすすめはありますか", topic: topic13, user: user1)
+Comment.find_or_create_by!(body: "今行ってるツアーライブです", topic: topic14, user: user17)
+Comment.find_or_create_by!(body: "今度行ってみます", topic: topic14, user: user1)
+Comment.find_or_create_by!(body: "CDのおすすめはありますか", topic: topic14, user: user1)
+Comment.find_or_create_by!(body: "やはり1stアルバムがおすすめです", topic: topic14, user: user17)
+Comment.find_or_create_by!(body: "3rdアルバムあたりで方向性が変わっています", topic: topic14, user: user17)
+Comment.find_or_create_by!(body: "なるほど", topic: topic14, user: user1)
+Comment.find_or_create_by!(body: "そのツアーライブで聴いておいたほうがいい曲はありますか", topic: topic14, user: user1)
+Comment.find_or_create_by!(body: "3rdアルバムの曲は聴いておいたほうだいいです", topic: topic14, user: user17)
+Comment.find_or_create_by!(body: "他にもメジャーな曲もよくやるのでそこもおさえておいたほうがいいです", topic: topic14, user: user17)
+Comment.find_or_create_by!(body: "ありがとうございます、きいてみます", topic: topic14, user: user1)
+Comment.find_or_create_by!(body: "動画サイトに過去のライブもあるので見ておいたほうがいいです", topic: topic14, user: user17)
+Comment.find_or_create_by!(body: "独特のノリがあります", topic: topic14, user: user17)
+Comment.find_or_create_by!(body: "ぜひ行ってみてください", topic: topic14, user: user17)
 
 
 
@@ -385,7 +426,7 @@ group2.owner = user2
 group2.image.attach(io: File.open("#{Rails.root}/db/fixtures/sample-group2.jpg"), filename: "sample-group2.jpg")
 group2.save!
 
-group3 = Group.find_or_initialize_by(name: "ライブで楽器破壊部")
+group3 = Group.find_or_initialize_by(name: "ライブで楽器破壊")
 group3.introduction = "ライブ中に楽器を破壊するパフォーマンスについて話し合いたい"
 group3.owner = user4
 group3.image.attach(io: File.open("#{Rails.root}/db/fixtures/sample-group3.jpg"), filename: "sample-group3.jpg")
@@ -434,7 +475,7 @@ group10.image.attach(io: File.open("#{Rails.root}/db/fixtures/sample-group10.jpg
 group10.save!
 
 group11 = Group.find_or_initialize_by(name: "ドラマーの集い")
-group11.introduction = "ドラム好きな人、ハイハットについて話しましょう！"
+group11.introduction = "ドラムのセッティングについて話したいです"
 group11.owner = user1
 group11.image.attach(io: File.open("#{Rails.root}/db/fixtures/sample-group11.jpg"), filename: "sample-group11.jpg")
 group11.save!
@@ -442,8 +483,6 @@ group11.save!
 #  サークルのコメント
 GroupComment.find_or_create_by!(body: "初心者にお勧めの曲を教えてください", group: group1, user: user1)
 GroupComment.find_or_create_by!(body: "through the fire and flames", group: group1, user: user4)
-GroupComment.find_or_create_by!(body: "いい店を見つけました", group: group2, user: user3)
-
 
 
 # フォロー関係
@@ -460,11 +499,13 @@ user10.follow(user9)
 user7.follow(user8)
 user8.follow(user7)
 user9.follow(user7)
-user10.follow(user11)
+user10.follow(user177)
 user11.follow(user10) 
-user12.follow(user13)
+user12.follow(user17)
 user13.follow(user12)
 user13.follow(user7)
+user17.follow(user12)
+user17.follow(user7)
 
 # いいね情報（お気に入りアーティスト）
 user1.favorites.find_or_create_by!(artist: artist2)
@@ -495,7 +536,12 @@ user11.favorites.find_or_create_by!(artist: artist5)
 user12.favorites.find_or_create_by!(artist: artist8)
 user12.favorites.find_or_create_by!(artist: artist11)
 user13.favorites.find_or_create_by!(artist: artist10)
-
+user17.favorites.find_or_create_by!(artist: artist7)
+user17.favorites.find_or_create_by!(artist: artist9)
+user17.favorites.find_or_create_by!(artist: artist5)
+user17.favorites.find_or_create_by!(artist: artist8)
+user17.favorites.find_or_create_by!(artist: artist11)
+user17.favorites.find_or_create_by!(artist: artist10)
 
 
 # サークル参加（他人のサークルに参加した例）

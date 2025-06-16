@@ -2,14 +2,20 @@
   <div class="w-100" style="max-width: 750px;">
     <div class="card shadow-sm p-4">
       <div class="text-center heading-black mb-4">新規会員登録</div>
-        <%= form_with model: @user, url: user_registration_path do |f| %>
+      <%= form_with model: @user, url: user_registration_path do |f| %>
         <%= render "public/shared/error_messages", resource: @user %>
         <div class="mb-3">
-          <%= f.label :name, "名前", class: "form-label" %><span class="badge badge-danger ml-3">必須</span>
+          <div class="d-flex align-items-center">
+            <%= f.label :name, "名前", class: "form-label" %>
+            <span class="badge badge-danger ml-3 mb-2">必須</span>
+          </div>
           <%= f.text_field :name, autocomplete: "名前", class: "form-control" %>
         </div>
         <div class="mb-3">
-          <%= f.label :email, "メールアドレス", class: "form-label" %><span class="badge badge-danger ml-3">必須</span>
+          <div class="d-flex align-items-center">
+            <%= f.label :email, "メールアドレス", class: "form-label" %>
+            <span class="badge badge-danger ml-3 mb-2">必須</span>
+          </div>
           <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
         </div>
         <div class="mb-3">
@@ -21,11 +27,18 @@
           <%= f.select :age, ["10代以下", "20代", "30代", "40代", "50代", "60代以上"], { prompt: "選択してください" }, { class: "form-control form-gender-age" } %>
         </div>
         <div class="mb-3">
-          <%= f.label :password, class: "form-label" %><span>  (<%= @minimum_password_length %>文字以上)</span><span class="badge badge-danger ml-3">必須</span>
+          <div class="d-flex align-items-center">
+            <%= f.label :password, class: "form-label" %>
+            <span class="text-muted small mb-2">(<%= @minimum_password_length %>文字以上)</span>
+            <span class="badge badge-danger ml-3 mb-2">必須</span>
+          </div>
           <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
         </div>
         <div class="mb-3">
-          <%= f.label :password_confirmation, class: "form-label" %><span class="badge badge-danger ml-3">必須</span>
+          <div class="d-flex align-items-center">
+            <%= f.label :password_confirmation, class: "form-label" %>
+            <span class="badge badge-danger ml-3 mb-2">必須</span>
+          </div>
           <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
         </div>
         <div class="mb-3">
@@ -43,19 +56,12 @@
           <%= f.submit "新規登録", class: "btn btn-primary btn-block" %>
         </div>
       <% end %>
-    <div class="mt-5"> 
-      <h5 class="mb-3">既に登録済みの方・ゲストログインを希望の方</h5>
-    </div>
-    <div>
-      <%= link_to "こちら", new_user_session_path, class: "underline" %>からログインしてください。
+      <div class="mt-5"> 
+        <h5 class="mb-3">既に登録済みの方・ゲストログインを希望の方</h5>
+      </div>
+      <div>
+        <%= link_to "こちら", new_user_session_path, class: "underline" %>からログインしてください。
+      </div>
     </div>
   </div>
 </div>
-</div>
-
-
-<style>
-  .form-gender-age {
-    width: 100% !important;
-  }
-</style>

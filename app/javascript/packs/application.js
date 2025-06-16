@@ -21,18 +21,8 @@ Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
 
-
-document.addEventListener("DOMContentLoaded", function () {
-  const inputs = document.querySelectorAll('.custom-file-input');
-  inputs.forEach(function(input) {
-    input.addEventListener('change', function(e) {
-      const fileName = e.target.files[0]?.name;
-      const label = e.target.nextElementSibling;
-      if (label && fileName) label.innerText = fileName;
-    });
-  });
-});
-
+// マイページのTabのページネーションを制御（URLからタブ情報を取得して切り替え時にそれを読み込ませる）
+// 管理者のユーザーのTABは非同期通信を用いてるがマイページのViewを簡素にするため
 document.addEventListener("turbolinks:load", function () {
   const urlParams = new URLSearchParams(window.location.search);
   const activeTab = urlParams.get("tab");

@@ -94,6 +94,7 @@ class User < ApplicationRecord
     ["name"]
   end
 
+  # マイページに置いたおすすめアーティストの定義
   def followed_users_favorite_artists_except_mine
     # フォロー中のユーザーのIDを取得
     followed_user_ids = self.followings.pluck(:id)
@@ -107,10 +108,10 @@ class User < ApplicationRecord
 
   def badges
     badges = []
-    badges << '<i class="fa-solid fa-headphones mr-1" title="アーティスト王 🎶" style="color: teal;"></i>' if artists.count >= 5
-    badges << '<i class="fa-solid fa-star mr-1" title="サークルキング 👥" style="color: teal;"></i>' if owned_groups.count >= 5
+    badges << '<i class="fa-solid fa-headphones mr-1" title="アーティスト王 🎶" style="color: teal;"></i>' if artists.count >= 10
+    badges << '<i class="fa-solid fa-star mr-1" title="サークルキング 👥" style="color: teal;"></i>' if owned_groups.count >= 10
     total_comments = comments.count + group_comments.count
-    badges << '<i class="fa-solid fa-comment-dots mr-1" title="コメントマスター 💬" style="color: teal;"></i>' if total_comments >= 10
+    badges << '<i class="fa-solid fa-comment-dots mr-1" title="コメントマスター 💬" style="color: teal;"></i>' if total_comments >= 30
     badges.join(" ").html_safe
   end
 end
