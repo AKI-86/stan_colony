@@ -18,7 +18,7 @@
             タグはまだありません
           <% end %>
         </p>
-        <p><%= truncate(@group.introduction, length: 1000) %></p>
+        <p><%= truncate(simple_format(@group.introduction, sanitize: true), length: 1000) %></p>
         <p>メンバー数：<%= @group.members.count %>人</p>
         <div class="d-flex align-items-center mb-2">
           <span>作成者：</span>

@@ -23,7 +23,9 @@
         <% if comment.deleted? %>
           <p class="mb-2 text-muted">このコメントは削除されました。</p>
         <% else %>
-          <p class="mb-2"><%= comment.body %></p>
+          <p class="mb-2">
+            <%= simple_format(comment.body, sanitize: true) %>
+          </p>
           <%= render 'public/shared/dropdown_menu', type: :group_comment, dropdown_id: "group_comment#{comment.id}", group: @group, comment: comment %>
         <% end %>
       </div>

@@ -12,7 +12,7 @@
         <dd class="col-sm-9"><%= @artist.name %></dd>
 
         <dt class="col-sm-3">紹介文</dt>
-        <dd class="col-sm-9"><%= @artist.introduction %></dd>
+        <dd class="col-sm-9"><p><%= truncate(simple_format(@artist.introduction, sanitize: true) , length: 1000) %></p></dd>
 
         <dt class="col-sm-3">タグ</dt>
         <dd class="col-sm-9">

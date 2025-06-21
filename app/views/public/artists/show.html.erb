@@ -18,7 +18,7 @@
             タグはまだありません
           <% end %>
         </p>
-        <p><%= truncate(@artist.introduction, length: 1000) %></p>
+        <p><%= truncate(simple_format(@artist.introduction, sanitize: true) , length: 1000) %></p>
         <div class="d-flex align-items-center mb-2">
           <span>作成者：</span>
           <%= link_to user_path(@artist.user), class: "d-flex align-items-center text-dark mr-2" do %>

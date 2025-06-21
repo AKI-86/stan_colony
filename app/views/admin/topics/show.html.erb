@@ -9,7 +9,7 @@
     <div class="row">
       <div class="p-3 m-3">
         <h4><%= @topic.title %></h4>
-        <p><%= @topic.body %></p>
+        <p><%= simple_format(@topic.body, sanitize: true) %></p>
         <p>
           作成者：
           <%= link_to admin_user_path(@topic.user) do %>
@@ -46,9 +46,9 @@
         </div>
         <% if comment.deleted? %>
           <div class="text-danger">[削除済み]</div>
-          <p class="mb-2"><%= comment.body %></p>
+          <p class="mb-2"><%= simple_format(comment.body,sanitize: true) %></p>
         <% else %>
-          <p class="mb-2"><%= comment.body %></p>
+          <p class="mb-2"><%= simple_format(comment.body,sanitize: true) %></p>
           <%= link_to "削除", artist_topic_comment_path(comment.topic.artist, comment.topic, comment), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger" %>
         <% end %>
       </div>

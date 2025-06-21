@@ -5,23 +5,23 @@ module ApplicationHelper
     when "User"
       link_to admin_user_path(report.reportable.id) do
         content_tag(:i, "", class: "fa-solid fa-user mr-1") +
-        truncate(report.reportable.name, length: 10)
+        truncate(report.reportable.name, length: 15)
       end
     when "Artist"
       link_to admin_artist_path(report.reportable.id) do
         content_tag(:i, "", class: "fa-solid fa-music mr-1") +
-        truncate(report.reportable.name, length: 10)
+        truncate(report.reportable.name, length: 15)
       end
     when "Topic"
       topic = report.reportable
       link_to admin_artist_topic_path(topic.artist, topic) do
         content_tag(:i, "", class: "fa-solid fa-list mr-1") +
-        truncate(topic.title, length: 10)
+        truncate(topic.title, length: 15)
       end
     when "Group"
       link_to admin_group_path(report.reportable.id) do
         content_tag(:i, "", class: "fa-solid fa-users mr-1") +
-        truncate(report.reportable.name, length: 10)
+        truncate(report.reportable.name, length: 15)
       end
     when "Comment"
       comment = report.reportable
@@ -29,14 +29,14 @@ module ApplicationHelper
       artist = topic.artist
       link_to admin_artist_topic_path(artist, topic) do
         content_tag(:i, "", class: "fa-solid fa-comment mr-1") +
-        truncate(comment.body, length: 10)
+        truncate(comment.body, length: 15)
       end
     when "GroupComment"
       group_comment = report.reportable
       group = group_comment.group
       link_to admin_group_path(group) do
         content_tag(:i, "", class: "fa-solid fa-comments mr-1") +
-        truncate(group_comment.body, length: 10)
+        truncate(group_comment.body, length: 15)
       end
     else
       "不明な対象"

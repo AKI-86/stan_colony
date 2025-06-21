@@ -25,7 +25,9 @@
         <% if comment.deleted? %>
           <p class="mb-2 text-muted">このコメントは削除されました。</p>
         <% else %>
-          <p class="mb-2"><%= comment.body %></p>
+          <p class="mb-2">
+            <%= simple_format(comment.body, sanitize: true) %>
+          </p>
 
           <% if (current_user.present? || admin_signed_in?) %>
             <%= render 'public/shared/dropdown_menu', type: :topic_comment, dropdown_id: "topic_comment#{comment.id}", comment: comment %>

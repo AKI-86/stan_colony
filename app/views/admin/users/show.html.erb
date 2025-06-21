@@ -14,10 +14,10 @@
           <span class="ml-2"><%= @user.badges %></span>
         </dd>
         <dt class="col-sm-3">紹介文</dt>
-        <dd class="col-sm-9"><%= @user.introduction %></dd>
+        <dd class="col-sm-9"><%= truncate(simple_format(@user.introduction, sanitize: true),length: 500) %></dd>
 
         <dt class="col-sm-3">好み</dt>
-        <dd class="col-sm-9"><%= @user.my_taste %></dd>
+        <dd class="col-sm-9"><%= simple_format(@user.my_taste,sanitize: true) %></dd>
 
         <dt class="col-sm-3">性別</dt>
         <dd class="col-sm-9"><%= @user.gender %></dd>

@@ -30,7 +30,7 @@
     <dt class="col-sm-3">通報理由</dt>
     <dd class="col-sm-9">
       <% if @report.reason.present? %>
-        <%= @report.reason %>
+        <%= simple_format(@report.reason, sanitize: true)%>
       <% else %>
         通報理由未記入
       <% end %>

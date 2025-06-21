@@ -30,6 +30,9 @@ class Public::TopicsController < ApplicationController
 
   def edit
     @topic =Topic.active.find(params[:id])
+    unless admin_signed_in? || @topic.user_id == current_user.id
+      redirect_to artist_topic_path(@artist, @topic), alert: "編集権限がありません"
+    end
   end
 
   def update

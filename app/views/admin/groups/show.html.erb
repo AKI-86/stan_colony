@@ -11,7 +11,9 @@
           <dd class="col-sm-9"><%= @group.name %></dd>
 
           <dt class="col-sm-3">紹介文</dt>
-          <dd class="col-sm-9"><%= @group.introduction %></dd>
+          <dd class="col-sm-9">
+            <%= simple_format(@group.introduction,sanitize: true) %>
+          </dd>
 
           <dt class="col-sm-3">タグ</dt>
           <dd class="col-sm-9">
@@ -86,9 +88,9 @@
           </div>
           <% if comment.deleted? %>
             <div class="text-danger">[削除済み]</div>
-            <p class="mb-2"><%= comment.body %></p>
+            <p class="mb-2"><%= simple_format(comment.body,sanitize: true) %></p>
           <% else %>
-            <p class="mb-2"><%= comment.body %></p>
+            <p class="mb-2"><%= simple_format(comment.body,sanitize: true) %></p>
             <%= link_to "削除", group_group_comment_path(@group, comment), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger" %>
           <% end %>
         </div>

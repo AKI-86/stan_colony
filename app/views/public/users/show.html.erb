@@ -13,11 +13,11 @@
         </tr>
         <tr>
           <td style="width: 25%;">紹介文</td>
-          <td><%= truncate(@user.introduction, length: 500) %></td>
+          <td><%= truncate(simple_format(@user.introduction, sanitize: true),length: 500) %></td>
         </tr>
         <tr>
           <td>好み</td>
-          <td><%= @user.my_taste %></td>
+          <td><%= simple_format(@user.my_taste, sanitize: true)%></td>
         </tr>
         <tr>
           <td>性別</td>
