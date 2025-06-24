@@ -18,8 +18,11 @@ Xやmixiなど情報を共有できるサイトはありますが、カテゴリ
 - 今後行くライブの参考にするため(ライブ情報のページなど)
 ​
 ## 設計書
+- ER図
 ![ER図](./er_diagram.png)
+- UIFlow図(管理者側)
 ![UIFlow図(管理者側)](./ui_flows_admin.png)
+- UIFlow図(会員側)
 ![UIFlow図(会員側)](./ui_flows_user.png)
 ​
 ## 開発環境
